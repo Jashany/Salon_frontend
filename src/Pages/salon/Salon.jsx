@@ -117,10 +117,10 @@ const SalonPage = () => {
           {salon?.address?.City} | {Math.ceil(distance)} kms
         </p>
       </div>
-      {salon?.offers &&
-      <div className="offers">
-        <OffersCarousel salon={salon} />
-      </div>
+      {salon?.offers > 0 &&
+            (<div className="offers">
+              <OffersCarousel salon={salon} />
+            </div>)
       }
       <div className={styles.services}>
         <h3>Services</h3>

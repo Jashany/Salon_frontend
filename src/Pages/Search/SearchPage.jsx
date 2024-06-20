@@ -65,6 +65,10 @@ const SearchPage = () => {
       .catch((error) => console.log(error));
   }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className={styles.main}>
       <div className={styles.filter}>

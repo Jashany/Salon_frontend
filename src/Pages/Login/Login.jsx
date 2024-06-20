@@ -9,6 +9,7 @@ const Login = () => {
   const handlesubmit = () => {
     fetch("https://api.salondekho.in/api/auth/verifyUser", {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

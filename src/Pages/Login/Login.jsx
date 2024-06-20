@@ -7,20 +7,21 @@ const Login = () => {
   const navigate = useNavigate();
   const [phoneNumber, setPhone] = useState("");
   const handlesubmit = () => {
-    fetch("https://api.salondekho.in/api/auth/send-otp", {
+    fetch("https://api.salondekho.in/api/auth/verifyUser", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         phoneNumber,
+        verified: true,
         role: "Customer",
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
-          navigate("/verify-otp", { state: { phoneNumber } });
+          console.log("success");
         } else {
           alert("Something went wrong");
         }

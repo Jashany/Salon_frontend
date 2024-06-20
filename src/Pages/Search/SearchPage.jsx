@@ -5,6 +5,10 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { VscSettings } from "react-icons/vsc";
 import SalonCard from "../Home/Components/SalonCard";
 import { useDispatch } from "react-redux";
+import { clearAppointment } from "../../Slices/appointmentSlice";
+import { clearArtist } from "../../Slices/artistSlice";
+import { clearServices } from "../../Slices/servicesSlice";
+
 const SearchPage = () => {
   const navigate = useNavigate();
   const [salons, setSalons] = useState([]);

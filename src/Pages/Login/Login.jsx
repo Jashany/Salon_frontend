@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Login.module.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import backArrow from "../../assets/backArrow@.png";
 const Login = () => {
   const navigate = useNavigate();
@@ -18,12 +19,13 @@ const Login = () => {
         verified: true,
         role: "Customer",
       }),
-    })
-      .then((res) => {
-        for(let entry of res.headers.entries()) {
-          console.log('header', entry);
-        }
-      });
+    }).then((res) => {
+      const jwtToken = Cookies.get("jwt");
+      console.log(jwtToken);
+      for (let entry of res.headers.entries()) {
+        console.log("header", entry);
+      }
+    });
   };
   return (
     <div className={styles.main}>

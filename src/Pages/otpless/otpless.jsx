@@ -124,9 +124,9 @@ const OTP = () => {
                   })
                     .then((response) => response.json())
                     .then((data) => {
-                      console.log(data)
+                      console.log(data);
                       if (data.success) {
-                        console.log(data?.data)
+                        console.log(data?.data);
                         dispatch(setUser(data?.data));
                         Navigate(-1);
                       }

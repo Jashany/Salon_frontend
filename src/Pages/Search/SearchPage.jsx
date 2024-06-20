@@ -27,7 +27,6 @@ const SearchPage = () => {
   dispatch(clearServices());
 
   useEffect(() => {
-
     setLoading(true);
 
     const requestdata = {};

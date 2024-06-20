@@ -76,7 +76,7 @@ const Home = () => {
   return (
     <div className={Styles.main}>
       <Header text="Home" />
-      <h1>Salon Hub</h1>
+      <h1>Salon Dekho</h1>
       <div className={Styles.search}>
         <label>
           Search Your Services

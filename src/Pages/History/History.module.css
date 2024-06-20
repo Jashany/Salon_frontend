@@ -1,0 +1,129 @@
+.header{
+    margin-top: 1rem;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header img{
+    width: 25px;
+}
+
+.currentBooking{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 1.5rem;
+}
+
+
+.currentcard{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #ccc;
+}
+
+.currentcard>div{
+    display: flex;
+    gap: 1rem;
+}
+
+.currentcard>div>div:nth-child(2)>div{
+    display: flex;
+    gap: 2rem;
+}
+
+.currentcard h4{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.currentcard p{
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1e1e1ecf;
+    margin-top: 4px;
+}
+
+.status{
+    background-color: #21ca5144;
+    color: #047A04;
+    height: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.status2{
+    background-color: #21ca5144;
+    color: #047A04;
+    height: fit-content;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+.star{
+    height: 20px;
+    width: 20px;
+    margin-right: 6px;
+    margin-top: 5px;
+}
+
+.star2{
+    height: 19px;
+    width: 19px;
+    margin-right: 6px;
+    margin-top: 5px;
+}
+
+.pastBooking{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 1.5rem;
+}
+
+.pastMain{
+    display: flex;
+    gap: 1.5rem;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #ccc;
+    margin-bottom: 1.5rem;
+
+}
+
+.pastMain>div{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.pastMain h3{
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.pastMain p{
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1e1e1ecf;
+}

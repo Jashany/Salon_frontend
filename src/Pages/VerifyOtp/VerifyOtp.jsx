@@ -1,38 +1,35 @@
 import styles from "./VerifyOtp.module.css";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import OtpInput from "react-otp-input";
-const VerifyOtp = ({phoneNumber}) => {
-  console.log(phoneNumber)
+const VerifyOtp = () => {
+  const { state } = useLocation();
+
   const navigate = useNavigate();
   const [enteredOTP, setOtp] = useState("");
   const handleSubmit = () => {
-    fetch("http://localhost:5000/api/user/verify-otp", {
+    fetch("https://api.salondekho.in/api/auth/verify-otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ phoneNumber, enteredOTP }),
+      body: JSON.stringify({ phoneNumber: state.phoneNumber, enteredOTP }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        navigate("/details");
-      });
-  }
+      .then((data) => {});
+  };
   return (
     <div className={styles.main}>
       <div>
         <h1>Verify OTP</h1>
         <label>
-          
-            <OtpInput
-              value={enteredOTP}
-              containerStyle={styles.otpContainer}
-              onChange={setOtp}
-              numInputs={4}
-              renderInput={(props) => <input {...props} />}
-            />
+          <OtpInput
+            value={enteredOTP}
+            containerStyle={styles.otpContainer}
+            onChange={setOtp}
+            numInputs={4}
+            renderInput={(props) => <input {...props} />}
+          />
         </label>
         <button onClick={handleSubmit}>Verify OTP</button>
         <p>
@@ -43,14 +40,8 @@ const VerifyOtp = ({phoneNumber}) => {
   );
 };
 
-
 const Details = () => {
-  return ( 
-    <div>
-      
-    </div>
-   );
-}
- 
+  return <div></div>;
+};
 
 export default VerifyOtp;

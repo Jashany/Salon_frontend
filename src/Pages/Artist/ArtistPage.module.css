@@ -1,0 +1,50 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: 20px;
+    padding-inline: 1rem;
+}
+
+.header img:nth-child(1){
+    width: 25px;
+}
+
+.header img:nth-child(3){
+    width: 40px;
+}
+
+.header h2{
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.artistsList{
+    padding-inline: 1.15rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-block:2rem ;
+}
+
+
+.automatic{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    background-color: #D2E4FF2B;
+    border: 1px solid #00000033;
+    padding-block: 3rem 1rem ;
+    border-radius: 10px;
+}
+
+.automatic p{
+    font-size: 1.15rem !important;
+    font-weight: 600;
+    color: black;
+    width: 100%;
+    margin-bottom: 2rem;
+    text-align: center;
+}

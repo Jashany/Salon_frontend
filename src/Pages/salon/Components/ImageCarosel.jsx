@@ -10,7 +10,6 @@ import './styles.css';
 import { Pagination,Autoplay } from 'swiper/modules';
 
 const ImageCarosel = (image) => {
-    console.log(image)
     const images = image.images;
     return ( 
              <Swiper pagination={true} modules={[Pagination,Autoplay]} 

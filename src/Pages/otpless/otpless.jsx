@@ -1,28 +1,135 @@
-import React, { useEffect } from 'react';
-import { json } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import styles from "./otpless.module.css";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { user } from "../../Slices/authSlice";
 
 const OTP = () => {
+  const [gender, setGender] = useState("");
+  const [Name, setName] = useState("");
+  const [newUser, setNewUser] = useState(false);
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState(null);
+  const user = useSelector((state) => state.auth.auth);
 
-    useEffect(() => {
-        window.otpless = (otplessUser) => {
-            console.log(json.stringify(otplessUser));
-        };
+  useEffect(() => {
+    if (user) {
+      Navigate("/");
+    }
+    const script = document.createElement("script");
+    script.id = "otpless-sdk";
+    script.type = "text/javascript";
+    script.src = "https://otpless.com/v2/auth.js";
+    script.setAttribute("data-appid", "GUV51XISATNSJJGV13Q4");
+    document.head.appendChild(script);
 
-        const script = document.createElement('script');
-        script.src = "https://otpless.com/v2/auth.js";
-        script.async = true;
-        script.id = "otpless-sdk";
-        script.setAttribute('data-appid', 'GUV51XISATNSJJGV13Q4');
-        document.body.appendChild(script);
+    window.otpless = (otplessUser) => {
+      setUserInfo(otplessUser);
+    };
+  }, []);
 
-        return () => {
-            document.body.removeChild(script);
-        }
-    }, []);
+  useEffect(() => {
+    if (userInfo) {
+      fetch("https://api.salondekho.in/api/auth/verifyToken", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: userInfo.token,
+          role: "Customer",
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            dispatch(user(data.user));
+            if (data.user.isNewUser) {
+              setNewUser(true);
+            } else {
+              Navigate(-1);
+            }
+          }
+        });
+    }
+  }, [userInfo]);
 
-    return (
-        <div id="otpless-login-page"></div>
-    );
-}
+  return (
+    <div className={styles.main}>
+      {newUser ? (
+        <div
+          style={{
+            width: "100%",
+          }}
+        >
+          <div className={styles.profile}>
+            <h1>Enter Your Details</h1>
+            <div className={styles.profilepage}>
+              <label>
+                Name
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={Name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </label>
+              <h4>Gender</h4>
+              <label htmlFor="male">
+                <input
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="Male"
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                Male
+              </label>
+              <label htmlFor="female">
+                <input
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="Female"
+                  onChange={(e) => setGender(e.target.value)}
+                />
+                Female
+              </label>
+
+              <button
+                onClick={() => {
+                  fetch("https://api.salondekho.in/api/auth/updateUser", {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      name: Name,
+                      gender,
+                    }),
+                  })
+                    .then((response) => response.json())
+                    .then((data) => {
+                      if (data.success) {
+                        dispatch(user(data?.data));
+                        Navigate(-1);
+                      }
+                    });
+                }}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div id="otpless-login-page" className={styles.otp}></div>
+      )}
+    </div>
+  );
+};
 
 export default OTP;

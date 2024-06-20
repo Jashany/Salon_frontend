@@ -1,0 +1,41 @@
+.image{
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+}
+
+.card{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    background-color: #D2E4FF2B;
+    border: 1px solid #00000033;
+    padding-block: 3rem 1rem ;
+    border-radius: 10px;
+}
+
+.artistRating img{
+    width: 15px;
+    height: 15px;
+    margin-bottom: 1px;
+}
+
+.artistRating{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: white;
+    color: black;
+    position: absolute;
+    bottom: 5px;
+    padding: 0rem 0.2rem;
+    border-radius: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}

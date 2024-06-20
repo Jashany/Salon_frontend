@@ -6,6 +6,12 @@
     padding-inline: 1rem;
 }
 
+.main{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
 .header img:nth-child(1){
     width: 25px;
 }
@@ -20,15 +26,14 @@
 }
 
 
-button{
+.button{
     padding: 0.5rem 2rem;
-    border-radius: 10px;
-    border: 1px solid #4a4a4a;
-    background-color: #ffffff;
-    color: #4a4a4a;
-    font-size: 0.75rem;
-    font-weight: 500;
-
+    border-radius: 30px;
+    border: none;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 .selected{
@@ -48,12 +53,23 @@ button{
 }
 
 
+.book{
+    background-color: #F5F5F5;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
 
 
 .sort{
     display: flex;
     padding: 0.5rem 0rem;
     gap: 1rem;
+    overflow-x: scroll;
+    scrollbar-width: none;
 }
 
 .sort button{

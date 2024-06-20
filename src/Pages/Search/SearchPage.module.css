@@ -57,3 +57,9 @@
     width: 90%;
     margin: 2rem auto;
 }
+
+.salons h1{
+    font-size: 1.5rem;
+    margin-top: 5rem;
+    text-align: center;
+}

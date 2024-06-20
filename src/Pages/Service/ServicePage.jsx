@@ -1,58 +1,106 @@
+import React, { useEffect, useRef } from "react";
 import styles from "./ServicePage.module.css";
-import BackArrow from "../../assets/backArrow@.png";
-import { useLocation } from "react-router-dom";
+
+import { Link, useLocation } from "react-router-dom";
 import ServiceCard from "../salon/Components/ServiceCard";
 import { useState } from "react";
-import menu from "../../assets/menu.png";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Header from "../../Components/Header/Header";
+
 const ServicePage = () => {
-  const [serviceType, setServiceType] = useState("All");
   const location = useLocation();
   const services = location.state?.services;
-  console.log(services);
+  const navigate = useNavigate();
 
+  if(!services){
+    navigate(-1);
+  }
+
+  const [serviceType, setServiceType] = useState(`${services[0]?.ServiceType}`);
   const uniqueServices = [
     ...new Set(services?.map((item) => item.ServiceType)),
   ];
+  const observerRef = useRef(null);
+  const [NoOfServices, setNoOfServices] = useState(0);
+  const service = useSelector((state) => state.services.Services);
+  //read id from params
+  const { id } = useParams();
 
-  const filteredservices = services?.filter((service) =>
-    serviceType === "All" ? true : service.ServiceType === serviceType
+  useEffect(() => {
+    setNoOfServices(service.length);
+  }, [service]);
+
+  const filteredservices = services?.filter(
+    (service) => service.ServiceType === serviceType
   );
+
+  useEffect(() => {
+    const options = {
+      root: document.querySelector(`.${styles.servicelist}`),
+      rootMargin: "0px",
+      threshold: 0.5,
+    };
+
+    observerRef.current = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setServiceType(entry.target.dataset.type);
+        }
+      });
+    }, options);
+
+    const serviceElements = document.querySelectorAll(
+      `.${styles.servicelist} > div`
+    );
+    serviceElements.forEach((element) => observerRef.current.observe(element));
+
+    return () => {
+      observerRef.current.disconnect();
+    };
+  }, [services]);
 
   return (
     <div className={styles.main}>
-      <div className={styles.header}>
-        <img src={BackArrow} alt="" />
-        <h2>Services</h2>
-        <img src={menu} alt="" />
+      <div>
+        <Header text={"Services"} />
+        <div className={styles.services}>
+          <div className={styles.sort}>
+            {uniqueServices.map((service, index) => (
+              <button
+                key={index}
+                style={{
+                  whiteSpace: "nowrap",
+                }}
+                className={serviceType === service ? styles.selected : ""}
+                onClick={() => {
+                  setServiceType(service);
+                }}
+              >
+                {service}
+              </button>
+            ))}
+          </div>
+          <div className={styles.servicelist}>
+            {filteredservices?.map((service, index) => (
+              <div key={index} data-type={service.ServiceType}>
+                <ServiceCard service={service} />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className={styles.services}>
-        <div className={styles.sort}>
-          <button
-            className={serviceType === "All" ? styles.selected : ""}
-            onClick={() => {
-              setServiceType("All");
-            }}
-          >
-            All
+      <div className={styles.book}>
+        <h4>{NoOfServices} Services added</h4>
+        <button
+        className={styles.button}
+         onClick={() => {
+            if(NoOfServices > 0)
+            navigate(`/salon/${id}/artists`);
+          }}>
+            {NoOfServices > 0 ? "Book Now" : "Add Services"}
           </button>
-          {uniqueServices.map((service, index) => (
-            <button
-              key={index}
-              className={serviceType === service ? styles.selected : ""}
-              onClick={() => {
-                setServiceType(service);
-              }}
-            >
-              {service}
-            </button>
-          ))}
-        </div>
-
-        <div className={styles.servicelist}>
-          {services?.slice(0, 4).map((service, index) => (
-            <ServiceCard key={index} service={service} />
-          ))}
-        </div>
       </div>
     </div>
   );

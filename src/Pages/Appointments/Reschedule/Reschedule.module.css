@@ -1,0 +1,129 @@
+.selected{
+    background-color: black !important;
+    color: white !important;
+}
+
+.date>div{
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #CCD2E3;
+    align-items: center;
+}
+
+.date{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.dateslots{
+    display: flex;
+    gap: 1rem;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    padding-inline: 1rem;
+}
+
+.artistName{
+    font-size: 1.2rem;
+    font-weight: 500 !important;
+    padding: 8px 13px !important;
+    margin-block: 1rem;
+    margin-left: 1rem;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #CCD2E3;
+    width: fit-content; 
+}
+
+.main h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding-left: 1.3rem;
+    margin-block: 1rem;
+}
+
+
+
+
+
+.timeslots{
+    display: flex;
+    flex-direction: column;
+    padding-inline: 1rem;
+    max-height: 60vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+
+.time{
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #00000069;
+}
+
+
+
+
+
+.SelectedTime{
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    
+    align-items: center;
+    padding: 1rem;
+    background-color: #ccd2e365;
+    border-bottom: 1px solid #00000069;
+}
+
+.SelectedTime p{
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.time p{
+    font-size: 1.2rem;
+    font-weight: 500;
+
+}
+
+.main h4{
+    font-size: 1.25rem;
+    font-weight: 600;
+    padding-left: 1.3rem;
+    margin-block: 1rem;
+}
+
+
+.continue{
+    display: flex;
+    justify-content: center;
+    margin-block: 1rem;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    width: 80%;
+    margin-inline: auto;
+    position: relative;
+}
+
+.main{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+}

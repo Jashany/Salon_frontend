@@ -54,7 +54,6 @@ const SearchPage = () => {
       .catch((error) => console.log(error));
   }, []);
 
-
   return (
     <div className={styles.main}>
       <div className={styles.filter}>

@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import Loader from "../../Components/Loader/Loader";
 import stargold from "../../assets/stargold.svg";
 import star from "../../assets/star.svg";
+import OffersCarousel from "./Components/OfferCarosel";
 
 const SalonPage = () => {
   const location = useLocation();
@@ -32,6 +33,7 @@ const SalonPage = () => {
     fetch(`https://api.salondekho.in/api/salon/getSalon/${id}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setSalon(data);
         setTimeout(() => {
           setLoading(false);
@@ -114,6 +116,9 @@ const SalonPage = () => {
         <p>
           {salon?.address?.City} | {Math.ceil(distance)} kms
         </p>
+      </div>
+      <div className="offers">
+        <OffersCarousel salon={salon} />
       </div>
       <div className={styles.services}>
         <h3>Services</h3>

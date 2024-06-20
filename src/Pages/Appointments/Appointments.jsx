@@ -71,7 +71,6 @@ const Appointment = () => {
   ];
   const dayOfWeek = days[date.getDay()];
 
-
   const startTime = appointment?.appointmentStartTime.slice(11, 16);
   const endTime = appointment?.appointmentEndTime.slice(11, 16);
 

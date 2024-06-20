@@ -6,10 +6,13 @@ import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const navigate = useNavigate();
+  const [userdata, setUser] = useState(null);
   const [button, setButton] = useState(false);
-  
 
-
+  const handleOnChange = (e) => {
+    setUser({ ...userdata, [e.target.name]: e.target.value });
+    setButton(true);
+  };
   const user = useSelector((state) => state.auth.auth);
 
   // useEffect(() => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./otpless.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { user } from "../../Slices/authSlice";
+import { user as setUser } from "../../Slices/authSlice";
 
 const OTP = () => {
   const [gender, setGender] = useState("");
@@ -44,9 +44,9 @@ const OTP = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.success) {
-            dispatch(user(data.user));
-            if (data.user.isNewUser) {
+          if (data.success == true) {
+            dispatch(setUser(data.user));
+            if (data.user.isNewUser == true) {
               setNewUser(true);
             } else {
               Navigate(-1);
@@ -56,12 +56,23 @@ const OTP = () => {
     }
   }, [userInfo]);
 
+  if (newUser) {
+    const element = document.getElementById("otpless-login-page-frame");
+    if (element) {
+      element.style.display = "none";
+    }
+  }
+
   return (
-    <div className={styles.main}>
+    <div className={styles.main} id="main">
       {newUser ? (
         <div
           style={{
-            width: "100%",
+            width: "100vw",
+            position: "absolute",
+            top: "0",
+            zIndex: "1000",
+            height: "100vh",
           }}
         >
           <div className={styles.profile}>
@@ -114,7 +125,7 @@ const OTP = () => {
                     .then((response) => response.json())
                     .then((data) => {
                       if (data.success) {
-                        dispatch(user(data?.data));
+                        dispatch(setUser(data?.data));
                         Navigate(-1);
                       }
                     });

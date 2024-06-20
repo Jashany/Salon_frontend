@@ -28,7 +28,6 @@ const Login = () => {
   };
   return (
     <div className={styles.main}>
-      
       <div>
         <h1>Log-in/Sign-up</h1>
         <label>

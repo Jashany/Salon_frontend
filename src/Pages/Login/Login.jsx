@@ -19,12 +19,9 @@ const Login = () => {
         role: "Customer",
       }),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success === true) {
-          console.log("success");
-        } else {
-          alert("Something went wrong");
+      .then((res) => {
+        for(let entry of res.headers.entries()) {
+          console.log('header', entry);
         }
       });
   };

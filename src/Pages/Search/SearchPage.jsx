@@ -8,9 +8,11 @@ import { useDispatch } from "react-redux";
 import { clearAppointment } from "../../Slices/appointmentSlice";
 import { clearArtist } from "../../Slices/artistSlice";
 import { clearServices } from "../../Slices/servicesSlice";
+import Loader from "../../Components/Loader/Loader";
 
 const SearchPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [salons, setSalons] = useState([]);
   const useQuery = () => {
     return new URLSearchParams(useLocation().search);
@@ -25,6 +27,9 @@ const SearchPage = () => {
   dispatch(clearServices());
 
   useEffect(() => {
+
+    setLoading(true);
+
     const requestdata = {};
     if (service) {
       requestdata.service = service;
@@ -47,8 +52,14 @@ const SearchPage = () => {
       .then((data) => {
         if (data.success == true) {
           setSalons(data?.data);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
         } else {
           setSalons([]);
+          setTimeout(() => {
+            setLoading(false);
+          }, 500);
         }
       })
       .catch((error) => console.log(error));

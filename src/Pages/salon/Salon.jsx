@@ -117,9 +117,11 @@ const SalonPage = () => {
           {salon?.address?.City} | {Math.ceil(distance)} kms
         </p>
       </div>
+      {salon?.offers &&
       <div className="offers">
         <OffersCarousel salon={salon} />
       </div>
+      }
       <div className={styles.services}>
         <h3>Services</h3>
         <div className={styles.sort}>

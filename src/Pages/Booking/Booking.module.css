@@ -1,217 +1,211 @@
-.salon{
-    display: flex;
-    justify-content: space-between;
-    padding-inline:1rem ;
-    margin-top: 2rem;
+.salon {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 1rem;
+  margin-top: 2rem;
 }
 
-.main{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
-    min-height: 100vh;
-    justify-content: space-between;
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  min-height: 100dvh;
+  justify-content: space-between;
 }
 
-.salon>div{
-    display: flex;
-    gap: 0.8rem;
+.salon > div {
+  display: flex;
+  gap: 0.8rem;
 }
 
-.logos{
-    flex-direction: column;
-    align-items: center;
+.logos {
+  flex-direction: column;
+  align-items: center;
 }
 
-.logos>a>img{
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+.logos > a > img {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
-.logos a{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+.logos a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
 }
 
-.salon h1{
-    font-size: 1.25rem;
-    margin-bottom:3px;
-    font-weight: 600;
+.salon h1 {
+  font-size: 1.25rem;
+  margin-bottom: 3px;
+  font-weight: 600;
 }
 
-.salon h2{
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 2px;
-    color: #2e2e2e;
+.salon h2 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 2px;
+  color: #2e2e2e;
 }
 
-.dateTime{
-    display: flex;
-    flex-direction: column;
-    padding-inline: 1rem;
-    margin-top: 1rem;
+.dateTime {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 1rem;
+  margin-top: 1rem;
 }
 
-.dateTime h3{
-    font-size: 0.95rem;
-    font-weight: 400;
-    margin-bottom:3px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.dateTime h3 {
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.services{
-    display: flex;
-    flex-direction: column;
-    padding-inline: 1rem;
-    margin-top: 1.25rem;;
+.services {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 1rem;
+  margin-top: 1.25rem;
 }
 
-.serviceClass{
-    display: flex;
-    gap: 0.5rem;
-    justify-content: space-between;
+.serviceClass {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
 }
 
-.serviceClass h3{
-    font-size: 1.00rem;
-    font-weight: 700;
-    margin-bottom:3px;
-
+.serviceClass h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 3px;
 }
 
-.serviceClass h4{
-    font-size: 0.95rem;
-    font-weight: 400;
-    margin-bottom:3px;
-
+.serviceClass h4 {
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin-bottom: 3px;
 }
 
-
-.coupon{
-    display: flex;
-    flex-direction: column;
-    padding-inline: 1rem;
-    margin-top: 1.25rem;
-    gap: 0.5rem;
+.coupon {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 1rem;
+  margin-top: 1.25rem;
+  gap: 0.5rem;
 }
 
-.coupon h2{
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom:3px;
+.coupon h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 3px;
 }
-.coupon div{
-    display: flex;
-    gap: 0.5rem;
-    justify-content: space-between;
-    border: 1px solid #e1e1e1;
-    padding: 0.5rem;
-    border-radius: 5px;
+.coupon div {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  border: 1px solid #e1e1e1;
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .coupon input {
-    padding: 0.5rem;
-    border: none;
-    width: 70%;
+  padding: 0.5rem;
+  border: none;
+  width: 70%;
 }
 
-.coupon input:focus{
-    outline: none;
+.coupon input:focus {
+  outline: none;
 }
 
-
-.coupon button{
-    padding: 0.5rem 1rem;
-    border: none;
-    cursor: pointer;
-    background-color: white;
-    font-weight: 600;
+.coupon button {
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  font-weight: 600;
 }
 
-.payment{
-    display: flex;
-    flex-direction: column;
-    padding-inline: 1rem;
-    margin-top: 1.25rem;
+.payment {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 1rem;
+  margin-top: 1.25rem;
 }
 
-.payment div{
-    display: flex;
-    gap: 0.5rem;
-    justify-content: space-between;
-    padding: 0.5rem;
+.payment div {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  padding: 0.5rem;
 }
 
-.payment h4{
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom:3px;
+.payment h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 3px;
 }
 
-
-.paymentMethod{
-    display: flex;
-    flex-direction: column;
-    padding-inline: 1rem;
-    margin-top: 1.5rem;
+.paymentMethod {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 1rem;
+  margin-top: 1.5rem;
 }
 
-.paymentMethod h2{
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom:3px;
+.paymentMethod h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 3px;
 }
 
-.paymentMethod div{
-    display: flex;
-    gap: 0.5rem;
-    justify-content: space-between;
-    padding: 0.5rem;
-    margin-top: 1rem;
-    border: 1px solid #e1e1e1;
-    border-radius: 5px;
+.paymentMethod div {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 5px;
 }
 
-.paymentMethod h4{
-    font-size: 1rem;
-    font-weight: 500;
-    padding: 0.5rem;
-    color: green;
+.paymentMethod h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem;
+  color: green;
 }
 
-
-.confirm{
-    display: flex;
-    justify-content: center;
-    margin-block: 1rem;
-    border: none;
-    background-color: black;
-    color: white;
-    font-size: 1rem;
-    padding: 0.75rem 2rem;
-    border-radius: 50px;
-    width: 80%;
-    margin-inline: auto;
-    position: relative;
+.confirm {
+  display: flex;
+  justify-content: center;
+  margin-block: 1rem;
+  border: none;
+  background-color: black;
+  color: white;
+  font-size: 1rem;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  width: 80%;
+  margin-inline: auto;
+  position: relative;
 }
 
-.salonDetails{
-    display: flex;
-    flex-direction: column;
+.salonDetails {
+  display: flex;
+  flex-direction: column;
 }
 
-.salonDetails img{
-    width: 20px;
+.salonDetails img {
+  width: 20px;
 }
 
-.salonDetails div{
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    margin-bottom: 3px;
+.salonDetails div {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 3px;
 }

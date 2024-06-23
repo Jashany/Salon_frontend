@@ -72,7 +72,7 @@ const OTP = () => {
             position: "absolute",
             top: "0",
             zIndex: "1000",
-            height: "100vh",
+            height: "100dvh",
           }}
         >
           <div className={styles.profile}>

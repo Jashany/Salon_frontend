@@ -1,217 +1,208 @@
-.main{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #ffffff;
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background-color: #ffffff;
 }
 
-.carosel{
-    height: 250px;
+.carosel {
+  height: 250px;
 }
 
-.logos{
-    position: absolute;
-    z-index: 10;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    padding-inline: 1rem;
-    margin-top: 1rem;
+.logos {
+  position: absolute;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-inline: 1rem;
+  margin-top: 1rem;
 }
 
-.logos div{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+.logos div {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.details{
-    display: flex;
-    flex-direction: column;
-    gap: 2.5px;
-    padding: 0.5rem 1rem;
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5px;
+  padding: 0.5rem 1rem;
 }
 
-.details h1{
-    font-size: 1.25rem;
-    font-weight: bold;
+.details h1 {
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 
-.details p{
-    font-size: 1rem;
-    font-weight: 500;
-    color: #4a4a4a;
+.details p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4a4a4a;
 }
 
-.sort{
-    display: flex;
-    padding: 0.5rem 0rem;
-    gap: 1rem;
-    overflow: scroll;
-    scrollbar-width: none;
+.sort {
+  display: flex;
+  padding: 0.5rem 0rem;
+  gap: 1rem;
+  overflow: scroll;
+  scrollbar-width: none;
 }
 
-.sort button{
-    padding: 0.5rem 2rem;
-    border-radius: 10px;
-    border: 1px solid #4a4a4a;
-    background-color: #ffffff;
-    color: #4a4a4a;
-    font-size: 0.75rem;
-    font-weight: 500;
-
+.sort button {
+  padding: 0.5rem 2rem;
+  border-radius: 10px;
+  border: 1px solid #4a4a4a;
+  background-color: #ffffff;
+  color: #4a4a4a;
+  font-size: 0.75rem;
+  font-weight: 500;
 }
 
-.selected{
-    background-color: black !important;
-    color: white !important;
+.selected {
+  background-color: black !important;
+  color: white !important;
 }
 
-.services{
-    padding: 0.5rem 1rem;   
+.services {
+  padding: 0.5rem 1rem;
 }
 
-.servicelist{
-    display: flex;
-    margin-top: 1rem;
-    flex-direction: column;
-    gap: 1rem;
+.servicelist {
+  display: flex;
+  margin-top: 1rem;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.seeAll{
-    padding: 0.5rem 1.5rem;
-    border-radius: 30px;
-    width: fit-content;
-    border: none;
-    background-color: #CCD2E3;
-    color: #0d0d0d;
-    font-size: 0.9rem;
-    margin: 0 auto ;
-    font-weight: 600;
+.seeAll {
+  padding: 0.5rem 1.5rem;
+  border-radius: 30px;
+  width: fit-content;
+  border: none;
+  background-color: #ccd2e3;
+  color: #0d0d0d;
+  font-size: 0.9rem;
+  margin: 0 auto;
+  font-weight: 600;
 }
 
-.book{
-    background-color: #F5F5F5;
-    padding: 1rem;
-    display: flex;
-    margin-block: 1rem;
-    align-items: center;
-    justify-content: space-between;
+.book {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  display: flex;
+  margin-block: 1rem;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.book button{
-    padding: 0.5rem 2rem;
-    border-radius: 30px;
-    border: none;
-    background-color: #000000;
-    color: #ffffff;
-    font-size: 0.9rem;
-    font-weight: 600;
-
+.book button {
+  padding: 0.5rem 2rem;
+  border-radius: 30px;
+  border: none;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
-.artist{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    justify-content: center;
-    align-items: center;
+.artist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
 }
 
-.artist>div{
-    height: 90px;
-    width: 90px;
-    border-radius: 50%;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+.artist > div {
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.rating{
-    display: flex;
-    align-items: center;
-    gap: 2px;
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
-.rating img{
-    width: 15px;
-    height: 15px;
-    margin-bottom: 1px;
-
+.rating img {
+  width: 15px;
+  height: 15px;
+  margin-bottom: 1px;
 }
-.artists>div{
-    margin-top: 1rem;
-    display: flex;
-    gap: 1.5rem;
-    overflow-x: scroll;
-    scrollbar-width: none;
-}
-
-.artists::-webkit-scrollbar{
-    display: none;
+.artists > div {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: scroll;
+  scrollbar-width: none;
 }
 
-
-
-.artists h3{
-    margin-left: 1rem !important;
+.artists::-webkit-scrollbar {
+  display: none;
 }
 
-.artists>div{
-    padding-left: 1rem;
+.artists h3 {
+  margin-left: 1rem !important;
 }
 
-
-.artistRating img{
-    width: 15px;
-    height: 15px;
-    margin-bottom: 1px;
+.artists > div {
+  padding-left: 1rem;
 }
 
-.artistRating{
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    background-color: white;
-    color: black;
-    position: absolute;
-    bottom: 5px;
-    padding: 0rem 0.2rem;
-    border-radius: 5px;
-    left: 50%;
-    transform: translateX(-50%);
+.artistRating img {
+  width: 15px;
+  height: 15px;
+  margin-bottom: 1px;
 }
 
-.star{
-    height: 20px;
-    width: 20px;
-    margin-right: 2px;
+.artistRating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: white;
+  color: black;
+  position: absolute;
+  bottom: 5px;
+  padding: 0rem 0.2rem;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.reviews{
-    padding-inline: 1rem;
-    margin-block: 1.5rem;
+.star {
+  height: 20px;
+  width: 20px;
+  margin-right: 2px;
 }
 
-
-.reviews h3{
-    font-size: 1.35rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+.reviews {
+  padding-inline: 1rem;
+  margin-block: 1.5rem;
 }
 
-.reviews p{
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #4a4a4a;
+.reviews h3 {
+  font-size: 1.35rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
-
-.review{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
+.reviews p {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #4a4a4a;
 }
 
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}

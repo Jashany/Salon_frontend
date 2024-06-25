@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { clearAppointment } from "../../Slices/appointmentSlice";
 import { clearArtist } from "../../Slices/artistSlice";
 import { clearServices } from "../../Slices/servicesSlice";
+import animation from "../../assets/Animation.gif";
 const Success = () => {
     const dispatch = useDispatch();
     dispatch(clearAppointment());
@@ -22,7 +23,7 @@ const Success = () => {
             </div>
             <div>
                 <div className={styles.circle}>
-
+                    <img src={animation} alt="" />
                 </div>
                 <h1>{text}</h1>
             </div>

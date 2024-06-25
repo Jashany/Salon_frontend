@@ -74,6 +74,16 @@
   font-weight: bold;
 }
 
+.status3{
+  background-color: #ff000044;
+  color: #f8f8f8;
+  height: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
 .star {
   height: 20px;
   width: 20px;

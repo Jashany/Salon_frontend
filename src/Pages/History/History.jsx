@@ -41,6 +41,11 @@ const History = () => {
   const pastBookings = appointments.filter(
     (appointment) => appointment.Status === "Completed"
   );
+
+  const cancelledBookings = appointments.filter(
+    (appointment) => appointment.Status === "Cancelled"
+  );
+
   return (
     <div className={styles.main}>
       <div className={styles.header}>
@@ -73,6 +78,11 @@ const History = () => {
         <div className={styles.pastBookingList}>
           {pastBookings.map((booking) => (
             <PastBooking pastBooking={booking} />
+          ))}
+        </div>
+        <div className={styles.pastcancelledList}>
+          {cancelledBookings.map((booking) => (
+            <CancelledBooking cancelledBooking={booking} />
           ))}
         </div>
       </div>
@@ -138,6 +148,7 @@ const PastBooking = ({ pastBooking }) => {
         ratingStars.push(<img src={star} className={styles.star2} alt="" />);
       }
     }
+
     return (
       <div className={styles.pastMain}>
         <div>
@@ -169,10 +180,23 @@ const PastBooking = ({ pastBooking }) => {
             ))}
           </div>
         </div>
-        <div className={styles.status2}>{pastBooking?.Status}</div>
+
+        {/* <div className={styles.status2}>{pastBooking?.Status}</div> */}
       </div>
     );
   }
+};
+
+const CancelledBooking = ({ cancelledBooking }) => {
+  return (
+    <div className={styles.pastMain}>
+      <div>
+        <h3>{cancelledBooking?.salon?.SalonName}</h3>
+        <p>{cancelledBooking?.salon?.address?.City}</p>
+      </div>
+      <div className={styles.status3}>{cancelledBooking?.Status}</div>
+    </div>
+  );
 };
 
 export default History;

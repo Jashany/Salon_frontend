@@ -299,12 +299,12 @@ const Booking = () => {
         <div className={styles.payment}>
           <div>
             <h4>Pay Now</h4>
-            <h4>₹{data?.cost}</h4>
+            <h4>₹{(data?.cost).toFixed(2)}</h4>
           </div>
           {discount > 0 && (
             <div>
               <h4>Discount</h4>
-              <h4>₹{(discount / 100) * data?.cost}</h4>
+              <h4>₹{((discount / 100) * data?.cost).toFixed(2)}</h4>
             </div>
           )}
           <div
@@ -313,7 +313,7 @@ const Booking = () => {
             }}
           >
             <h4>Total</h4>
-            <h4>₹{data?.cost - (discount / 100) * data?.cost}</h4>
+            <h4>₹{(data?.cost - (discount / 100) * data?.cost).toFixed(2)} </h4>
           </div>
         </div>
         <div className={styles.paymentMethod}>

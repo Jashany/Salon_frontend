@@ -6,6 +6,7 @@ import { clearAppointment } from "../../Slices/appointmentSlice";
 import { clearArtist } from "../../Slices/artistSlice";
 import { clearServices } from "../../Slices/servicesSlice";
 import animation from "../../assets/Animation.gif";
+import { useEffect } from "react";
 const Success = () => {
     const dispatch = useDispatch();
     dispatch(clearAppointment());
@@ -14,6 +15,13 @@ const Success = () => {
     const navigate = useNavigate();
     const state = useLocation();
     const text = state?.state?.text;
+
+    useEffect(() => {
+        setTimeout(() => {
+            navigate('/');
+        }, 3000);
+    }, []);
+
     return ( 
         <div className={styles.main}>
             <div className={styles.header}>

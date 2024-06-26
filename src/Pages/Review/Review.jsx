@@ -4,15 +4,30 @@ import styles from "./Review.module.css";
 import BackArrow from "../../assets/backArrow@.png";
 import { useNavigate } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Loader from "../../Components/Loader/Loader";
 
 const Review = () => {
+  const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const navigate = useNavigate();
   const { state } = useLocation();
 
   const date = new Date(state?.salon?.appointmentDate).toDateString();
+
+  useEffect(() => {
+    setLoading(true);
+    
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
+
+
+  if (loading) {
+    return <Loader />;
+  }
 
   const submitReview = () => {
     fetch("https://api.salondekho.in/api/review/createReview", {
@@ -54,6 +69,7 @@ const Review = () => {
           }}
           src={ratings}
           alt=""
+         
         />
         <div className={styles.salon}>
           <h2>{state?.salon?.salon?.SalonName}</h2>

@@ -91,17 +91,20 @@ const ServicePage = () => {
           </div>
         </div>
       </div>
-      <div className={styles.book}>
+      {NoOfServices > 0 && (
+        <div className={styles.book}>
         <h4>{NoOfServices} Services added</h4>
         <button
+        
         className={styles.button}
          onClick={() => {
             if(NoOfServices > 0)
             navigate(`/salon/${id}/artists`);
           }}>
-            {NoOfServices > 0 ? "Book Now" : "Add Services"}
+          Book
           </button>
       </div>
+      )}
     </div>
   );
 };

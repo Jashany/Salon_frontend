@@ -15,15 +15,11 @@ import OffersCarousel from "./Components/OfferCarosel";
 
 const SalonPage = () => {
   const location = useLocation();
-  const [serviceType, setServiceType] = useState("All");
+ 
   const [loading, setLoading] = useState(true);
-  const [NoOfServices, setNoOfServices] = useState(0);
   const service = useSelector((state) => state.services.Services);
-
-  useEffect(() => {
-    setNoOfServices(service.length);
-  }, [service]);
-
+  const [serviceType, setServiceType] = useState("All");
+ 
   const distance = location.state?.distance;
   const [salon, setSalon] = useState({});
   const { id } = useParams();
@@ -47,6 +43,7 @@ const SalonPage = () => {
       });
   }, [id]);
 
+
   if (loading) {
     return <Loader />;
   }
@@ -66,10 +63,11 @@ const SalonPage = () => {
     }
   };
 
+  
   const uniqueServices = [
     ...new Set(salon?.Services?.map((item) => item.ServiceType)),
   ];
-
+  
   const services = salon?.Services?.filter((service) =>
     serviceType === "All" ? true : service.ServiceType === serviceType
   );
@@ -150,7 +148,13 @@ const SalonPage = () => {
         </div>
         <div className={styles.servicelist}>
           {services?.slice(0, 4).map((service, index) => (
+            <div onClick={()=>{
+              navigate(`/salon/${id}/services`, {
+                state: { services: salon?.Services },
+              });
+            }}>
             <ServiceCard key={index} service={service} />
+            </div>
           ))}
           <button
             className={styles.seeAll}
@@ -163,16 +167,6 @@ const SalonPage = () => {
             See All
           </button>
         </div>
-      </div>
-      <div className={styles.book}>
-        <h4>{NoOfServices} Services added</h4>
-        <button
-          onClick={() => {
-            if (NoOfServices > 0) navigate(`/salon/${id}/artists`);
-          }}
-        >
-          {NoOfServices > 0 ? "Book Now" : "Add Services"}
-        </button>
       </div>
       <div className={styles.artists}>
         <h3>Team Members</h3>
@@ -201,10 +195,12 @@ const SalonPage = () => {
                     <p style={{ color: "white", fontSize: "20px" }}>
                       {artist.ArtistName[0]}
                     </p>
+                    {averageRating > 0 && (
                     <div className={styles.artistRating}>
                       <img src={stargold} alt="rating" />
                       <p>{averageRating}</p>
                     </div>
+                    )}
                   </div>
                 ) : (
                   <div
@@ -213,10 +209,12 @@ const SalonPage = () => {
                       position: "relative",
                     }}
                   >
+                    {averageRating > 0 && (
                     <div className={styles.artistRating}>
                       <img src={stargold} alt="rating" />
                       <p>{averageRating}</p>
                     </div>
+                    )}
                   </div>
                 )}
                 <h4>{artist.ArtistName}</h4>
@@ -244,7 +242,7 @@ const SalonPage = () => {
               return (
                 <div key={index} className={styles.review}>
                   <div>
-                    <h4>{review?.userId?.name}</h4>
+                    <h4 style={{fontSize:"1.10rem"}}>{review?.customerId?.name}</h4>
                   </div>
                   <div>{ratingStars}</div>
                   <div>

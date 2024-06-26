@@ -5,6 +5,7 @@ import star from "../../assets/star.svg";
 import stargold from "../../assets/stargold.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 import Loader from "../../Components/Loader/Loader";
+import noAppointments from "../../assets/new.png";
 const History = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -68,23 +69,40 @@ const History = () => {
       <div className={styles.currentBooking}>
         <h3>Current Bookings</h3>
         <div className={styles.currentBookingList}>
-          {currentBookings.map((booking) => (
-            <CurrentBooking currentBooking={booking} />
-          ))}
+          {currentBookings.length > 0 ? (
+            currentBookings.map((booking) => (
+              <CurrentBooking key={booking.id} currentBooking={booking} />
+            ))
+          ) : (
+            <div className={styles.noAppointments}>
+              <img src={noAppointments} alt="" />
+              <h3>No current bookings</h3>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.pastBooking}>
         <h3>Past Bookings</h3>
-        <div className={styles.pastBookingList}>
-          {pastBookings.map((booking) => (
-            <PastBooking pastBooking={booking} />
-          ))}
-        </div>
-        <div className={styles.pastcancelledList}>
-          {cancelledBookings.map((booking) => (
-            <CancelledBooking cancelledBooking={booking} />
-          ))}
-        </div>
+
+        {pastBookings.length > 0 && cancelledBookings.length > 0 ? (
+          <>
+            <div className={styles.pastBookingList}>
+              {pastBookings.map((booking) => (
+                <PastBooking key={booking.id} pastBooking={booking} />
+              ))}
+            </div>
+            <div className={styles.pastcancelledList}>
+              {cancelledBookings.map((booking) => (
+                <CancelledBooking cancelledBooking={booking} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className={styles.noAppointments}>
+            <img src={noAppointments} alt="" />
+            <h3>No past bookings</h3>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -180,8 +198,18 @@ const PastBooking = ({ pastBooking }) => {
             ))}
           </div>
         </div>
-
-        {/* <div className={styles.status2}>{pastBooking?.Status}</div> */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            gap: "10px",
+            alignItems: "flex-end",
+          }}
+        >
+          <div className={styles.status2}>{pastBooking?.Status}</div>
+          <p>Rate your experience</p>
+        </div>
       </div>
     );
   }

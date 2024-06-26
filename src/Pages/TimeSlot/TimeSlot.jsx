@@ -20,7 +20,6 @@ const Timeslot = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [duration, setDuration] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const services = service?.map((service) => service.id);
 
   useEffect(() => {
@@ -126,7 +125,6 @@ const Timeslot = () => {
                   selectedTime === time ? styles.SelectedTime : styles.time
                 }
                 onClick={() => {
-                  setIsButtonDisabled(false);
                   setSelectedTime(time);
                 }}
               >
@@ -142,8 +140,8 @@ const Timeslot = () => {
             ))}
         </div>
       </div>
+      { selectedTime && selectedDate && (
       <button
-        disabled={isButtonDisabled}
         className={styles.continue}
         onClick={() => {
           createAppointment();
@@ -151,6 +149,7 @@ const Timeslot = () => {
       >
         Continue
       </button>
+      )}
     </div>
   );
 };

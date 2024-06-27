@@ -22,6 +22,7 @@ const OffersCarousel = ({ salon }) => {
     const handleToggle = () => {
       setShowDescription(!showDescription);
     };
+
   
     return (
       <div className={styles.carousel}>

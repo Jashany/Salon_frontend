@@ -127,7 +127,7 @@ const Appointment = () => {
       <div className={styles.dateTime}>
         <h3>
           <img src={calendar} alt="calendar icon" />
-          {dayOfWeek}
+          {date.getDate()} {moment(date).format("MMMM")} {dayOfWeek}
         </h3>
         <h3>
           <img src={clock} alt="clock icon" />

@@ -11,6 +11,7 @@ import stargold from "../../assets/stargold.svg";
 import clock from "../../assets/clock.png";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Loader/Loader";
+import moment from "moment";
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -258,7 +259,7 @@ const Booking = () => {
         <div className={styles.dateTime}>
           <h3>
             <img src={calendar} />
-            {dayOfWeek}
+            {date.getDate()} {moment(date).format("MMMM")} {dayOfWeek}
           </h3>
           <h3>
             <img src={clock} />

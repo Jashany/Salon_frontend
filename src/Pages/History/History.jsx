@@ -36,14 +36,14 @@ const History = () => {
     return <Loader />;
   }
 
-  const currentBookings = appointments.filter(
+  const currentBookings = appointments?.filter(
     (appointment) => appointment.Status === "Booked"
   );
-  const pastBookings = appointments.filter(
+  const pastBookings = appointments?.filter(
     (appointment) => appointment.Status === "Completed"
   );
 
-  const cancelledBookings = appointments.filter(
+  const cancelledBookings = appointments?.filter(
     (appointment) => appointment.Status === "Cancelled"
   );
 
@@ -69,8 +69,8 @@ const History = () => {
       <div className={styles.currentBooking}>
         <h3>Current Bookings</h3>
         <div className={styles.currentBookingList}>
-          {currentBookings.length > 0 ? (
-            currentBookings.map((booking) => (
+          {currentBookings?.length > 0 ? (
+            currentBookings?.map((booking) => (
               <CurrentBooking key={booking.id} currentBooking={booking} />
             ))
           ) : (
@@ -84,15 +84,15 @@ const History = () => {
       <div className={styles.pastBooking}>
         <h3>Past Bookings</h3>
 
-        {pastBookings.length > 0 && cancelledBookings.length > 0 ? (
+        {pastBookings?.length > 0 && cancelledBookings?.length > 0 ? (
           <>
             <div className={styles.pastBookingList}>
-              {pastBookings.map((booking) => (
+              {pastBookings?.map((booking) => (
                 <PastBooking key={booking.id} pastBooking={booking} />
               ))}
             </div>
             <div className={styles.pastcancelledList}>
-              {cancelledBookings.map((booking) => (
+              {cancelledBookings?.map((booking) => (
                 <CancelledBooking cancelledBooking={booking} />
               ))}
             </div>

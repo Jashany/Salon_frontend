@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Header from "../../Components/Header/Header";
 import { useParams, useNavigate } from "react-router-dom";
 import SendArrow from "../../assets/SendArrow.png";
-import Directions from "../../assets/Directions.png";
+import Directions from "../../assets/Frame2.svg";
 import phone from "../../assets/call-calling.png";
 import calendar from "../../assets/calendar.png";
 import stargold from "../../assets/stargold.svg";
@@ -115,6 +115,7 @@ const Booking = () => {
       body: JSON.stringify({
         offerName: coupon,
         salonId: salonid,
+        TodayDate: appointment.appointmentDate
       }),
     })
       .then((response) => response.json())

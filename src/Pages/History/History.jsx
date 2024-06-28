@@ -11,7 +11,6 @@ const History = () => {
   const location = useLocation();
 
   const [loading, setLoading] = useState(true);
-
   const [appointments, setAppointments] = useState([]);
   useEffect(() => {
     setLoading(true);
@@ -35,10 +34,11 @@ const History = () => {
   if (loading) {
     return <Loader />;
   }
-
+  
   const currentBookings = appointments?.filter(
     (appointment) => appointment.Status === "Booked"
   );
+
   const pastBookings = appointments?.filter(
     (appointment) => appointment.Status === "Completed"
   );
@@ -47,6 +47,7 @@ const History = () => {
     (appointment) => appointment.Status === "Cancelled"
   );
 
+  console.log(pastBookings);  
   return (
     <div className={styles.main}>
       <div className={styles.header}>
@@ -84,8 +85,13 @@ const History = () => {
       <div className={styles.pastBooking}>
         <h3>Past Bookings</h3>
 
-        {pastBookings?.length > 0 && cancelledBookings?.length > 0 ? (
-          <>
+        {pastBookings?.length < 0 && cancelledBookings?.length < 0 ? (
+         <div className={styles.noAppointments}>
+         <img src={noAppointments} alt="" />
+         <h3>No past bookings</h3>
+       </div>
+        ) : (
+           <>
             <div className={styles.pastBookingList}>
               {pastBookings?.map((booking) => (
                 <PastBooking key={booking.id} pastBooking={booking} />
@@ -96,12 +102,7 @@ const History = () => {
                 <CancelledBooking cancelledBooking={booking} />
               ))}
             </div>
-          </>
-        ) : (
-          <div className={styles.noAppointments}>
-            <img src={noAppointments} alt="" />
-            <h3>No past bookings</h3>
-          </div>
+          </> 
         )}
       </div>
     </div>

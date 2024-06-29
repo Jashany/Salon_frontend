@@ -20,6 +20,7 @@ import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 import Success from "./Components/SuccessPage/Success"
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute"
+import AccountDelete from "./Pages/AccountDelete/AccountDelete"
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
         <Route path="/salon/:id/services" element={<ServicePage />} />
         <Route path="/salon/:salonid/artists" element={<ArtistPage />} />
         <Route path="/salon/:salonid/:artistid" element={<Timeslot />} />
+        <Route path="/delete-owner" element={<AccountDelete />} />
         <Route path="" element={<PrivateRoute />} >
         <Route path="/bookAppointment/:salonid" element={<Booking />} />
         <Route path="/profile" element={<Profile />} />
@@ -45,6 +47,7 @@ function App() {
         <Route path="/review/:appointmentId" element={<Review />} />
         <Route path="/reschedule/:appointmentId" element={<Reschedule />} />
         <Route path="/success/:appointmentId" element={<Success />} />
+
         </Route>
       </Routes>
       </Provider>

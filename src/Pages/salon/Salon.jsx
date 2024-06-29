@@ -179,7 +179,7 @@ const SalonPage = () => {
               ) / artist.reviews.length || 0;
             return (
               <div key={index} className={styles.artist}>
-                {artist.ArtistPhoto === "" ? (
+                {artist.ArtistPhoto === null ? (
                   <div
                     style={{
                       backgroundColor: "black",

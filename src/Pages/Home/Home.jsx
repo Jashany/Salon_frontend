@@ -55,8 +55,10 @@ const Home = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          setSalons(data);
-
+          if(data.success === true)
+          setSalons(data.data);
+          else
+          setSalons([]);
         })
         .catch((error) => console.log(error));
     }

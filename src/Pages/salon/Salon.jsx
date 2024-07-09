@@ -12,6 +12,7 @@ import Loader from "../../Components/Loader/Loader";
 import stargold from "../../assets/stargold.svg";
 import star from "../../assets/star.svg";
 import OffersCarousel from "./Components/OfferCarosel";
+import haversineDistance from "haversine-distance";
 
 const SalonPage = () => {
   const location = useLocation();
@@ -76,6 +77,8 @@ const SalonPage = () => {
     salon?.Reviews?.reduce((total, review) => total + review.Rating, 0) /
       salon?.Reviews?.length || 0;
 
+
+  const allPhotos = [salon?.CoverImage, ...salon?.StorePhotos];
   return (
     <div className={styles.main}>
       <div className={styles.carosel}>
@@ -101,7 +104,7 @@ const SalonPage = () => {
             <img src={SendArrow} alt="sendarrow" onClick={shareUrl} />
           </div>
         </div>
-        <ImageCarosel images={salon?.StorePhotos} />
+        <ImageCarosel images={allPhotos} />
       </div>
       <div className={styles.details}>
         <h1>{salon?.SalonName}</h1>
@@ -170,16 +173,19 @@ const SalonPage = () => {
       </div>
       <div className={styles.artists}>
         <h3>Team Members</h3>
-        <div>
+        <div style={{
+          alignItems:"flex-start"
+        }}>
           {salon?.Artists?.map((artist, index) => {
             const averageRating =
               artist.reviews.reduce(
                 (total, review) => total + review.Rating,
                 0
               ) / artist.reviews.length || 0;
+              const imageExist = artist?.ArtistPhoto === null || artist?.ArtistPhoto === 'undefined' || artist?.ArtistPhoto === undefined;
             return (
               <div key={index} className={styles.artist}>
-                {artist.ArtistPhoto === null ? (
+                {imageExist ? (
                   <div
                     style={{
                       backgroundColor: "black",

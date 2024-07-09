@@ -24,3 +24,22 @@ a{
     text-decoration: none;
     color: inherit;
 }
+
+.css-1hb7zxy-IndicatorsContainer{
+    display: none !important;
+}
+
+.css-13cymwt-control{
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 10px !important;
+    border: 1px solid #4a4a4a !important;
+}
+.css-t3ipsp-control{
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 10px !important;
+    border: 1px solid #4a4a4a !important;
+}
+
+.css-1fdsijx-ValueContainer{
+    padding: 2px 0 !important;
+}

@@ -7,39 +7,48 @@ import { clearArtist } from "../../Slices/artistSlice";
 import { clearServices } from "../../Slices/servicesSlice";
 import { clearAppointment } from "../../Slices/appointmentSlice";
 import Header from "../../Components/Header/Header";
+import GooglePlacesAutocomplete, {
+  geocodeByPlaceId,
+} from "react-google-places-autocomplete";
+
+const API_KEY = "AIzaSyAdINc7vU6-hFW61ZsERj0tSQIcqGYPb4Y";
+console.warn = () => {};
 const Home = () => {
   const [salons, setSalons] = useState([]);
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
-  const [Service, setService] = useState("");
-  const [address, setAddress] = useState("");
+  const [salon, setSalon] = useState("");
+  const [address, setAddress] = useState([]);
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+        sessionStorage.setItem(
+          "location",
+          JSON.stringify({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          })
+        );
+      });
+    }
+  };
 
   useEffect(() => {
     dispatch(clearArtist());
     dispatch(clearServices());
     dispatch(clearAppointment());
     if (!sessionStorage.getItem("location")) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
-          sessionStorage.setItem(
-            "location",
-            JSON.stringify({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-            })
-          );
-        });
-      }
+      getLocation();
     } else {
       setLocation(JSON.parse(sessionStorage.getItem("location")));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (location.latitude !== 0 && location.longitude !== 0) {
@@ -55,25 +64,41 @@ const Home = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if(data.success === true)
-          setSalons(data.data);
-          else
-          setSalons([]);
+          if(data.success == true) {
+          setSalons(data?.data);
+          } else {
+            setSalons([]);
+          }
         })
         .catch((error) => console.log(error));
     }
   }, [location]);
 
+  const handleSelect = async (value) => {
+    const results = await geocodeByPlaceId(value.value.place_id);
+    const lat = results[0].geometry.location.lat();
+    const lng = results[0].geometry.location.lng();
+    setAddress([lat, lng, value.label]);
+    console.log(value.label);
+    console.log(lat, lng);
+  };
+
   const SearchFunction = () => {
     const params = new URLSearchParams();
-    if (Service) {
-      params.append("service", Service);
+    if (salon) {
+      params.append("salon", salon);
     }
-    if (address) {
-      params.append("address", address);
+    if (address[0] && address[1]) {
+      params.append("long", address[1]);
+      params.append("lat", address[0]);
+      params.append("address", address[2]);
     }
 
-    navigate(`/search?${params.toString()}`);
+    if (salon || (address[0] && address[1]) || (location.latitude !== 0 && location.longitude !== 0)) {
+      navigate(`/search?${params.toString()}`);
+    } else {
+      getLocation();
+    }
   };
 
   return (
@@ -82,21 +107,32 @@ const Home = () => {
       <h1>Salon Dekho</h1>
       <div className={Styles.search}>
         <label>
-          Search Your Services
+          Search Your Salon
           <input
             type="text"
             placeholder="Search Anything"
-            name="Service"
-            onChange={(e) => setService(e.target.value)}
+            name="Salon"
+            onChange={(e) => setSalon(e.target.value)}
           />
         </label>
-        <label>
+        <label
+          style={{
+            gap: "10px",
+          }}
+        >
           Location
-          <input
-            type="text"
-            placeholder="Bandra"
-            name="address"
-            onChange={(e) => setAddress(e.target.value)}
+          <GooglePlacesAutocomplete
+            apiKey={API_KEY}
+            autocompletionRequest={{
+              componentRestrictions: {
+                country: ["in"],
+              },
+            }}
+            selectProps={{
+              address,
+              onChange: handleSelect,
+            }}
+            debounce={1000}
           />
         </label>
         <button onClick={SearchFunction}>Search</button>
@@ -113,6 +149,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Home;

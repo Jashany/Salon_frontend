@@ -70,10 +70,15 @@ const Reschedule = () => {
           const date = moment.utc(slot).format("YYYY-MM-DD");
 
           const time = moment.utc(slot).format("HH:mm");
-          if (!acc[date]) {
-            acc[date] = [];
+          if (
+            date > currentdate ||
+            (date === currentdate && time > currenttime)
+          ) {
+            if (!acc[date]) {
+              acc[date] = [];
+            }
+            acc[date].push(time);
           }
-          acc[date].push(time);
 
           return acc;
         }, {});

@@ -22,6 +22,12 @@ const Timeslot = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const services = service?.map((service) => service.id);
 
+  //get current date and time
+
+  const date = new Date();
+  const currentdate = moment(date).format("YYYY-MM-DD");
+  const currenttime = moment(date).format("HH:mm");
+
   useEffect(() => {
     setLoading(true);
     fetch("https://api.salondekho.in/api/appointment/getTimeSlots", {
@@ -41,11 +47,15 @@ const Timeslot = () => {
           const date = moment.utc(slot).format("YYYY-MM-DD");
 
           const time = moment.utc(slot).format("HH:mm");
-          if (!acc[date]) {
-            acc[date] = [];
+          if (
+            date > currentdate ||
+            (date === currentdate && time > currenttime)
+          ) {
+            if (!acc[date]) {
+              acc[date] = [];
+            }
+            acc[date].push(time);
           }
-          acc[date].push(time);
-
           return acc;
         }, {});
         setTimeSlots(formatted);
@@ -93,6 +103,8 @@ const Timeslot = () => {
       Navigate(`/bookAppointment/${salonid}`);
     }
   };
+
+
 
   return (
     <div className={styles.main}>

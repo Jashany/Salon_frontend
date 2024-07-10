@@ -18,8 +18,15 @@ const SearchPage = () => {
     return new URLSearchParams(useLocation().search);
   };
   const query = useQuery();
-  const service = query.get("service");
+  const service = query.get("salon");
+  const long = query.get("long");
+  const lat = query.get("lat");
   const address = query.get("address");
+
+  //const lat and long to type number
+  const lat1 = Number(lat);
+  const long1 = Number(long);
+
 
   const dispatch = useDispatch();
   dispatch(clearAppointment());
@@ -31,16 +38,14 @@ const SearchPage = () => {
 
     const requestdata = {};
     if (service) {
-      requestdata.service = service;
+      requestdata.salonName = service;
     }
-    if (address) {
-      requestdata.address = address;
-    }
-    if (!address) {
-      requestdata.location = JSON.parse(sessionStorage.getItem("location"));
+    if (lat && long) {
+      const location = { latitude: lat1, longitude: long1 };
+      requestdata.location = location;
     }
 
-    fetch("https://api.salondekho.in/api/salon/search-salons", {
+    fetch("http://localhost:5000/api/salon/searchSalons", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

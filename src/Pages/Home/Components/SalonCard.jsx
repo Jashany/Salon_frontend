@@ -9,11 +9,12 @@ const SalonCard = ({salon}) => {
     const startTime = salon?.startTime.split(':').map(Number)[0];
     const endTime = salon?.endTime.split(':').map(Number)[0];
     const isOpen = startTime <= currentTime && endTime >= currentTime
+
     const distance = salon?.distance / 1000;
     
     const MaxOffer = salon?.offers.reduce((max,offer) => offer.OfferDiscountinPercentage > max ? offer.OfferDiscountinPercentage : max, 0)
 
-    const averageRating = salon?.reviews.reduce((total, review) => total + review.Rating, 0) / salon?.reviews.length || 0
+    const averageRating = salon?.Reviews.reduce((total, review) => total + review.Rating, 0) / salon?.Reviews.length || 0
 
 
 
@@ -41,7 +42,14 @@ const SalonCard = ({salon}) => {
                     <img src={stargold} alt="rating" />
                     <p>{averageRating}</p>
                     </div>
-                    <p><FaLocationDot />{salon?.address?.City} {Math.ceil(distance)} kms</p> 
+                    <p><FaLocationDot />{salon?.address?.City} <p>
+                        {salon.distance && 
+                        <p>
+                            {Math.ceil(distance)} kms
+                        </p>
+                        } 
+                        </p> </p>
+                        
                 </div>
                 <div>
                     {isOpen ? <p className={styles.open}>Open</p> : <p className={styles.closed}>Closed</p>}

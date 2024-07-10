@@ -45,7 +45,7 @@ const SearchPage = () => {
       requestdata.location = location;
     }
 
-    fetch("http://localhost:5000/api/salon/searchSalons", {
+    fetch("https://api.salondekho.in/api/salon/searchSalons", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

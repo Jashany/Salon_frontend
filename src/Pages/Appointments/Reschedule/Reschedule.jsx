@@ -50,6 +50,10 @@ const Reschedule = () => {
   };
 
   const appointmentStart = `${selectedDate}T${selectedTime}:00.000`;
+  
+  const date = new Date();
+  const currentdate = moment(date).format("YYYY-MM-DD");
+  const currenttime = moment(date).format("HH:mm");
 
   useEffect(() => {
     setLoading(true);
@@ -62,6 +66,7 @@ const Reschedule = () => {
       body: JSON.stringify({
         timePeriod: state?.appointment?.Duration,
         artistId: state?.appointment?.artist,
+        appointmentId: appointmentId,
       }),
     })
       .then((response) => response.json())
@@ -79,9 +84,10 @@ const Reschedule = () => {
             }
             acc[date].push(time);
           }
-
           return acc;
         }, {});
+
+        
         setTimeSlots(formatted);
         setDuration(data?.duration);
         setSelectedDate(Object.keys(formatted)[0]);

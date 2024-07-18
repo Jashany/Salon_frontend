@@ -34,7 +34,7 @@ const ServiceCard = ({ service }) => {
             <div>
                 <h4>{service?.ServiceName}</h4>
                 <p>{convertTime(service?.ServiceTime)}</p>
-                <p>₹{service?.ServiceCost}</p>
+                <p style={{color:"black"}}>₹{service?.ServiceCost}</p>
             </div>
             <div>
                 <button  className={buttonText === "Added" ? styles.selected : ''}  onClick={toggleService}>

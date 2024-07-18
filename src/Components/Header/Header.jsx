@@ -17,6 +17,7 @@ const Header = ({ text }) => {
     if(location.pathname === "/"){
       return(
         <div className={styles.header2}>
+          <h2>SalonDekho</h2>
            <img src={menu} alt="" onClick={toggleMenu}  />
            <SlidingWindow isOpen={isMenuOpen} onClose={toggleMenu} />
         </div>

@@ -1,9 +1,9 @@
-import styles from './SalonCard.module.css'
+import Styles from './PastSalonCard.module.css'
 import { FaLocationDot } from "react-icons/fa6";
 import { Link,useNavigate } from 'react-router-dom';
-import stargold from '../../../assets/stargold.svg'
+import stargold from "../../assets/stargold.svg"
 
-const SalonCard = ({salon}) => {
+const PastSalonCard = ({salon}) => {
     const navigate = useNavigate();
     const currentTime = new Date().getHours()
     const startTime = salon?.startTime.split(':').map(Number)[0];
@@ -21,28 +21,30 @@ const SalonCard = ({salon}) => {
 
     return ( 
    
-        <div className={styles.salon} onClick={()=>{
+        <div className={Styles.salon} onClick={()=>{
             navigate(`/salon/${salon?._id}`, {state: {distance : distance} })
         }
         }>  
             <div style={{
                 width: '100%',
-                height:'200px',
+                height:'130px',
                 overflow: 'hidden',
                 borderRadius: '10px',
                 position: 'relative',
             }}>
             <img src={salon?.CoverImage} alt={salon?.SalonName} />
-            {MaxOffer > 0 && <p className={styles.offer}>{MaxOffer}% OFF</p>}
+            {MaxOffer > 0 && <p className={Styles.offer}>{MaxOffer}% OFF</p>}
             </div>
-            <div className={styles.lowerContent}>
+            <div className={Styles.lowerContent}>
                 <div>
                     <h2>{salon?.SalonName}</h2>
-                    <div className={styles.rating}>
+                    <div className={Styles.rating}>
                     <img src={stargold} alt="rating" />
                     <p>{averageRating}</p>
                     </div>
-                    <p><FaLocationDot />{salon?.address?.City} <p>
+                    <p style={{
+                        fontSize: '14px'
+                    }}><FaLocationDot />{salon?.address?.City} <p>
                         {salon.distance && 
                         <p>
                             {Math.ceil(distance)} kms
@@ -52,7 +54,7 @@ const SalonCard = ({salon}) => {
                         
                 </div>
                 <div>
-                    {isOpen ? <p className={styles.open}>Open</p> : <p className={styles.closed}>Closed</p>}
+                    {isOpen ? <p className={Styles.open}>Open</p> : <p className={Styles.closed}>Closed</p>}
                     <h6>{salon?.Gender}</h6>
                 </div>
             </div>
@@ -60,4 +62,4 @@ const SalonCard = ({salon}) => {
     );
 }
  
-export default SalonCard;
+export default PastSalonCard;

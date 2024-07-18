@@ -10,6 +10,15 @@
   background-size: cover;
   background-position: center;
 }
+
+.main h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  color: #000;
+}
+
+
 .main label {
   display: flex;
   flex-direction: column;
@@ -65,4 +74,22 @@
   margin-top: 20px;
   width: 100%;
   max-width: 90%;
+}
+
+.past{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  width: 90%;
+  max-width: 90%;
+}
+
+.flow{
+  display: flex;
+  overflow: scroll;
+  gap: 2rem;
+  height: 250px;
+  scrollbar-width: none;
 }

@@ -70,6 +70,11 @@
   padding: 0.5rem 1rem;
 }
 
+.services h3{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .servicelist {
   display: flex;
   margin-top: 1rem;

@@ -2,7 +2,7 @@ import SalonCard from "./Components/SalonCard";
 import Styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearArtist } from "../../Slices/artistSlice";
 import { clearServices } from "../../Slices/servicesSlice";
 import { clearAppointment } from "../../Slices/appointmentSlice";
@@ -10,6 +10,7 @@ import Header from "../../Components/Header/Header";
 import GooglePlacesAutocomplete, {
   geocodeByPlaceId,
 } from "react-google-places-autocomplete";
+import PastSalonCard from "../../Components/PastCards/PastSalonCard";
 
 const API_KEY = "AIzaSyAdINc7vU6-hFW61ZsERj0tSQIcqGYPb4Y";
 console.warn = () => {};
@@ -17,9 +18,13 @@ const Home = () => {
   const [salons, setSalons] = useState([]);
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const [salon, setSalon] = useState("");
+  const [pastSalon, setPastSalon] = useState([]);
   const [address, setAddress] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.auth.auth);
+  console.log(user);
 
   const getLocation = () => {
     if (navigator.geolocation) {
@@ -64,8 +69,8 @@ const Home = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          if(data.success == true) {
-          setSalons(data?.data);
+          if (data.success == true) {
+            setSalons(data?.data);
           } else {
             setSalons([]);
           }
@@ -74,6 +79,26 @@ const Home = () => {
     }
   }, [location]);
 
+  useEffect(() => {
+    if (user) {
+      fetch("https://api.salondekho.in/api/appointment/getPastSalons", {
+        credentials: "include",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success == true) {
+            setPastSalon(data?.data);
+          } else {
+            setPastSalon([]);
+          }
+        })
+        .catch((error) => console.log(error));
+    }
+  }, []);
   const handleSelect = async (value) => {
     const results = await geocodeByPlaceId(value.value.place_id);
     const lat = results[0].geometry.location.lat();
@@ -94,7 +119,11 @@ const Home = () => {
       params.append("address", address[2]);
     }
 
-    if (salon || (address[0] && address[1]) || (location.latitude !== 0 && location.longitude !== 0)) {
+    if (
+      salon ||
+      (address[0] && address[1]) ||
+      (location.latitude !== 0 && location.longitude !== 0)
+    ) {
       navigate(`/search?${params.toString()}`);
     } else {
       getLocation();
@@ -104,13 +133,13 @@ const Home = () => {
   return (
     <div className={Styles.main}>
       <Header text="Home" />
-      <h1>Salon Dekho</h1>
+      <h1>Book appointments online</h1>
       <div className={Styles.search}>
         <label>
           Search Your Salon
           <input
             type="text"
-            placeholder="Search Anything"
+            placeholder="Enter Salon Name"
             name="Salon"
             onChange={(e) => setSalon(e.target.value)}
           />
@@ -132,23 +161,36 @@ const Home = () => {
               address,
               onChange: handleSelect,
             }}
-            debounce={1000}
+            debounce={200}
           />
         </label>
         <button onClick={SearchFunction}>Search</button>
       </div>
-      <div className={Styles.salons}>
-        {salons.length === 0 ? null : <h2>Nearby Salons</h2>}
-        {salons.length === 0
+      <div className={Styles.past}>
+        {pastSalon.length === 0 ? null : <h2>Past Bookings</h2>}
+        <div className={Styles.flow}>
+        {pastSalon.length === 0
           ? null
-          : salons?.map((salon, index) => (
+          : pastSalon?.map((salon, index) => (
               <div className={Styles.salon} key={index}>
-                <SalonCard salon={salon} />
+                <PastSalonCard salon={salon} />
               </div>
             ))}
+          </div>
+      </div>
+      <div className={Styles.salons}>
+        {salons.length === 0 ? null : <h2>Nearby Salons</h2>}
+        
+          {salons.length === 0
+            ? null
+            : salons?.map((salon, index) => (
+                <div className={Styles.salon} key={index}>
+                  <SalonCard salon={salon} />
+                </div>
+              ))}
       </div>
     </div>
   );
-}
+};
 
 export default Home;

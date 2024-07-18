@@ -24,6 +24,7 @@ const History = () => {
       .then((res) => res.json())
       .then((data) => {
         setAppointments(data?.data);
+        console.log(data)
         setTimeout(() => {
           setLoading(false);
         }, 500);
@@ -34,7 +35,7 @@ const History = () => {
   if (loading) {
     return <Loader />;
   }
-  
+  console.log(appointments);
   const currentBookings = appointments?.filter(
     (appointment) => appointment.Status === "Booked"
   );
@@ -47,7 +48,6 @@ const History = () => {
     (appointment) => appointment.Status === "Cancelled"
   );
 
-  console.log(pastBookings);  
   return (
     <div className={styles.main}>
       <div className={styles.header}>
@@ -85,7 +85,7 @@ const History = () => {
       <div className={styles.pastBooking}>
         <h3>Past Bookings</h3>
 
-        {pastBookings?.length < 0 && cancelledBookings?.length < 0 ? (
+        {pastBookings?.length == 0 && cancelledBookings?.length == 0 ? (
          <div className={styles.noAppointments}>
          <img src={noAppointments} alt="" />
          <h3>No past bookings</h3>

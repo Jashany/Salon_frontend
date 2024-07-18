@@ -85,13 +85,13 @@ const SearchPage = () => {
             <input type="text" id="address" value={address} readOnly disabled />
           )}
         </div>
-        <div className={styles.buttons}>
+        {/* <div className={styles.buttons}>
           <button>
             <VscSettings />
           </button>
           <button>Nearest</button>
           <button>Top Rated</button>
-        </div>
+        </div> */}
       </div>
       <div className={styles.salons}>
         {salons.length > 0 ? (

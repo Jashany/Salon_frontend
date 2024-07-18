@@ -19,7 +19,7 @@ const SalonPage = () => {
  
   const [loading, setLoading] = useState(true);
   const service = useSelector((state) => state.services.Services);
-  const [serviceType, setServiceType] = useState("All");
+  const [serviceType, setServiceType] = useState("");
  
   const distance = location.state?.distance;
   const [salon, setSalon] = useState({});
@@ -35,6 +35,7 @@ const SalonPage = () => {
         setTimeout(() => {
           setLoading(false);
         }, 500);
+        setServiceType(salon?.Services[0]?.ServiceType);
       })
       .catch((error) => {
         console.log(error);
@@ -44,6 +45,7 @@ const SalonPage = () => {
       });
   }, [id]);
 
+ 
 
   if (loading) {
     return <Loader />;
@@ -126,14 +128,6 @@ const SalonPage = () => {
       <div className={styles.services}>
         <h3>Services</h3>
         <div className={styles.sort}>
-          <button
-            className={serviceType === "All" ? styles.selected : ""}
-            onClick={() => {
-              setServiceType("All");
-            }}
-          >
-            All
-          </button>
           {uniqueServices.map((service, index) => (
             <button
               key={index}

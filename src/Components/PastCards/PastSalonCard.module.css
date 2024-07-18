@@ -1,0 +1,106 @@
+.salon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 90%;
+    border-radius: 1rem;
+    background-color: #fff;
+    border : 1px solid #f1f1f1;
+    box-shadow: 1px 4px 8px 0px #00000026;
+  
+  }
+  
+  .salon img {
+    width: 100%;
+    margin-bottom: 0.5rem;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+  
+  .salon h2 {
+    font-size: 1rem;
+  }
+  
+  .lowerContent {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px 10px 10px 10px;
+    margin-top: 2px;
+  }
+  
+  .rating {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      font-size: 0.8rem !important;
+      gap: 4px;
+  }
+    
+  
+  .lowerContent>div:nth-child(1) {
+    display: flex;
+    flex-direction: column;
+      
+  }
+  
+  .lowerContent>div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .lowerContent img{
+      width: 15px;
+      height: 15px;
+      margin-top: 6px;
+  }
+  
+  .salon p {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .salon h6 {
+    font-size: 0.85rem;
+    color: #2f3131;
+  }
+  
+  .open {
+    color: white;
+    background-color: #047a04;
+    font-size: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+  }
+  
+  .closed {
+    color: white;
+    background-color: #ff0000;
+    font-size: 0.65rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+  }
+  
+  .offer {
+    color: black;
+    background: linear-gradient(90deg, #C3DBFF 0%, #FBDFFF 100%);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding-block: 0.1rem;
+    padding-inline:40%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  
+  

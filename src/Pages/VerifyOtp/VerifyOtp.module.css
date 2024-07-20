@@ -34,7 +34,6 @@
 .main div {
   display: flex;
   flex-direction: column;
-  width: 100%;
   gap: 20px;
   max-width: 300px;
   text-align: center;

@@ -78,6 +78,10 @@ const SalonPage = () => {
   const allPhotos = [salon?.CoverImage, ...salon?.StorePhotos];
 
   
+  const rating = averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1)
+
+
+  
   return (
     <div className={styles.main}>
       <div className={styles.carosel}>
@@ -110,7 +114,7 @@ const SalonPage = () => {
         {averageRating > 0 && (
           <div className={styles.rating}>
             <img src={stargold} alt="rating" />
-            <p>{averageRating}</p>
+            <p>{rating}</p>
           </div>
         )}
         <p>

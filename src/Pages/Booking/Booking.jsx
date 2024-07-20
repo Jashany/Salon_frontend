@@ -16,6 +16,7 @@ import moment from "moment";
 const Booking = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.auth);
+  
 
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +36,7 @@ const Booking = () => {
     if (!user) {
       window.location.href = "/";
     }
-
+    
     setLoading(true);
 
     fetch("https://api.salondekho.in/api/appointment/getCost", {
@@ -150,6 +151,7 @@ const Booking = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name: user?.name,
         services: appointment.services,
         artistId: appointment.artistId,
         appointmentDate: appointment.appointmentDate,
@@ -194,7 +196,7 @@ const Booking = () => {
   return (
     <div className={styles.main}>
       <div>
-        <Header text={"Review and Confirm"} />
+        <Header text={"Review and Confirm"} redirect={`/salon/${salonid}/${appointment.artistId}`} />
 
         <div className={styles.salon}>
           <div>

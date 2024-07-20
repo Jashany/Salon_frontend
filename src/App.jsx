@@ -21,6 +21,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Success from "./Components/SuccessPage/Success"
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute"
 import AccountDelete from "./Pages/AccountDelete/AccountDelete"
+import Details from "./Pages/VerifyOtp/Details"
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
         <Route path="/review/:appointmentId" element={<Review />} />
         <Route path="/reschedule/:appointmentId" element={<Reschedule />} />
         <Route path="/success/:appointmentId" element={<Success />} />
+        <Route path="/details" element={<Details />} />
 
         </Route>
       </Routes>

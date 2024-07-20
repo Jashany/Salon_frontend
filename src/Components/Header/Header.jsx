@@ -5,7 +5,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { clearUser } from "../../Slices/authSlice";
-const Header = ({ text }) => {
+const Header = ({ text,redirect }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
     const toggleMenu = () => {
@@ -29,7 +29,11 @@ const Header = ({ text }) => {
         src={BackArrow}
         alt=""
         onClick={() => {
-          navigate(-1);
+          if(redirect){
+            navigate(redirect, { replace: true });
+          }else{
+            navigate(-1);
+          }
         }}
       />
       <h2>{text}</h2>
@@ -87,7 +91,7 @@ const SlidingWindow = ({isOpen,onClose}) => {
       </ul> ) : (
         <ul>
           <li onClick={()=>{
-            navigate("/login");
+            navigate("/login-otp");
           }}>
             <p>
             Login

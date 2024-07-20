@@ -3,12 +3,13 @@ import Header from "../../Components/Header/Header";
 import styles from "./Timeslot.module.css";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useLocation, useParams, json } from "react-router-dom";
 import { setAppointment } from "../../Slices/appointmentSlice";
 import Loader from "../../Components/Loader/Loader";
 
 const Timeslot = () => {
-  const { state } = useLocation();
+  const Artist = sessionStorage.getItem("artist");
+  const jsonArtist = JSON.parse(Artist);
   const { salonid } = useParams();
   const service = useSelector((state) => state.services.Services);
   const artist = useSelector((state) => state.artist.artist);
@@ -98,8 +99,11 @@ const Timeslot = () => {
     );
 
     if (!user) {
-      Navigate("/login");
+      Navigate(`/login-otp?redirect=/bookAppointment/${salonid}`);
     } else {
+      if(!user.name || !user.gender){
+        Navigate(`/details?redirect=/bookAppointment/${salonid}`);
+      }
       Navigate(`/bookAppointment/${salonid}`);
     }
   };
@@ -107,10 +111,10 @@ const Timeslot = () => {
 
 
   return (
-    <div className={styles.main}>
+    <div className={styles.main}> 
       <div>
-        <Header text={"Choose your time"} />
-        <h2 className={styles.artistName}>{state?.artist?.ArtistName}</h2>
+        <Header text={"Choose your time"} redirect={`/salon/${salonid}/artists`} />
+        <h2 className={styles.artistName}>{jsonArtist}</h2>
         <div className={styles.dateslots}>
           {Object?.keys(timeSlots)?.map((date) => (
             <div

@@ -11,13 +11,13 @@ const initialState = {
 //     isSalon: user.isSalon,
 //   });
 
-const artistSlice = createSlice({
+const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
         user: (state, action) => {
-            const { _id, phoneNumber,name, role, isSalon } = action.payload;
-            state.auth = { _id, phoneNumber,name ,role, isSalon };
+            const { _id, phoneNumber,name, role,gender ,isSalon } = action.payload;
+            state.auth = { _id, phoneNumber,name ,role,gender ,isSalon };
             localStorage.setItem("auth", JSON.stringify(state.auth));
         },
         clearUser: (state) => {
@@ -27,6 +27,6 @@ const artistSlice = createSlice({
     },
 });
 
-export const { user, clearUser } = artistSlice.actions;
+export const { user, clearUser } = authSlice.actions;
 
-export default artistSlice.reducer;
+export default authSlice.reducer;

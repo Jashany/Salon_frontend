@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Login.module.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import backArrow from "../../assets/backArrow@.png";
+import { useSelector } from "react-redux";
 const Login = () => {
+
+  const query = new URLSearchParams(useLocation().search);
+  const redirect = query.get("redirect");
   const navigate = useNavigate();
   const [phoneNumber, setPhone] = useState("");
+  const user = useSelector((state) => state.auth.auth);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
+
   const handlesubmit = () => {
-    fetch("http://localhost:5000/api/auth/send-otp", {
+    fetch("https://api.salondekho.in/api/auth/send-otp", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -22,13 +34,23 @@ const Login = () => {
       .then((data) => {
         console.log(data);
         if (data.success) {
-          navigate("/verify-otp", { state: { phoneNumber } });
+          if(redirect){
+            navigate(`/verify-otp?phoneNumber=${phoneNumber}&redirect=${redirect}`);
+          }else{
+            navigate(`/verify-otp?phoneNumber=${phoneNumber}`);
+          }
         }
       })
       .catch((err) => console.log(err));
   };
+
+
+
   return (
     <div className={styles.main}>
+      <div className={styles.back} onClick={() => navigate(-1)}>
+        <img src={backArrow} alt="back" />
+      </div>
       <div>
         <h1>Log-in/Sign-up</h1>
         <label>

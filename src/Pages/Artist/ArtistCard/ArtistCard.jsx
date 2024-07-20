@@ -10,7 +10,8 @@ const ArtistCard = ({artist}) => {
     const { salonid } = useParams();
     const onSubmit = () =>{
         dispatch(setArtist({id: artist._id}));
-        navigate(`/salon/${salonid}/${artist._id}`, { state: { artist } });
+        sessionStorage.setItem('artist', JSON.stringify(artist.ArtistName));
+        navigate(`/salon/${salonid}/${artist._id}`);
     }
     const averageRating = artist.reviews.reduce((total, review) => total + review.Rating, 0) / artist.reviews.length || 0 
 

@@ -24,7 +24,6 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.auth);
-  console.log(user);
 
   const getLocation = () => {
     if (navigator.geolocation) {

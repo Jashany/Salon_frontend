@@ -8,7 +8,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [phoneNumber, setPhone] = useState("");
   const handlesubmit = () => {
-    fetch("https://api.salondekho.in/api/auth/verifyUser", {
+    fetch("http://localhost:5000/api/auth/send-otp", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -16,16 +16,16 @@ const Login = () => {
       },
       body: JSON.stringify({
         phoneNumber,
-        verified: true,
         role: "Customer",
-      }),
-    }).then((res) => {
-      const jwtToken = Cookies.get("jwt");
-      console.log(jwtToken);
-      for (let entry of res.headers.entries()) {
-        console.log("header", entry);
-      }
-    });
+      })
+    }).then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          navigate("/verify-otp", { state: { phoneNumber } });
+        }
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div className={styles.main}>

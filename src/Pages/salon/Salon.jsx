@@ -32,19 +32,14 @@ const SalonPage = () => {
       .then((data) => {
         console.log(data);
         setSalon(data);
-        setTimeout(() => {
-          setLoading(false);
-        }, 500);
-        setServiceType(salon?.Services[0]?.ServiceType);
+        setLoading(false)
+        setServiceType(data?.Services[0]?.ServiceType);
       })
       .catch((error) => {
         console.log(error);
-        setTimeout(() => {
           setLoading(false);
-        }, 500);
       });
   }, [id]);
-
  
 
   if (loading) {
@@ -78,7 +73,6 @@ const SalonPage = () => {
   const averageRating =
     salon?.Reviews?.reduce((total, review) => total + review.Rating, 0) /
       salon?.Reviews?.length || 0;
-
 
   const allPhotos = [salon?.CoverImage, ...salon?.StorePhotos];
   return (

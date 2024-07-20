@@ -30,7 +30,7 @@ function App() {
       <Provider store={store}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/loginn" element={<Login />} />
+        <Route path="/login-otp" element={<Login />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/login" element={<OTP />} />

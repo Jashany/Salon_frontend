@@ -16,7 +16,7 @@ const SalonCard = ({salon}) => {
 
     const averageRating = salon?.Reviews.reduce((total, review) => total + review.Rating, 0) / salon?.Reviews.length || 0
 
-
+    const rating = averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1)
 
 
     return ( 
@@ -38,10 +38,12 @@ const SalonCard = ({salon}) => {
             <div className={styles.lowerContent}>
                 <div>
                     <h2>{salon?.SalonName}</h2>
+                    {rating==0 ? null :
                     <div className={styles.rating}>
                     <img src={stargold} alt="rating" />
-                    <p>{averageRating}</p>
+                    <p>{rating}</p>
                     </div>
+                    }
                     <p><FaLocationDot />{salon?.address?.City} <p>
                         {salon.distance && 
                         <p>

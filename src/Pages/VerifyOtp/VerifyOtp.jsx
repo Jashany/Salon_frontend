@@ -8,13 +8,17 @@ const VerifyOtp = () => {
   const navigate = useNavigate();
   const [enteredOTP, setOtp] = useState("");
   const handleSubmit = () => {
-    fetch("https://api.salondekho.in/api/offer/test", {
-      method: "GET",
+    fetch("http://localhost:5000/api/auth/verify-otp", {
+      method: "POST",
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-        
       },
+      body: JSON.stringify({
+        phoneNumber: state.phoneNumber,
+        enteredOTP: enteredOTP,
+        role: "Customer",
+      }),
     })
       .then((res) => res.json())
       .then((data) => {

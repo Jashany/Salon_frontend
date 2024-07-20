@@ -16,7 +16,9 @@ const PastSalonCard = ({salon}) => {
 
     const averageRating = salon?.Reviews.reduce((total, review) => total + review.Rating, 0) / salon?.Reviews.length || 0
 
+    //give the rating as single digit if it whole number else to fixed 1 decimal
 
+    const rating = averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1)
 
 
     return ( 
@@ -38,10 +40,12 @@ const PastSalonCard = ({salon}) => {
             <div className={Styles.lowerContent}>
                 <div>
                     <h2>{salon?.SalonName}</h2>
+                    {rating == 0 ? null :
                     <div className={Styles.rating}>
                     <img src={stargold} alt="rating" />
-                    <p>{averageRating}</p>
+                    <p>{rating}</p>
                     </div>
+                    }
                     <p style={{
                         fontSize: '14px'
                     }}><FaLocationDot />{salon?.address?.City} <p>

@@ -58,12 +58,12 @@ const SearchPage = () => {
           setSalons(data?.data);
           setTimeout(() => {
             setLoading(false);
-          }, 500);
+          }, 100);
         } else {
           setSalons([]);
           setTimeout(() => {
             setLoading(false);
-          }, 500);
+          }, 100);
         }
       })
       .catch((error) => console.log(error));

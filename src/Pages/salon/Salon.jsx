@@ -20,6 +20,7 @@ const SalonPage = () => {
   const [loading, setLoading] = useState(true);
   const service = useSelector((state) => state.services.Services);
   const [serviceType, setServiceType] = useState("");
+  const [NoOfServices, setNoOfServices] = useState(service.length);
  
   const distance = location.state?.distance;
   const [salon, setSalon] = useState({});
@@ -75,6 +76,8 @@ const SalonPage = () => {
       salon?.Reviews?.length || 0;
 
   const allPhotos = [salon?.CoverImage, ...salon?.StorePhotos];
+
+  
   return (
     <div className={styles.main}>
       <div className={styles.carosel}>
@@ -157,6 +160,7 @@ const SalonPage = () => {
           >
             See All
           </button>
+          
         </div>
       </div>
       <div className={styles.artists}>
@@ -246,6 +250,19 @@ const SalonPage = () => {
               );
             })}
           </div>
+        </div>
+      )}
+      {NoOfServices > 0 && (
+        <div className={styles.book}>
+          <h4>{NoOfServices} Services added</h4>
+          <button
+            className={styles.button}
+            onClick={() => {
+              if (NoOfServices > 0) navigate(`/salon/${id}/artists`);
+            }}
+          >
+            Book
+          </button>
         </div>
       )}
     </div>

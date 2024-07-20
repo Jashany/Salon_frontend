@@ -13,8 +13,12 @@ const ArtistCard = ({artist}) => {
         navigate(`/salon/${salonid}/${artist._id}`, { state: { artist } });
     }
     const averageRating = artist.reviews.reduce((total, review) => total + review.Rating, 0) / artist.reviews.length || 0 
+
+    const imageExist = artist?.ArtistPhoto === null || artist?.ArtistPhoto === 'undefined' || artist?.ArtistPhoto === undefined;
     return ( 
         <div className={styles.card} onClick={onSubmit}>
+
+            {!imageExist ? (
             <div className={styles.image} style={{
                 backgroundImage: `url(${artist.ArtistPhoto})`,
                 position: 'relative'
@@ -24,6 +28,26 @@ const ArtistCard = ({artist}) => {
                     <p>{averageRating}</p>
                 </div>
             </div>
+            ) : (
+            <div className={styles.image} style={{
+                backgroundColor: 'black',
+                borderRadius: '50%',
+                width: '90px',
+                height: '90px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                position: 'relative'
+            }}>
+                <p style={{ color: 'white', fontSize: '20px' }}>{artist.ArtistName[0]}</p>
+                {averageRating > 0 && (
+                <div className={styles.artistRating}>
+                    <img src={stargold} alt="rating" />
+                    <p>{averageRating}</p>
+                </div>
+                )}
+            </div>
+            )}
             <h4>{artist.ArtistName}</h4>
             <h5>{artist.ArtistType}</h5>
         </div>

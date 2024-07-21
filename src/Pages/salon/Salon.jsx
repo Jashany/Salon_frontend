@@ -15,6 +15,7 @@ import OffersCarousel from "./Components/OfferCarosel";
 import clock from "../../assets/clock.png";
 import phone from "../../assets/call-calling.png"
 import { ConvertTime } from "../../Functions/ConvertTime";
+import insta from "../../assets/insta.png";
 
 const SalonPage = () => {
   const location = useLocation();
@@ -131,6 +132,13 @@ const SalonPage = () => {
               <img src={phone} alt="phone"  />
                 </a>
               </div>
+              {salon?.Instagram && 
+              <div>
+              <a href={salon?.Instagram} target="_blank" rel="noopener noreferrer">
+                <img className={styles.insta} src={insta} alt="instagram" />
+              </a>
+              </div>
+              }
             </div>
             <div style={{display:"flex",gap:"5px",alignItems:"center"}}>
             <p>

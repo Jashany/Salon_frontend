@@ -232,6 +232,7 @@
 
 .logoIcon{
   display: flex;
+  gap:10px;
   justify-content: flex-end;
 }
 
@@ -256,4 +257,9 @@
   align-items: center;
   height: 100%;
   width: 100%;
+}
+
+.insta{
+  height: 25px;
+  width: 25px;
 }

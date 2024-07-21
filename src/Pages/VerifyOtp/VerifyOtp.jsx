@@ -66,7 +66,9 @@ const VerifyOtp = () => {
             value={enteredOTP}
             containerStyle={styles.otpContainer}
             onChange={setOtp}
+            inputType="number"
             numInputs={4}
+            isInputNum={true}
             renderInput={(props) => <input {...props} />}
           />
         </label>

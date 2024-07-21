@@ -37,7 +37,9 @@ const SalonPage = () => {
       .then((data) => {
         console.log(data);
         setSalon(data);
+        setTimeout(() => {
         setLoading(false)
+        }, 300);
         setServiceType(data?.Services[0]?.ServiceType);
       })
       .catch((error) => {
@@ -144,7 +146,6 @@ const SalonPage = () => {
             <p>
               {ConvertTime(salon?.startTime)} - {ConvertTime(salon?.endTime)} 
             </p>
-            <img src={clock} alt="clock" />
             </div>
             
          </div>

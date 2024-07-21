@@ -41,15 +41,17 @@ const OffersCarousel = ({ salon }) => {
         {showCancelModal && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
+            {salon?.offers.map((offer, index) => (
+              <>
             <div>
-              <Ticket text={salon.offers[currentOfferIndex].OfferName} />
-              
+              <Ticket text={offer.OfferName} />
             </div>
-            <h3> Get {salon.offers[currentOfferIndex].OfferDiscountinPercentage}% off via SalonDekho </h3>
+            <h3> Get {offer.OfferDiscountinPercentage}% off via SalonDekho </h3>
             <p>
-              {salon.offers[currentOfferIndex].OfferDescription}
+              {offer.OfferDescription}
             </p>
-            
+              </>
+            ))}
             <button
               onClick={() => setShowCancelModal(false)}
               className={styles.closeButton}

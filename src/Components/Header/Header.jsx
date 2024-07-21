@@ -76,6 +76,7 @@ const SlidingWindow = ({isOpen,onClose}) => {
           <img src={BackArrow} alt="" />
           </li>
         </div>
+        <div>
         <li onClick={()=>{
           dispatch(clearUser());
         }}>
@@ -84,8 +85,18 @@ const SlidingWindow = ({isOpen,onClose}) => {
           </p>
           <img src={BackArrow} alt="" />
           </li>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.salondekho.salon" target="_blank">
+          <li>
+            <p>
+            For Business
+            </p>
+            <img src={BackArrow} alt="" />
+          </li>
+          </a>
       </ul> ) : (
         <ul>
+          <div>
           <li onClick={()=>{
             navigate("/login-otp");
           }}>
@@ -94,6 +105,15 @@ const SlidingWindow = ({isOpen,onClose}) => {
             </p>
             <img src={BackArrow} alt="" />
           </li>
+            </div>
+          <a href="https://play.google.com/store/apps/details?id=com.salondekho.salon" target="_blank">
+          <li>
+            <p>
+            For Business
+            </p>
+            <img src={BackArrow} alt="" />
+          </li>
+          </a>
         </ul>
       )}
     </div>

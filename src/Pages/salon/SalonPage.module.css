@@ -248,6 +248,8 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  border : 1px solid #5c555571;
+  
   box-shadow: 0px 0px 5px 0px #5c555571;
 }
 
@@ -260,6 +262,6 @@
 }
 
 .insta{
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
 }

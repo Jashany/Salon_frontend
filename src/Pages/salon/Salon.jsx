@@ -12,7 +12,9 @@ import Loader from "../../Components/Loader/Loader";
 import stargold from "../../assets/stargold.svg";
 import star from "../../assets/star.svg";
 import OffersCarousel from "./Components/OfferCarosel";
-import haversineDistance from "haversine-distance";
+import clock from "../../assets/clock.png";
+import phone from "../../assets/call-calling.png"
+import { ConvertTime } from "../../Functions/ConvertTime";
 
 const SalonPage = () => {
   const location = useLocation();
@@ -81,7 +83,6 @@ const SalonPage = () => {
   
   const rating = averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1)
 
-
   
   return (
     <div className={styles.main}>
@@ -110,17 +111,35 @@ const SalonPage = () => {
         </div>
         <ImageCarosel images={allPhotos} />
       </div>
+      <div className={styles.upperPart}>
       <div className={styles.details}>
         <h1>{salon?.SalonName}</h1>
         {averageRating > 0 && (
           <div className={styles.rating}>
-            <img src={stargold} alt="rating" />
             <p>{rating}</p>
+            <img src={stargold} alt="rating" />
           </div>
         )}
         <p>
-          {salon?.address?.City} | {Math.ceil(distance)} kms
+          {salon?.address?.City} 
         </p>
+      </div>
+         <div className={styles.details}>
+            <div className={styles.logoIcon}>
+              <div>
+                <a href={`tel:${salon?.salonPhoneNumber}`} >
+              <img src={phone} alt="phone"  />
+                </a>
+              </div>
+            </div>
+            <div style={{display:"flex",gap:"5px",alignItems:"center"}}>
+            <p>
+              {ConvertTime(salon?.startTime)} - {ConvertTime(salon?.endTime)} 
+            </p>
+            <img src={clock} alt="clock" />
+            </div>
+            
+         </div>
       </div>
       {salon?.offers.length > 0 && (
         <div className="offers">
@@ -185,7 +204,7 @@ const SalonPage = () => {
                 {imageExist ? (
                   <div
                     style={{
-                      backgroundColor: "black",
+                      background: 'radial-gradient(circle, #e0ebdf, #d0e8be)',
                       borderRadius: "50%",
                       width: "90px",
                       height: "90px",
@@ -195,7 +214,7 @@ const SalonPage = () => {
                       position: "relative",
                     }}
                   >
-                    <p style={{ color: "white", fontSize: "40px" }}>
+                    <p style={{ color: "black", fontSize: "40px" }}>
                       {artist.ArtistName[0]}
                     </p>
                     {averageRating > 0 && (

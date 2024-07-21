@@ -6,6 +6,7 @@ import { ScrollTrigger, ScrollToPlugin } from "gsap/all";
 import Header from "../../Components/Header/Header";
 import ServiceCard from "../salon/Components/ServiceCard";
 import styles from "./ServicePage.module.css";
+import { MinuteToHours } from "../../Functions/ConvertTime";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -39,13 +40,34 @@ const ServicePage = () => {
 
   const [serviceType, setServiceType] = useState(sortedCategories[0] || "");
   const [NoOfServices, setNoOfServices] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalDuration, setTotalDuration] = useState(0);
   const servicelistRef = useRef(null);
   const sortRef = useRef(null);
   const buttonRefs = useRef([]);
 
   useEffect(() => {
+    console.log(service)
+    console.log(services)
     setNoOfServices(service.length);
+    let totalCost = 0;
+  let totalDuration = 0;
+
+  // Assuming `service` is an array of selected service IDs
+  service.forEach((service) => {
+    const foundService = services.find(s => s._id === service.id);
+    if (foundService) {
+      // Assuming each service object has `cost` and `duration` properties
+      totalCost += foundService.ServiceCost;
+      totalDuration += foundService.ServiceTime;
+    }
+  });
+
+  setTotalPrice(totalCost);
+  setTotalDuration(totalDuration);
   }, [service]);
+
+  
 
   useEffect(() => {
     sortedCategories.forEach((category) => {
@@ -122,7 +144,21 @@ const ServicePage = () => {
       </div>
       {NoOfServices > 0 && (
         <div className={styles.book}>
-          <h4>{NoOfServices} Services added</h4>
+          <div >
+          <h4>₹{totalPrice}</h4>
+          <div style={{
+            marginTop:"5px",
+            display:"flex",
+            gap:"5px"
+          }}>
+            <p>
+              {NoOfServices} Service{NoOfServices > 1 ? "s" : ""} • 
+            </p>
+            <p>
+            {MinuteToHours(totalDuration)}
+            </p>
+          </div>
+          </div>
           <button
             className={styles.button}
             onClick={() => {

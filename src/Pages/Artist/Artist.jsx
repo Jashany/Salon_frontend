@@ -62,21 +62,10 @@ const ArtistPage = () => {
     );
   }
 
-  const SetAutomatic = () => {
-    //chose any artist at random
-    const artist = artists[Math.floor(Math.random() * artists.length)];
-    dispatch(setArtist({ id: artist._id }));
-    sessionStorage.setItem("artist", JSON.stringify(artist.ArtistName));
-    navigate(`/salon/${salonid}/${artist._id}`);
-  };
-
   return (
     <div className={styles.main}>
       <Header text={"Artists"} redirect={`/salon/${salonid}`}/>
       <div className={styles.artistsList}>
-        <div className={styles.automatic} onClick={SetAutomatic}>
-          <p>Set Artist Automatically</p>
-        </div>
         {artists.map((artist) => (
           <ArtistCard key={artist._id} artist={artist} />
         ))}

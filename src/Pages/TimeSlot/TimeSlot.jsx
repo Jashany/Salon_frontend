@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { setAppointment } from "../../Slices/appointmentSlice";
 import Loader from "../../Components/Loader/Loader";
+import { ConvertTime } from "../../Functions/ConvertTime";
 
 const Timeslot = () => {
   const Artist = sessionStorage.getItem("artist");
@@ -151,7 +152,7 @@ const Timeslot = () => {
                   checked={selectedTime === time}
                   readOnly
                 />
-                <p>{time}</p>
+                <p>{ConvertTime(time)}</p>
               </div>
             ))}
         </div>

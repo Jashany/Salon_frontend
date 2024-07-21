@@ -18,4 +18,12 @@ const ConvertTime = (time) => {
 
 }
 
-export default ConvertTime;
+const MinuteToHours = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const mins = minutes % 60;
+    if (hours === 0) return `${mins} min`;
+    if (mins === 0) return `${hours} hr`;
+    return `${hours} hrs ${mins} min`;
+};
+
+export { ConvertTime, MinuteToHours };

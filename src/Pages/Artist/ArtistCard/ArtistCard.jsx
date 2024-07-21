@@ -31,7 +31,7 @@ const ArtistCard = ({artist}) => {
             </div>
             ) : (
             <div className={styles.image} style={{
-                backgroundColor: 'black',
+                background: 'radial-gradient(circle, #e0ebdf, #d0e8be)',
                 borderRadius: '50%',
                 width: '90px',
                 height: '90px',
@@ -40,17 +40,19 @@ const ArtistCard = ({artist}) => {
                 alignItems: 'center',
                 position: 'relative'
             }}>
-                <p style={{ color: 'white', fontSize: '20px' }}>{artist.ArtistName[0]}</p>
+                <p style={{ color: 'black', fontSize: '20px' }}>{artist.ArtistName[0]}</p>
                 {averageRating > 0 && (
                 <div className={styles.artistRating}>
-                    <img src={stargold} alt="rating" />
                     <p>{averageRating}</p>
+                    <img src={stargold} alt="rating" />
                 </div>
                 )}
             </div>
             )}
             <h4>{artist.ArtistName}</h4>
-            <h5>{artist.ArtistType}</h5>
+            <h5 style={{
+                fontWeight: 400
+            }}>{artist.ArtistType}</h5>
         </div>
      );
 }

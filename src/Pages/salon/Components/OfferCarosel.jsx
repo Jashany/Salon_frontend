@@ -25,7 +25,13 @@ const OffersCarousel = ({ salon }) => {
         <div className={styles.offer} onClick={()=>{
           setShowCancelModal(true)
         }} >
-          <h3>
+          <h3><span style={{
+              fontWeight: 'bold',
+              padding: '0.2rem',
+              borderRadius: '0.5rem',
+              color: '#047a04',
+              marginRight: '0.5rem',
+            }}>OFFER :</span>
             Get {salon.offers[currentOfferIndex].OfferDiscountinPercentage}% off via SalonDekho
           </h3>
           <p>
@@ -39,7 +45,7 @@ const OffersCarousel = ({ salon }) => {
               <Ticket text={salon.offers[currentOfferIndex].OfferName} />
               
             </div>
-            <h3>Get {salon.offers[currentOfferIndex].OfferDiscountinPercentage}% off via SalonDekho </h3>
+            <h3> Get {salon.offers[currentOfferIndex].OfferDiscountinPercentage}% off via SalonDekho </h3>
             <p>
               {salon.offers[currentOfferIndex].OfferDescription}
             </p>

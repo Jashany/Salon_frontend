@@ -15,7 +15,7 @@ import OffersCarousel from "./Components/OfferCarosel";
 import clock from "../../assets/clock.png";
 import phone from "../../assets/call-calling.png"
 import { ConvertTime } from "../../Functions/ConvertTime";
-import insta from "../../assets/insta.png";
+import insta from "../../assets/insta.webp";
 
 const SalonPage = () => {
   const location = useLocation();

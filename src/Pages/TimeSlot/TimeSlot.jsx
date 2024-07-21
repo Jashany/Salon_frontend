@@ -3,7 +3,7 @@ import Header from "../../Components/Header/Header";
 import styles from "./Timeslot.module.css";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useLocation, useParams, json } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setAppointment } from "../../Slices/appointmentSlice";
 import Loader from "../../Components/Loader/Loader";
 
@@ -23,8 +23,6 @@ const Timeslot = () => {
   const [selectedTime, setSelectedTime] = useState(null);
   const services = service?.map((service) => service.id);
 
-  //get current date and time
-
   const date = new Date();
   const currentdate = moment(date).format("YYYY-MM-DD");
   const currenttime = moment(date).format("HH:mm");
@@ -33,7 +31,6 @@ const Timeslot = () => {
     setLoading(true);
     fetch("https://api.salondekho.in/api/appointment/getTimeSlots", {
       method: "POST",
-
       headers: {
         "Content-Type": "application/json",
       },
@@ -46,7 +43,6 @@ const Timeslot = () => {
       .then((data) => {
         const formatted = data?.data?.reduce((acc, slot) => {
           const date = moment.utc(slot).format("YYYY-MM-DD");
-
           const time = moment.utc(slot).format("HH:mm");
           if (
             date > currentdate ||
@@ -83,9 +79,8 @@ const Timeslot = () => {
     );
   }
 
-  const getDay = (date) => {
-    return moment(date).format("dddd");
-  };
+  const getDay = (date) => moment(date).format("dddd");
+  const getMonthYear = (date) => moment(date).format("MMMM YYYY");
 
   const createAppointment = () => {
     dispatch(
@@ -101,37 +96,42 @@ const Timeslot = () => {
     if (!user) {
       Navigate(`/login-otp?redirect=/bookAppointment/${salonid}`);
     } else {
-      if(!user.name || !user.gender){
+      if (!user.name || !user.gender) {
         Navigate(`/details?redirect=/bookAppointment/${salonid}`);
       }
       Navigate(`/bookAppointment/${salonid}`);
     }
   };
 
-
+  const daysInMonth = moment(date).daysInMonth();
+  const allDates = Array.from({ length: daysInMonth }, (_, i) =>
+    moment(currentdate).add(i, "days").format("YYYY-MM-DD")
+  )
 
   return (
-    <div className={styles.main}> 
+    <div className={styles.main}>
       <div>
         <Header text={"Choose your time"} redirect={`/salon/${salonid}/artists`} />
         <h2 className={styles.artistName}>{jsonArtist}</h2>
+        <h2 style={{fontSize:"1rem"}} >{getMonthYear(selectedDate)}</h2>
         <div className={styles.dateslots}>
-          {Object?.keys(timeSlots)?.map((date) => (
+          {allDates.map((date) => (
             <div
               key={date}
-              className={styles.date}
+              className={timeSlots[date]?.length ? styles.date : styles.disabled}
               onClick={() => {
-                setSelectedDate(date);
+                if (timeSlots[date]?.length) {
+                  setSelectedDate(date);
+                }
               }}
             >
               <div className={selectedDate === date ? styles.selected : ""}>
-                <h3>{date.slice(8, 12)}</h3>
+                <h3>{date.slice(8, 10)}</h3>
               </div>
               <h5>{getDay(date).slice(0, 3)}</h5>
             </div>
           ))}
         </div>
-        <h4>Enter Time</h4>
         <div className={styles.timeslots}>
           {selectedDate &&
             timeSlots[selectedDate]?.map((time) => (
@@ -156,15 +156,17 @@ const Timeslot = () => {
             ))}
         </div>
       </div>
-      { selectedTime && selectedDate && (
-      <button
-        className={styles.continue}
-        onClick={() => {
-          createAppointment();
-        }}
-      >
-        Continue
-      </button>
+      {selectedTime && selectedDate && (
+        <div className={styles.buttonBox}>
+          <button
+            className={styles.continue}
+            onClick={() => {
+              createAppointment();
+            }}
+          >
+            Continue
+          </button>
+        </div>
       )}
     </div>
   );

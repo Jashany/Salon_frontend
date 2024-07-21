@@ -35,3 +35,77 @@
         color: #4a4a4a;
     }
     
+    
+.modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  z-index: 10;
+  justify-content: center;
+  align-items: flex-end;
+  /* transition of model coming up */
+  
+}
+
+@keyframes modal {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+
+
+
+.modalContent {
+  background: white;
+  width: 100%;
+  padding: 40px 10px 10px 10px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  animation: modal 0.5s forwards ease-in-out;
+
+}
+
+.modalContent h3{
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-block: 10px;
+}
+.modalContent p{
+    font-size: 1rem;
+    font-weight: 500;
+    color: #4a4a4a;
+    margin-bottom: 20px;
+}
+
+  
+
+
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  padding: 0px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 2rem;
+  transform: rotate(45deg);
+}

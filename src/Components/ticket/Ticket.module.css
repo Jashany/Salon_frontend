@@ -1,0 +1,31 @@
+.container{
+    background-color: #bbf5cbfb;
+    display: flex;
+    padding-block: 2.5px;
+    height: fit-content;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container>div:nth-child(1){
+    margin-left: -5px;
+}
+
+.container p{
+  padding-inline: 10px !important;
+  margin: 0;
+}
+
+
+
+.container>div:nth-child(3){
+    margin-right: -5px;
+}
+
+.circle{
+    background-color: white;
+    border-radius: 50%;
+    height: 7.5px;
+    width: 7.5px;
+}

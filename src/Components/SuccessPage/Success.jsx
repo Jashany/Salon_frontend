@@ -8,6 +8,8 @@ import { clearServices } from "../../Slices/servicesSlice";
 import animation from "../../assets/Animation.gif";
 import { useEffect } from "react";
 const Success = () => {
+    const query = new URLSearchParams(useLocation().search);
+    const redirect = query.get('redirect');
     const dispatch = useDispatch();
     dispatch(clearAppointment());
     dispatch(clearArtist());
@@ -18,7 +20,7 @@ const Success = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            navigate('/');
+            navigate(`${redirect}?redirected=true`);
         }, 3000);
     }, []);
 

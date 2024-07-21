@@ -164,9 +164,8 @@ const Booking = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success === true) {
-          navigate(`/success/${data?.data}`, {
+          navigate(`/success/${data?.data}?redirect=/appointment/${data?.data}`, {
             state: {
-              route: `/appointment/${data?.data}`,
               text: "Booking Confirmed",
             },
           });

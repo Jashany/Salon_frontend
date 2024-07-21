@@ -16,7 +16,8 @@ import haversineDistance from "haversine-distance";
 
 const SalonPage = () => {
   const location = useLocation();
- 
+  const [showCancelModal, setShowCancelModal] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const service = useSelector((state) => state.services.Services);
   const [serviceType, setServiceType] = useState("");
@@ -194,7 +195,7 @@ const SalonPage = () => {
                       position: "relative",
                     }}
                   >
-                    <p style={{ color: "white", fontSize: "20px" }}>
+                    <p style={{ color: "white", fontSize: "40px" }}>
                       {artist.ArtistName[0]}
                     </p>
                     {averageRating > 0 && (
@@ -269,6 +270,7 @@ const SalonPage = () => {
           </button>
         </div>
       )}
+      
     </div>
   );
 };

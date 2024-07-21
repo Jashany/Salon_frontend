@@ -29,11 +29,7 @@ const Header = ({ text,redirect }) => {
         src={BackArrow}
         alt=""
         onClick={() => {
-          if(redirect){
-            navigate(redirect, { replace: true });
-          }else{
             navigate(-1);
-          }
         }}
       />
       <h2>{text}</h2>

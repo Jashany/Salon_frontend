@@ -10,6 +10,8 @@ import Loader from "../../Components/Loader/Loader";
 
 const Appointment = () => {
   const { appointmentId } = useParams();
+  const query = new URLSearchParams(useLocation().search);
+  const redirect = query.get("redirected");
   const navigate = useNavigate();
   const [appointment, setAppointment] = useState({});
   const [loading, setLoading] = useState(true);
@@ -106,7 +108,10 @@ const Appointment = () => {
           src={BackArrow}
           alt=""
           onClick={() => {
-            navigate("/history", { replace: true });
+            if(redirect) navigate("/");
+            else {
+              navigate("/history", { replace: true });
+            }
           }}
         />
       </div>

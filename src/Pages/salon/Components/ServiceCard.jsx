@@ -12,7 +12,7 @@ const ServiceCard = ({ service }) => {
     const convertTime = useCallback((minutes) => {
         const hours = Math.floor(minutes / 60);
         const mins = minutes % 60;
-        return `${hours > 0 ? `${hours} hour(s)` : ''} ${mins > 0 ? `${mins} min` : ''}`.trim();
+        return `${hours > 0 ? `${hours} hr` : ''} ${mins > 0 ? `${mins} min` : ''}`.trim();
     }, []);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ const ServiceCard = ({ service }) => {
             <div>
                 <h4>{service?.ServiceName}</h4>
                 <p>{convertTime(service?.ServiceTime)}</p>
-                <p style={{color:"black"}}>₹{service?.ServiceCost}</p>
+                <p style={{color:"black",marginTop:"10px"}}>₹{service?.ServiceCost}</p>
             </div>
             <div>
                 <button  className={buttonText === "Added" ? styles.selected : ''}  onClick={toggleService}>

@@ -73,8 +73,8 @@ const ServicePage = () => {
     sortedCategories.forEach((category) => {
       ScrollTrigger.create({
         trigger: `.${styles.servicelist} > div[data-type='${category}']`,
-        start: "top center",
-        end: "bottom center",
+        start: "-80px top",
+        end: "bottom top",
         onEnter: () => setServiceType(category),
         onEnterBack: () => setServiceType(category),
         scroller: servicelistRef.current,

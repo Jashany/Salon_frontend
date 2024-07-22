@@ -8,6 +8,7 @@ const OffersCarousel = ({ salon }) => {
     const handleCancel = () => {
       setShowCancelModal(false);
     };
+
     useEffect(() => {
       // Set up interval for automatic offer transition
       const offerInterval = setInterval(() => {
@@ -19,6 +20,14 @@ const OffersCarousel = ({ salon }) => {
       // Clear interval on component unmount
       return () => clearInterval(offerInterval);
     }, [salon.offers.length]);
+
+    // i click on background when model is open the model should close
+
+    const handleBackgroundClick = (e) => {
+      if (e.target.classList.contains(styles.modal)) {
+        setShowCancelModal(false);
+      }
+    };
   
     return (
       <div className={styles.carousel} >

@@ -15,7 +15,7 @@ const Success = () => {
     dispatch(clearArtist());
     dispatch(clearServices());
     const navigate = useNavigate();
-    const appointmentId = useParams();
+    const {appointmentId} = useParams();
     const state = useLocation();
     const text = state?.state?.text;
 

@@ -15,12 +15,17 @@ const Success = () => {
     dispatch(clearArtist());
     dispatch(clearServices());
     const navigate = useNavigate();
+    const appointmentId = useParams();
     const state = useLocation();
     const text = state?.state?.text;
 
     useEffect(() => {
         setTimeout(() => {
-            navigate(`${redirect}?redirected=true`);
+            if(redirect){
+                navigate(`${redirect}?redirected=true`);
+            }else{
+                navigate(`/appointment/${appointmentId}`)
+            }
         }, 3000);
     }, []);
 

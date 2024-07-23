@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./Appointments.module.css";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import BackArrow from "../../assets/backArrow@.png";
+import close from "../../assets/close.png";
 import star from "../../assets/stargold.svg";
 import calendar from "../../assets/calendar.png";
 import clock from "../../assets/clock.png";
 import moment from "moment";
 import Loader from "../../Components/Loader/Loader";
+import { ConvertTime } from "../../Functions/ConvertTime";
 
 const Appointment = () => {
   const { appointmentId } = useParams();
@@ -105,7 +107,7 @@ const Appointment = () => {
     <div className={styles.main}>
       <div className={styles.header}>
         <img
-          src={BackArrow}
+          src={close}
           alt=""
           onClick={() => {
             if(redirect) navigate("/");
@@ -120,10 +122,12 @@ const Appointment = () => {
         <div>
           <div>
             <h2>{appointment?.salon?.SalonName}</h2>
+            {appointment?.salon?.Reviews.length > 0 && 
             <div>
               <img src={star} alt="" />
               <p>{ratingAverage}</p>
             </div>
+            }
             <p>{appointment?.salon?.address?.City}</p>
           </div>
           <div className={styles.status}>{appointment?.Status}</div>
@@ -136,7 +140,7 @@ const Appointment = () => {
         </h3>
         <h3>
           <img src={clock} alt="clock icon" />
-          {startTime} TO {endTime}
+          {ConvertTime(startTime)} TO {ConvertTime(endTime)}
         </h3>
       </div>
       <div className={styles.services}>

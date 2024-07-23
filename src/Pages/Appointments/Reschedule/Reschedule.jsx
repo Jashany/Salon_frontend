@@ -162,15 +162,18 @@ const Reschedule = () => {
             ))}
         </div>
       </div>
-      <button
-        disabled={isButtonDisabled}
-        className={styles.continue}
-        onClick={() => {
-          createAppointment();
-        }}
-      >
-        Continue
-      </button>
+      {selectedTime && selectedDate && (
+        <div className={styles.buttonBox}>
+          <button
+            className={styles.continue}
+            onClick={() => {
+              createAppointment();
+            }}
+          >
+            Continue
+          </button>
+        </div>
+      )}
     </div>
   );
 };

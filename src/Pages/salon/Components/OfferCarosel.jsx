@@ -36,15 +36,14 @@ const OffersCarousel = ({ salon }) => {
         }} >
           <h3><span style={{
               fontWeight: 'bold',
-              padding: '0.2rem',
               borderRadius: '0.5rem',
               color: '#047a04',
               marginRight: '0.5rem',
             }}>OFFER :</span>
-            Get {salon.offers[currentOfferIndex].OfferDiscountinPercentage}% off via SalonDekho
+            Get {salon.offers[currentOfferIndex].OfferDiscountinPercentage}% off 
           </h3>
           <p>
-          {currentOfferIndex + 1}/{salon.offers.length}
+          {currentOfferIndex + 1}/{salon.offers.length} {'>'}
           </p>
         </div>
         {showCancelModal && (

@@ -13,41 +13,64 @@ import stargold from "../../assets/stargold.svg";
 import star from "../../assets/star.svg";
 import OffersCarousel from "./Components/OfferCarosel";
 import clock from "../../assets/clock.png";
-import phone from "../../assets/call-calling.png"
+import phone from "../../assets/call-calling.png";
 import { ConvertTime } from "../../Functions/ConvertTime";
 import insta from "../../assets/insta.webp";
+import { MinuteToHours } from "../../Functions/ConvertTime";
 
 const SalonPage = () => {
   const location = useLocation();
   const [showCancelModal, setShowCancelModal] = useState(false);
-
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalDuration, setTotalDuration] = useState(0);
   const [loading, setLoading] = useState(true);
   const service = useSelector((state) => state.services.Services);
   const [serviceType, setServiceType] = useState("");
   const [NoOfServices, setNoOfServices] = useState(service.length);
- 
+
   const distance = location.state?.distance;
   const [salon, setSalon] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
+  
   useEffect(() => {
     setLoading(true);
+    let totalCost = 0;
+    let totalDuration = 0;
+
     fetch(`https://api.salondekho.in/api/salon/getSalon/${id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setSalon(data);
         setTimeout(() => {
-        setLoading(false)
+          setLoading(false);
         }, 300);
         setServiceType(data?.Services[0]?.ServiceType);
+        service.forEach((services) => {
+          const foundService = data?.Services.find((s) => s._id === services.id);
+          if (foundService) {
+            console.log(foundService);
+            // Assuming each service object has `cost` and `duration` properties
+            totalCost += foundService.ServiceCost;
+            totalDuration += foundService.ServiceTime;
+          }
+          
+          setTotalPrice(totalCost);
+          setTotalDuration(totalDuration);
+        });
       })
       .catch((error) => {
         console.log(error);
-          setLoading(false);
+        setLoading(false);
       });
+
+
+     
+      // Assuming `service` is an array of selected service IDs
+     
+  
   }, [id]);
- 
 
   if (loading) {
     return <Loader />;
@@ -68,11 +91,10 @@ const SalonPage = () => {
     }
   };
 
-  
   const uniqueServices = [
     ...new Set(salon?.Services?.map((item) => item.ServiceType)),
   ];
-  
+
   const services = salon?.Services?.filter((service) =>
     serviceType === "All" ? true : service.ServiceType === serviceType
   );
@@ -83,10 +105,10 @@ const SalonPage = () => {
 
   const allPhotos = [salon?.CoverImage, ...salon?.StorePhotos];
 
-  
-  const rating = averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1)
+  const rating =
+    averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1);
 
-  
+
   return (
     <div className={styles.main}>
       <div className={styles.carosel}>
@@ -115,40 +137,41 @@ const SalonPage = () => {
         <ImageCarosel images={allPhotos} />
       </div>
       <div className={styles.upperPart}>
-      <div className={styles.details}>
-        <h1>{salon?.SalonName}</h1>
-        {averageRating > 0 && (
-          <div className={styles.rating}>
-            <p>{rating}</p>
-            <img src={stargold} alt="rating" />
-          </div>
-        )}
-        <p>
-          {salon?.address?.City} 
-        </p>
-      </div>
-         <div className={styles.details}>
-            <div className={styles.logoIcon}>
+        <div className={styles.details}>
+          <h1>{salon?.SalonName}</h1>
+          {averageRating > 0 && (
+            <div className={styles.rating}>
+              <p>{rating}</p>
+              <img src={stargold} alt="rating" />
+            </div>
+          )}
+          <p>{salon?.address?.City}</p>
+        </div>
+        <div className={styles.details}>
+          <div className={styles.logoIcon}>
+            <div>
+              <a href={`tel:${salon?.salonPhoneNumber}`}>
+                <img src={phone} alt="phone" />
+              </a>
+            </div>
+            {salon?.Instagram && (
               <div>
-                <a href={`tel:${salon?.salonPhoneNumber}`} >
-              <img src={phone} alt="phone"  />
+                <a
+                  href={salon?.Instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img className={styles.insta} src={insta} alt="instagram" />
                 </a>
               </div>
-              {salon?.Instagram && 
-              <div>
-              <a href={salon?.Instagram} target="_blank" rel="noopener noreferrer">
-                <img className={styles.insta} src={insta} alt="instagram" />
-              </a>
-              </div>
-              }
-            </div>
-            <div style={{display:"flex",gap:"5px",alignItems:"center"}}>
+            )}
+          </div>
+          <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
             <p>
-              {ConvertTime(salon?.startTime)} - {ConvertTime(salon?.endTime)} 
+              {ConvertTime(salon?.startTime)} - {ConvertTime(salon?.endTime)}
             </p>
-            </div>
-            
-         </div>
+          </div>
+        </div>
       </div>
       {salon?.offers.length > 0 && (
         <div className="offers">
@@ -175,12 +198,14 @@ const SalonPage = () => {
         </div>
         <div className={styles.servicelist}>
           {services?.slice(0, 4).map((service, index) => (
-            <div onClick={()=>{
-              navigate(`/salon/${id}/services`, {
-                state: { services: salon?.Services },
-              });
-            }}>
-            <ServiceCard key={index} service={service} />
+            <div
+              onClick={() => {
+                navigate(`/salon/${id}/services`, {
+                  state: { services: salon?.Services },
+                });
+              }}
+            >
+              <ServiceCard key={index} service={service} />
             </div>
           ))}
           <button
@@ -193,27 +218,31 @@ const SalonPage = () => {
           >
             See All
           </button>
-          
         </div>
       </div>
       <div className={styles.artists}>
         <h3>Team Members</h3>
-        <div style={{
-          alignItems:"flex-start"
-        }}>
+        <div
+          style={{
+            alignItems: "flex-start",
+          }}
+        >
           {salon?.Artists?.map((artist, index) => {
             const averageRating =
               artist.reviews.reduce(
                 (total, review) => total + review.Rating,
                 0
               ) / artist.reviews.length || 0;
-              const imageExist = artist?.ArtistPhoto === null || artist?.ArtistPhoto === 'undefined' || artist?.ArtistPhoto === undefined;
+            const imageExist =
+              artist?.ArtistPhoto === null ||
+              artist?.ArtistPhoto === "undefined" ||
+              artist?.ArtistPhoto === undefined;
             return (
               <div key={index} className={styles.artist}>
                 {imageExist ? (
                   <div
                     style={{
-                      background: 'radial-gradient(circle, #e0ebdf, #d0e8be)',
+                      background: "#b6ffef",
                       borderRadius: "50%",
                       width: "90px",
                       height: "90px",
@@ -227,10 +256,10 @@ const SalonPage = () => {
                       {artist.ArtistName[0]}
                     </p>
                     {averageRating > 0 && (
-                    <div className={styles.artistRating}>
-                      <img src={stargold} alt="rating" />
-                      <p>{averageRating}</p>
-                    </div>
+                      <div className={styles.artistRating}>
+                        <img src={stargold} alt="rating" />
+                        <p>{averageRating}</p>
+                      </div>
                     )}
                   </div>
                 ) : (
@@ -241,15 +270,15 @@ const SalonPage = () => {
                     }}
                   >
                     {averageRating > 0 && (
-                    <div className={styles.artistRating}>
-                      <img src={stargold} alt="rating" />
-                      <p>{averageRating}</p>
-                    </div>
-                    )}  
+                      <div className={styles.artistRating}>
+                        <img src={stargold} alt="rating" />
+                        <p>{averageRating}</p>
+                      </div>
+                    )}
                   </div>
                 )}
-                <h4 style={{fontSize:"12.5px"}}>{artist.ArtistName}</h4>
-                <p style={{fontSize:"12px",color:"#313030"}}>
+                <h4 style={{ fontSize: "12.5px" }}>{artist.ArtistName}</h4>
+                <p style={{ fontSize: "12px", color: "#313030" }}>
                   {artist.ArtistType}
                 </p>
               </div>
@@ -276,14 +305,16 @@ const SalonPage = () => {
               return (
                 <div key={index} className={styles.review}>
                   <div>
-                    <h4 style={{fontSize:"1rem"}}>{review?.customerId?.name}</h4>
+                    <h4 style={{ fontSize: "1rem" }}>
+                      {review?.customerId?.name}
+                    </h4>
                   </div>
                   <div>{ratingStars}</div>
-                  {review?.Review && 
-                  <div>
-                    <p>{review.Review}</p>
-                  </div>
-                  }
+                  {review?.Review && (
+                    <div>
+                      <p>{review.Review}</p>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -292,7 +323,21 @@ const SalonPage = () => {
       )}
       {NoOfServices > 0 && (
         <div className={styles.book}>
-          <h4>{NoOfServices} Services added</h4>
+          <div>
+            <h4 style={{ fontWeight: "500" }}>₹{totalPrice}</h4>
+            <div
+              style={{
+                marginTop: "5px",
+                display: "flex",
+                gap: "5px",
+              }}
+            >
+              <p>
+                {NoOfServices} Service{NoOfServices > 1 ? "s" : ""} •
+              </p>
+              <p>{MinuteToHours(totalDuration)}</p>
+            </div>
+          </div>
           <button
             className={styles.button}
             onClick={() => {
@@ -303,7 +348,6 @@ const SalonPage = () => {
           </button>
         </div>
       )}
-      
     </div>
   );
 };

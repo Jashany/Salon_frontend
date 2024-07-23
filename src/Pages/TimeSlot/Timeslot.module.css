@@ -132,7 +132,7 @@
 }
 
 .buttonBox{
-  position: absolute;
+  position: fixed;
   display: flex;
   justify-content: flex-end;
   padding-inline: 1rem;
@@ -140,6 +140,9 @@
   width: 100%;
   background-color: #f5f5f5;
   z-index: 100;
+  box-shadow: 0px -6px 5px 0px rgba(0, 0, 0, 0.208);
+  -webkit-box-shadow: 0px -6px 5px 0px rgba(0,0,0,0.208);
+  -moz-box-shadow: 0px -6px 5px 0px rgba(0,0,0,0.208);
 }
 
 .main {

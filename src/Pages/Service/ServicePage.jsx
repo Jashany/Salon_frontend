@@ -145,7 +145,7 @@ const ServicePage = () => {
       {NoOfServices > 0 && (
         <div className={styles.book}>
           <div >
-          <h4>₹{totalPrice}</h4>
+          <h4 style={{fontWeight:"500"}}>₹{totalPrice}</h4>
           <div style={{
             marginTop:"5px",
             display:"flex",

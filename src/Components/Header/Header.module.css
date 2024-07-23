@@ -2,8 +2,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-block: 20px;
+    margin-block: 15px 10px;
+    padding-bottom: 15px;
     padding-inline: 1rem;
+    box-shadow: 0 6px 4px -4px rgba(0, 0, 0, 0.262);
 }
 
 .header img:nth-child(1){

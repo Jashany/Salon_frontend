@@ -12,6 +12,7 @@ import clock from "../../assets/clock.png";
 import { toast } from "react-toastify";
 import Loader from "../../Components/Loader/Loader";
 import moment from "moment";
+import { ConvertTime } from "../../Functions/ConvertTime";
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ const Booking = () => {
   appointmentEndTime.setMinutes(appointmentStartTime.getMinutes() + duration);
   const hours = appointmentEndTime.getHours();
   let minutes = appointmentEndTime.getMinutes();
-
+  
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
@@ -264,24 +265,9 @@ const Booking = () => {
           </h3>
           <h3>
             <img src={clock} />
-            {appointment.appointmentStartTime} TO {hours}:{minutes}
+            {ConvertTime(appointment.appointmentStartTime)} TO {ConvertTime(`${hours}:${minutes}`)}
           </h3>
         </div>
-        <div className={styles.services}>
-          {data?.services?.map((service) => (
-            <div key={service._id} className={styles.serviceClass}>
-              <div>
-                <h3>
-                  {service.Service.ServiceName} -{" "}
-                  {service.Service.ServiceGender}
-                </h3>
-                <h4>{convertMinutes(service?.Service.ServiceTime)}</h4>
-              </div>
-              <h3>₹{service.Price}</h3>
-            </div>
-          ))}
-        </div>
-
         <div className={styles.coupon}>
           <h2>Apply Coupons</h2>
           <div>
@@ -298,6 +284,22 @@ const Booking = () => {
             <button onClick={SubmitCoupon}>Apply</button>
           </div>
         </div>
+        <div className={styles.services}>
+          {data?.services?.map((service) => (
+            <div key={service._id} className={styles.serviceClass}>
+              <div>
+                <h3>
+                  {service.Service.ServiceName} -{" "}
+                  {service.Service.ServiceGender}
+                </h3>
+                <h4>{convertMinutes(service?.Service.ServiceTime)}</h4>
+              </div>
+              <h3>₹{service.Price}</h3>
+            </div>
+          ))}
+        </div>
+
+      
 
         <div className={styles.payment}>
           <div>
@@ -326,13 +328,15 @@ const Booking = () => {
           </div>
         </div>
       </div>
+      <div className={styles.confirmBox}>
       <button
         className={styles.confirm}
         disabled={isButtonDisabled}
         onClick={submitBooking}
-      >
-        Confirm Booking
+        >
+        Confirm 
       </button>
+        </div>
     </div>
   );
 };

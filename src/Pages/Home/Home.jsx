@@ -13,6 +13,8 @@ import GooglePlacesAutocomplete, {
 import PastSalonCard from "../../Components/PastCards/PastSalonCard";
 
 const API_KEY = "AIzaSyAdINc7vU6-hFW61ZsERj0tSQIcqGYPb4Y";
+const DEFAULT_LOCATION = { latitude: 30.2129, longitude: 74.9331 };
+
 console.warn = () => {};
 const Home = () => {
   const [salons, setSalons] = useState([]);
@@ -27,19 +29,25 @@ const Home = () => {
 
   const getLocation = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-        sessionStorage.setItem(
-          "location",
-          JSON.stringify({
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-          })
-        );
-      });
+          });
+          sessionStorage.setItem(
+            "location",
+            JSON.stringify({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude,
+            })
+          );
+        },
+        (error) => {
+          console.log("Location permission denied, using default location");
+          setLocation(DEFAULT_LOCATION);
+        }
+      );
     }
   };
 

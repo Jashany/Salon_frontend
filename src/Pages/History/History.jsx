@@ -133,7 +133,6 @@ const CurrentBooking = ({ currentBooking }) => {
             backgroundSize: "cover",
             backgroundPosition: "center",
             borderRadius: "50%",
-            marginTop: "8px",
           }}
         ></div>
         <div>

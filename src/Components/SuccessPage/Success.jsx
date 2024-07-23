@@ -16,6 +16,7 @@ const Success = () => {
     dispatch(clearServices());
     const navigate = useNavigate();
     const {appointmentId} = useParams();
+    console.log(appointmentId)
     const state = useLocation();
     const text = state?.state?.text;
 
@@ -24,7 +25,7 @@ const Success = () => {
             if(redirect){
                 navigate(`${redirect}?redirected=true`);
             }else{
-                navigate(`/appointment/${appointmentId}`)
+                navigate(`/appointment/${appointmentId}?redirected=true`);
             }
         }, 3000);
     }, []);

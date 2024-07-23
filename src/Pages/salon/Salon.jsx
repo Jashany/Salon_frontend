@@ -223,7 +223,7 @@ const SalonPage = () => {
                       position: "relative",
                     }}
                   >
-                    <p style={{ color: "black", fontSize: "40px" }}>
+                    <p style={{ color: "#047a04", fontSize: "30px" }}>
                       {artist.ArtistName[0]}
                     </p>
                     {averageRating > 0 && (
@@ -245,10 +245,13 @@ const SalonPage = () => {
                       <img src={stargold} alt="rating" />
                       <p>{averageRating}</p>
                     </div>
-                    )}
+                    )}  
                   </div>
                 )}
-                <h4>{artist.ArtistName}</h4>
+                <h4 style={{fontSize:"12.5px"}}>{artist.ArtistName}</h4>
+                <p style={{fontSize:"12px",color:"#313030"}}>
+                  {artist.ArtistType}
+                </p>
               </div>
             );
           })}
@@ -273,12 +276,14 @@ const SalonPage = () => {
               return (
                 <div key={index} className={styles.review}>
                   <div>
-                    <h4 style={{fontSize:"1.10rem"}}>{review?.customerId?.name}</h4>
+                    <h4 style={{fontSize:"1rem"}}>{review?.customerId?.name}</h4>
                   </div>
                   <div>{ratingStars}</div>
+                  {review?.Review && 
                   <div>
                     <p>{review.Review}</p>
                   </div>
+                  }
                 </div>
               );
             })}

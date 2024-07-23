@@ -15,9 +15,16 @@
     margin: 2rem auto ;
 }
 
+.field > div:nth-child(2){
+    margin-block:0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 .field input{
     width: 100%;
-    padding: 15px 10px;
+    padding-left: 10px;
+    
     background-color: white;
     border: none;
     font-size: 1rem;

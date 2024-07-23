@@ -80,10 +80,18 @@ const SearchPage = () => {
           <div className={styles.icon}>
             <IoIosArrowRoundBack onClick={() => navigate(-1)} />
           </div>
-          <input type="text" id="service" value={service} readOnly disabled />
-          {address && (
+          <div>
+            {service ? (
+              <input type="text" id="service" value={service} readOnly disabled />
+            ) : (
+              <input type="text" id="service" value="Any Venue" readOnly disabled />
+            )}
+          {address ? (
             <input type="text" id="address" value={address} readOnly disabled />
+          ) : (
+            <input type="text" id="address" value="Current Location" readOnly disabled />
           )}
+          </div>
         </div>
         {/* <div className={styles.buttons}>
           <button>

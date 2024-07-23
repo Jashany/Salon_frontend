@@ -3,6 +3,9 @@
     align-items: center;
     margin-block: 0.5rem;
     justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #5b5b5b91;
+    /* bottom box shadow */
 }
 
 .service div{

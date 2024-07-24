@@ -167,7 +167,7 @@ const SalonPage = () => {
             )}
           </div>
           <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-            <p>
+            <p style={{fontSize:"12.5px"}}>
               {ConvertTime(salon?.startTime)} - {ConvertTime(salon?.endTime)}
             </p>
           </div>

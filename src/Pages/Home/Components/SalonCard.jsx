@@ -2,6 +2,7 @@ import styles from './SalonCard.module.css'
 import { FaLocationDot } from "react-icons/fa6";
 import { Link,useNavigate } from 'react-router-dom';
 import stargold from '../../../assets/stargold.svg'
+import insta from '../../../assets/insta.webp'
 
 const SalonCard = ({salon}) => {
     const navigate = useNavigate();
@@ -31,6 +32,7 @@ const SalonCard = ({salon}) => {
                 overflow: 'hidden',
                 borderRadius: '10px',
                 position: 'relative',
+                background: 'linear-gradient(to top, #00000056, transparent)',
             }}>
             <img src={salon?.CoverImage} alt={salon?.SalonName} />
             {MaxOffer > 0 && <p className={styles.offer}>{MaxOffer}% OFF</p>}
@@ -40,8 +42,8 @@ const SalonCard = ({salon}) => {
                     <h2>{salon?.SalonName}</h2>
                     {rating==0 ? null :
                     <div className={styles.rating}>
-                    <img src={stargold} alt="rating" />
                     <p>{rating}</p>
+                    <img src={stargold} alt="rating" />
                     </div>
                     }
                     <p><FaLocationDot />{salon?.address?.City} <p>
@@ -54,8 +56,13 @@ const SalonCard = ({salon}) => {
                         
                 </div>
                 <div>
-                    {isOpen ? <p className={styles.open}>Open</p> : <p className={styles.closed}>Closed</p>}
-                    <h6>{salon?.Gender}</h6>
+                    {/* {isOpen ? <p className={styles.open}>Open</p> : <p className={styles.closed}>Closed</p>} */}
+                   {salon?.Instagram ? <a href={salon?.Instagram} target="_blank" rel="noreferrer">
+                    <img className={styles.insta} src={insta} alt="" />
+                   </a> : 
+                   <div className={styles.empty}> </div>
+                   }
+                    <h6 style={{justifySelf:"flex-end"}}>{salon?.Gender}</h6>
                 </div>
             </div>
         </div>

@@ -43,7 +43,7 @@ const OffersCarousel = ({ salon }) => {
             Get {salon.offers[currentOfferIndex].OfferDiscountinPercentage}% off 
           </h3>
           <p>
-          {currentOfferIndex + 1}/{salon.offers.length} {'>'}
+          {currentOfferIndex + 1}/{salon.offers.length} <span style={{marginLeft:"10px"}}></span>
           </p>
         </div>
         {showCancelModal && (

@@ -12,6 +12,16 @@
 
 }
 
+.insta{
+  height: 25px !important;
+  width: 25px !important;
+}
+
+.empty{
+  /* height: 25px !important;
+  width: 25px !important; */
+}
+
 .salon img {
   width: 100%;
   margin-bottom: 0.5rem;

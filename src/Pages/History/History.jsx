@@ -135,16 +135,14 @@ const CurrentBooking = ({ currentBooking }) => {
             borderRadius: "50%",
           }}
         ></div>
-        <div>
+        <div style={{display:"flex",justifyContent:"space-between",flex:1}} >
           <div>
-            <div>
               <h4>{currentBooking?.salon?.SalonName}</h4>
               <p>4.3</p>
-            </div>
-            <div className={styles.status}>{currentBooking?.Status}</div>
+            <p>{currentBooking?.salon?.address?.City}</p>
           </div>
           <div>
-            <p>{currentBooking?.salon?.address?.City}</p>
+            <div className={styles.status}>{currentBooking?.Status}</div>
             <p>{formattedDate}</p>
           </div>
         </div>

@@ -137,6 +137,8 @@ const Home = () => {
     }
   };
 
+  console.log(salons)
+
   return (
     <div className={Styles.main}>
       <Header text="Home" />

@@ -18,6 +18,7 @@ import { ConvertTime } from "../../Functions/ConvertTime";
 import insta from "../../assets/insta.webp";
 import { MinuteToHours } from "../../Functions/ConvertTime";
 
+
 const SalonPage = () => {
   const location = useLocation();
   const [showCancelModal, setShowCancelModal] = useState(false);
@@ -27,6 +28,7 @@ const SalonPage = () => {
   const service = useSelector((state) => state.services.Services);
   const [serviceType, setServiceType] = useState("");
   const [NoOfServices, setNoOfServices] = useState(service.length);
+  const [serviceData, setServiceData] = useState({});
 
   const distance = location.state?.distance;
   const [salon, setSalon] = useState({});
@@ -58,6 +60,11 @@ const SalonPage = () => {
           
           setTotalPrice(totalCost);
           setTotalDuration(totalDuration);
+          setServiceData({
+            NoOfServices,
+            totalCost,
+            totalDuration,
+          })
         });
       })
       .catch((error) => {
@@ -139,13 +146,13 @@ const SalonPage = () => {
       <div className={styles.upperPart}>
         <div className={styles.details}>
           <h1>{salon?.SalonName}</h1>
-          {averageRating > 0 && (
-            <div className={styles.rating}>
-              <p>{rating}</p>
-              <img src={stargold} alt="rating" />
-            </div>
-          )}
+          
           <p>{salon?.address?.City}</p>
+          <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
+            <p style={{fontSize:"14px"}}>
+              {ConvertTime(salon?.startTime)} - {ConvertTime(salon?.endTime)}
+            </p>
+          </div>
         </div>
         <div className={styles.details}>
           <div className={styles.logoIcon}>
@@ -166,11 +173,12 @@ const SalonPage = () => {
               </div>
             )}
           </div>
-          <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-            <p style={{fontSize:"12.5px"}}>
-              {ConvertTime(salon?.startTime)} - {ConvertTime(salon?.endTime)}
-            </p>
-          </div>
+          {averageRating > 0 && (
+            <div className={styles.rating}>
+              <p>{rating}</p>
+              <img src={stargold} alt="rating" />
+            </div>
+          )}
         </div>
       </div>
       {salon?.offers.length > 0 && (
@@ -271,8 +279,8 @@ const SalonPage = () => {
                   >
                     {averageRating > 0 && (
                       <div className={styles.artistRating}>
-                        <img src={stargold} alt="rating" />
                         <p>{averageRating}</p>
+                        <img src={stargold} alt="rating" />
                       </div>
                     )}
                   </div>
@@ -341,7 +349,7 @@ const SalonPage = () => {
           <button
             className={styles.button}
             onClick={() => {
-              if (NoOfServices > 0) navigate(`/salon/${id}/artists`);
+              if (NoOfServices > 0) navigate(`/salon/${id}/artists`, { state: { serviceData } });
             }}
           >
             Book

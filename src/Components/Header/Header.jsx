@@ -5,6 +5,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { clearUser } from "../../Slices/authSlice";
+import cart from "../../assets/shopping-cart.png";
 const Header = ({ text,redirect }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
@@ -18,7 +19,13 @@ const Header = ({ text,redirect }) => {
       return(
         <div className={styles.header2}>
           <h2>SalonDekho</h2>
+          <div style={{display:"flex",alignItems:"center",gap:"15px"}}>
+            <img className={styles.cart} style={{
+              height:"25px",
+              width:"25px"
+            }} src={cart} alt="" onClick={()=>{navigate("/history")}} />
            <img src={menu} alt="" onClick={toggleMenu}  />
+          </div>
            <SlidingWindow isOpen={isMenuOpen} onClose={toggleMenu} />
         </div>
       )

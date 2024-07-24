@@ -86,26 +86,7 @@ const Home = () => {
     }
   }, [location]);
 
-  useEffect(() => {
-    if (user) {
-      fetch("https://api.salondekho.in/api/appointment/getPastSalons", {
-        credentials: "include",
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success == true) {
-            setPastSalon(data?.data);
-          } else {
-            setPastSalon([]);
-          }
-        })
-        .catch((error) => console.log(error));
-    }
-  }, []);
+  
   const handleSelect = async (value) => {
     const results = await geocodeByPlaceId(value.value.place_id);
     const lat = results[0].geometry.location.lat();
@@ -175,18 +156,7 @@ const Home = () => {
         </label>
         <button onClick={SearchFunction}>Search</button>
       </div>
-      <div className={Styles.past}>
-        {pastSalon.length === 0 ? null : <h2>Past Bookings</h2>}
-        <div className={Styles.flow}>
-        {pastSalon.length === 0
-          ? null
-          : pastSalon?.map((salon, index) => (
-              <div className={Styles.salon} key={index}>
-                <PastSalonCard salon={salon} />
-              </div>
-            ))}
-          </div>
-      </div>
+
       <div className={Styles.salons}>
         {salons.length === 0 ? null : <h2>Nearby Salons</h2>}
         

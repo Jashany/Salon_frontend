@@ -4,14 +4,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate,useParams } from 'react-router-dom';
 import stargold from "../../../assets/stargold.svg";
 
-const ArtistCard = ({artist}) => {
+const ArtistCard = ({artist,state}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { salonid } = useParams();
     const onSubmit = () =>{
         dispatch(setArtist({id: artist._id}));
         sessionStorage.setItem('artist', JSON.stringify(artist.ArtistName));
-        navigate(`/salon/${salonid}/${artist._id}`);
+        navigate(`/salon/${salonid}/${artist._id}`,{state});
     }
     const averageRating = artist.reviews.reduce((total, review) => total + review.Rating, 0) / artist.reviews.length || 0 
 

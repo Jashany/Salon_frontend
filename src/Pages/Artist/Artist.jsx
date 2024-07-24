@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ArtistPage.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import ArtistCard from "./ArtistCard/ArtistCard";
 import Header from "../../Components/Header/Header";
 import Loader from "../../Components/Loader/Loader";
@@ -14,9 +14,13 @@ const ArtistPage = () => {
   const [loading, setLoading] = useState(true);
   const services = useSelector((state) => state.services.Services);
   const { salonid } = useParams();
+  const state = useLocation();
+console.log(state.state)
 
   // Convert the array of service objects to an array of IDs
   const serviceIds = services.map((service) => service.id);
+
+  const servicedata = state.state.serviceData || state.state
 
   useEffect(() => {
     if (services.length === 0) {
@@ -67,7 +71,7 @@ const ArtistPage = () => {
       <Header text={"Artists"} redirect={`/salon/${salonid}`}/>
       <div className={styles.artistsList}>
         {artists.map((artist) => (
-          <ArtistCard key={artist._id} artist={artist} />
+          <ArtistCard key={artist._id} artist={artist} state={servicedata} />
         ))}
       </div>
     </div>

@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import Loader from "../../Components/Loader/Loader";
 import moment from "moment";
 import { ConvertTime } from "../../Functions/ConvertTime";
+import { BiUser } from "react-icons/bi";
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -193,6 +194,8 @@ const Booking = () => {
     data?.salon?.Reviews.reduce((total, review) => total + review.Rating, 0) /
       data?.salon?.Reviews.length || 0;
 
+    const ratings = averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1);
+
   return (
     <div className={styles.main}>
       <div>
@@ -219,7 +222,7 @@ const Booking = () => {
                     marginRight: "3px",
                   }}
                 />
-                <p>{averageRating}</p>
+                <p>{ratings}</p>
               </div>
               <h2>{data?.salon?.address?.City}</h2>
             </div>
@@ -267,6 +270,10 @@ const Booking = () => {
             <img src={clock} />
             {ConvertTime(appointment.appointmentStartTime)} TO {ConvertTime(`${hours}:${minutes}`)}
           </h3>
+          <h3>
+            <BiUser />
+            Artist- {data?.name}
+          </h3>
         </div>
         <div className={styles.coupon}>
           <h2>Apply Coupons</h2>
@@ -303,7 +310,7 @@ const Booking = () => {
 
         <div className={styles.payment}>
           <div>
-            <h4>Pay Now</h4>
+            <h4>Service amount</h4>
             <h4>₹{(data?.cost).toFixed(2)}</h4>
           </div>
           {discount > 0 && (
@@ -324,7 +331,7 @@ const Booking = () => {
         <div className={styles.paymentMethod}>
           <h2>Payment Method</h2>
           <div>
-            <h4>Cash</h4>
+            <h4>Pay at salon</h4>
           </div>
         </div>
       </div>

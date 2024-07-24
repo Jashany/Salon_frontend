@@ -22,11 +22,7 @@ const Success = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            if(redirect){
-                navigate(`${redirect}?redirected=true`);
-            }else{
-                navigate(`/appointment/${appointmentId}?redirected=true`);
-            }
+            navigate(`/history?redirected=true`);
         }, 3000);
     }, []);
 

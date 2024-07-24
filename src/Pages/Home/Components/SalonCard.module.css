@@ -9,7 +9,7 @@
   background-color: #fff;
   border : 1px solid #f1f1f1;
   box-shadow: 1px 4px 8px 0px #00000026;
-
+  position: relative;
 }
 
 .insta{
@@ -43,10 +43,17 @@
 }
 
 .rating {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  background-color: white;
+  padding: 0px 7px;
+  color: black;
+  border-radius: 10px;
     display: flex;
     align-items: center;
     flex-direction: row;
-    font-size: 1rem !important;
+    font-size: 0.75rem !important;
     gap: 4px;
 }
   
@@ -54,21 +61,21 @@
 .lowerContent>div:nth-child(1) {
   display: flex;
   flex-direction: column;
-    
+  gap: 3px;
 }
 
 .lowerContent>div:nth-child(2) {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: space-between;
   gap: 15px;
 }
 
 .lowerContent img{
-    width: 15px;
-    height: 15px;
-    margin-top: 6px;
+    width: 10px;
+    height: 10px;
+    margin-top: 7px;
 }
 
 .salon p {

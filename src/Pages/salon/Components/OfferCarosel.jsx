@@ -1,6 +1,7 @@
 import React, { useState ,useEffect} from "react";
 import styles from "./Offer.module.css";  // Adjust the import according to your project structure
 import Ticket from "../../../Components/ticket/Ticket";
+import greater from "../../../assets/greater-than.png";
 
 const OffersCarousel = ({ salon }) => {
     const [currentOfferIndex, setCurrentOfferIndex] = useState(0);
@@ -42,9 +43,19 @@ const OffersCarousel = ({ salon }) => {
             }}>OFFER :</span>
             Get {salon.offers[currentOfferIndex].OfferDiscountinPercentage}% off 
           </h3>
+          <div style={{display:"flex",alignItems:"center",gap:"10px"}}>
+
+            {salon.offers.length > 1 && 
           <p>
-          {currentOfferIndex + 1}/{salon.offers.length} <span style={{marginLeft:"10px"}}></span>
+             {currentOfferIndex + 1}/{salon.offers.length} 
           </p>
+            }
+          <img style={{
+            height: '15px',
+            width: '12px', 
+            marginBottom: '1px' 
+          }} src={greater} alt="" />
+          </div>
         </div>
         {showCancelModal && (
         <div className={styles.modal}>

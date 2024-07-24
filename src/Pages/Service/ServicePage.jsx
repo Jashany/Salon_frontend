@@ -42,6 +42,7 @@ const ServicePage = () => {
   const [NoOfServices, setNoOfServices] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
+  const [serviceData, setServiceData] = useState({});
   const servicelistRef = useRef(null);
   const sortRef = useRef(null);
   const buttonRefs = useRef([]);
@@ -65,6 +66,11 @@ const ServicePage = () => {
 
   setTotalPrice(totalCost);
   setTotalDuration(totalDuration);
+  setServiceData({
+    NoOfServices,
+    totalCost,
+    totalDuration
+  })
   }, [service]);
 
   
@@ -149,7 +155,8 @@ const ServicePage = () => {
           <div style={{
             marginTop:"5px",
             display:"flex",
-            gap:"5px"
+            gap:"5px",
+            color:"#676767",
           }}>
             <p>
               {NoOfServices} Service{NoOfServices > 1 ? "s" : ""} • 
@@ -159,11 +166,13 @@ const ServicePage = () => {
             </p>
           </div>
           </div>
+          {console.log(serviceData)}
           <button
             className={styles.button}
             onClick={() => {
-              if (NoOfServices > 0) navigate(`/salon/${id}/artists`);
+              if (NoOfServices > 0) navigate(`/salon/${id}/artists`, { state: serviceData });
             }}
+
           >
             Book
           </button>

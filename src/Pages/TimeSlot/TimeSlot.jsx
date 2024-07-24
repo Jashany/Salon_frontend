@@ -3,14 +3,17 @@ import Header from "../../Components/Header/Header";
 import styles from "./Timeslot.module.css";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams,useLocation } from "react-router-dom";
 import { setAppointment } from "../../Slices/appointmentSlice";
 import Loader from "../../Components/Loader/Loader";
 import { ConvertTime } from "../../Functions/ConvertTime";
+import { MinuteToHours } from "../../Functions/ConvertTime";
 
 const Timeslot = () => {
   const Artist = sessionStorage.getItem("artist");
   const jsonArtist = JSON.parse(Artist);
+  const {state} = useLocation();
+  console.log(state)
   const { salonid } = useParams();
   const service = useSelector((state) => state.services.Services);
   const artist = useSelector((state) => state.artist.artist);
@@ -158,9 +161,25 @@ const Timeslot = () => {
         </div>
       </div>
       {selectedTime && selectedDate && (
-        <div className={styles.buttonBox}>
+        <div className={styles.book}>
+           <div >
+          <h4 style={{fontWeight:"500"}}>₹{state.totalCost}</h4>
+          <div style={{
+            marginTop:"5px",
+            display:"flex",
+            gap:"5px",
+            color:"#676767",
+          }}>
+            <p>
+              {state.NoOfServices} Service{state.NoOfServices > 1 ? "s" : ""} • 
+            </p>
+            <p>
+            {MinuteToHours(state.totalDuration)}
+            </p>
+          </div>
+          </div>
           <button
-            className={styles.continue}
+            className={styles.button}
             onClick={() => {
               createAppointment();
             }}

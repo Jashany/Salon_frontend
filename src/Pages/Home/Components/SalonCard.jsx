@@ -38,14 +38,9 @@ const SalonCard = ({salon}) => {
             {MaxOffer > 0 && <p className={styles.offer}>{MaxOffer}% OFF</p>}
             </div>
             <div className={styles.lowerContent}>
-                <div>
+                <div>   
                     <h2>{salon?.SalonName}</h2>
-                    {rating==0 ? null :
-                    <div className={styles.rating}>
-                    <p>{rating}</p>
-                    <img src={stargold} alt="rating" />
-                    </div>
-                    }
+                    <h6 style={{justifySelf:"flex-end"}}>{salon?.Gender}</h6>
                     <p><FaLocationDot />{salon?.address?.City} <p>
                         {salon.distance && 
                         <p>
@@ -62,7 +57,16 @@ const SalonCard = ({salon}) => {
                    </a> : 
                    <div className={styles.empty}> </div>
                    }
-                    <h6 style={{justifySelf:"flex-end"}}>{salon?.Gender}</h6>
+
+                    {isOpen ? <p className={styles.open}>Open</p> : <p className={styles.closed}>Closed</p>}
+
+                   {rating==0 ? null :
+                    <div className={styles.rating}>
+                    <p>{rating}</p>
+                    <img src={stargold} alt="rating" />
+                    </div>
+                    }
+                    
                 </div>
             </div>
         </div>

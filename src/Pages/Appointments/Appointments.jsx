@@ -98,7 +98,7 @@ const Appointment = () => {
       .then((res) => res.json())
       .then((data) => {
         setShowCancelModal(false);
-        navigate("/history", { replace: true });
+        navigate("/history?redirected=true", { replace: true });
       })
       .catch((err) => console.log(err));
   };

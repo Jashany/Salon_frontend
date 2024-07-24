@@ -9,7 +9,8 @@ import noAppointments from "../../assets/new.png";
 const History = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const query = new URLSearchParams(location.search);
+  const redirected = query.get("redirected");
   const [loading, setLoading] = useState(true);
   const [appointments, setAppointments] = useState([]);
   useEffect(() => {
@@ -55,7 +56,11 @@ const History = () => {
           src={BackArrow}
           alt=""
           onClick={() => {
+            if(redirected){
+              navigate("/");
+            }else{
             navigate(-1);
+            }
           }}
         />
         <h2>Booking History</h2>

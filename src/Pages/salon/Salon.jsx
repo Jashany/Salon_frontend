@@ -352,7 +352,7 @@ const SalonPage = () => {
               if (NoOfServices > 0) navigate(`/salon/${id}/artists`, { state: { serviceData } });
             }}
           >
-            Book
+            Continue
           </button>
         </div>
       )}

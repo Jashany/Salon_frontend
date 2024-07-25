@@ -174,7 +174,7 @@ const ServicePage = () => {
             }}
 
           >
-            Book
+            Continue
           </button>
         </div>
       )}

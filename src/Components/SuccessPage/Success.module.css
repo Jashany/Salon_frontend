@@ -26,6 +26,8 @@
 
 .circle img{
     mix-blend-mode:multiply;
+    height: 300px;
+    width: 300px;
 }
 
 .main div{

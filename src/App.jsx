@@ -49,7 +49,7 @@ function App() {
         <Route path="/reschedule/:appointmentId" element={<Reschedule />} />
         <Route path="/success/:appointmentId" element={<Success />} />
         <Route path="/details" element={<Details />} />
-
+        
         </Route>
       </Routes>
       </Provider>

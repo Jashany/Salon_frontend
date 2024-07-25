@@ -24,7 +24,7 @@ const Booking = () => {
 
   const [coupon, setCoupon] = useState("");
   const [offer, setOffer] = useState("");
-
+  const [offerId, setOfferId] = useState("");
   const [data, setData] = useState({});
   const [discount, setDiscount] = useState(0);
   const { salonid } = useParams();
@@ -127,6 +127,7 @@ const Booking = () => {
         if (data.success == true) {
           toast.success(data?.message);
           setDiscount(data?.data);
+          setOfferId(data?.offerId);
           setCoupon("");
         } else {
           toast.error(data?.message);
@@ -159,8 +160,8 @@ const Booking = () => {
         appointmentDate: appointment.appointmentDate,
         appointmentStartTime: appointmentStart,
         duration: appointment.duration,
-        cost: data?.cost - (discount / 100) * data?.cost,
-        offer,
+        cost: (data?.cost - (discount / 100) * data?.cost).toFixed(2),
+        offerId: offerId,
       }),
     })
       .then((response) => response.json())

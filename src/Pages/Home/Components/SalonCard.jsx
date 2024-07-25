@@ -35,7 +35,7 @@ const SalonCard = ({salon}) => {
                 background: 'linear-gradient(to top, #00000056, transparent)',
             }}>
             <img src={salon?.CoverImage} alt={salon?.SalonName} />
-            {MaxOffer > 0 && <p className={styles.offer}>{MaxOffer}% OFF</p>}
+            {MaxOffer > 0 && <p className={styles.offer} style={{whiteSpace:"nowrap"}}>{MaxOffer}% OFF</p>}
             </div>
             <div className={styles.lowerContent}>
                 <div>   

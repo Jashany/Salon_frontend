@@ -18,7 +18,7 @@ const Header = ({ text,redirect }) => {
     if(location.pathname === "/"){
       return(
         <div className={styles.header2}>
-          <h2>SalonDekho</h2>
+          <h2 style={{fontFamily:"Bodoni"}}>SALON DEKHO</h2>
           <div style={{display:"flex",alignItems:"center",gap:"15px"}}>
             <img className={styles.cart} style={{
               height:"25px",

@@ -31,11 +31,17 @@
     top: 15px;
 }
 
+@font-face {
+    font-family: "Bodoni";
+    src: url('../../assets/BodoniModaSC.ttf');
+}
+
 .header h2{
     font-size: 1.25rem !important;
     font-weight: bold !important;
     padding: 0 !important;
     margin: 0 !important;
+ 
 }
 
 /* SlidingMenu.module.css */

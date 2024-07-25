@@ -12,7 +12,7 @@
 
 .logos {
   position: absolute;
-  z-index: 10;
+  z-index: 60;
   display: flex;
   width: 100%;
   justify-content: space-between;

@@ -13,7 +13,7 @@ import stargold from "../../assets/stargold.svg";
 import star from "../../assets/star.svg";
 import OffersCarousel from "./Components/OfferCarosel";
 import clock from "../../assets/clock.png";
-import phone from "../../assets/call-calling.png";
+import phone from "../../assets/phone.svg";
 import { ConvertTime } from "../../Functions/ConvertTime";
 import insta from "../../assets/insta.webp";
 import { MinuteToHours } from "../../Functions/ConvertTime";
@@ -159,7 +159,7 @@ const SalonPage = () => {
           <div className={styles.logoIcon}>
             <div>
               <a href={`tel:${salon?.salonPhoneNumber}`}>
-                <img src={phone} alt="phone" />
+                <img className={styles.phone} src={phone} alt="phone" />
               </a>
             </div>
             {salon?.Instagram && (
@@ -178,6 +178,7 @@ const SalonPage = () => {
             <div className={styles.rating}>
               <p>{rating}</p>
               <img src={stargold} alt="rating" />
+              <p style={{marginLeft:"3px"}}>({salon?.Reviews?.length})</p>
             </div>
           )}
         </div>

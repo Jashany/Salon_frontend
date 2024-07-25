@@ -7,6 +7,7 @@ import Header from "../../Components/Header/Header";
 import ServiceCard from "../salon/Components/ServiceCard";
 import styles from "./ServicePage.module.css";
 import { MinuteToHours } from "../../Functions/ConvertTime";
+import { VscSettings } from "react-icons/vsc";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -16,13 +17,24 @@ const ServicePage = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const service = useSelector((state) => state.services.Services);
+  const [gender, setGender] = useState("");
+  const [showCancelModal, setShowCancelModal] = useState(false);
 
   if (!services) {
     navigate(-1);
   }
 
+  const filterServicesByGender = (services, gender) => {
+    if (gender) {
+      return services.filter(service => service.ServiceGender === gender || service.ServiceGender === "Both");
+    }
+    return services;
+  };
+
+  const filteredServices = filterServicesByGender(services, gender);
+
   // Count the number of services in each category
-  const serviceCounts = services.reduce((acc, service) => {
+  const serviceCounts = filteredServices.reduce((acc, service) => {
     acc[service.ServiceType] = (acc[service.ServiceType] || 0) + 1;
     return acc;
   }, {});
@@ -32,7 +44,7 @@ const ServicePage = () => {
     (a, b) => serviceCounts[b] - serviceCounts[a]
   );
 
-  const sortedServices = [...services].sort((a, b) => {
+  const sortedServices = [...filteredServices].sort((a, b) => {
     if (serviceCounts[a.ServiceType] > serviceCounts[b.ServiceType]) return -1;
     if (serviceCounts[a.ServiceType] < serviceCounts[b.ServiceType]) return 1;
     return 0;
@@ -48,32 +60,26 @@ const ServicePage = () => {
   const buttonRefs = useRef([]);
 
   useEffect(() => {
-    console.log(service)
-    console.log(services)
     setNoOfServices(service.length);
     let totalCost = 0;
-  let totalDuration = 0;
+    let totalDuration = 0;
 
-  // Assuming `service` is an array of selected service IDs
-  service.forEach((service) => {
-    const foundService = services.find(s => s._id === service.id);
-    if (foundService) {
-      // Assuming each service object has `cost` and `duration` properties
-      totalCost += foundService.ServiceCost;
-      totalDuration += foundService.ServiceTime;
-    }
-  });
+    service.forEach((service) => {
+      const foundService = filteredServices.find(s => s._id === service.id);
+      if (foundService) {
+        totalCost += foundService.ServiceCost;
+        totalDuration += foundService.ServiceTime;
+      }
+    });
 
-  setTotalPrice(totalCost);
-  setTotalDuration(totalDuration);
-  setServiceData({
-    NoOfServices,
-    totalCost,
-    totalDuration
-  })
+    setTotalPrice(totalCost);
+    setTotalDuration(totalDuration);
+    setServiceData({
+      NoOfServices,
+      totalCost,
+      totalDuration
+    });
   }, [service]);
-
-  
 
   useEffect(() => {
     sortedCategories.forEach((category) => {
@@ -113,13 +119,24 @@ const ServicePage = () => {
     }
   };
 
-  
-
   return (
     <div className={styles.main}>
       <Header text={"Services"} />
       <div className={styles.services}>
         <div className={styles.sort} ref={sortRef}>
+          <button
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "20px"
+            }}
+            onClick={() => {
+              setShowCancelModal(true);
+            }}
+          >
+            <VscSettings />
+          </button>
           {sortedCategories.map((service, index) => (
             <button
               key={index}
@@ -150,32 +167,84 @@ const ServicePage = () => {
       </div>
       {NoOfServices > 0 && (
         <div className={styles.book}>
-          <div >
-          <h4 style={{fontWeight:"500"}}>₹{totalPrice}</h4>
-          <div style={{
-            marginTop:"5px",
-            display:"flex",
-            gap:"5px",
-            color:"#676767",
-          }}>
-            <p>
-              {NoOfServices} Service{NoOfServices > 1 ? "s" : ""} • 
-            </p>
-            <p>
-            {MinuteToHours(totalDuration)}
-            </p>
+          <div>
+            <h4 style={{ fontWeight: "500" }}>₹{totalPrice}</h4>
+            <div
+              style={{
+                marginTop: "5px",
+                display: "flex",
+                gap: "5px",
+                color: "#676767",
+              }}
+            >
+              <p>
+                {NoOfServices} Service{NoOfServices > 1 ? "s" : ""} •
+              </p>
+              <p>
+                {MinuteToHours(totalDuration)}
+              </p>
+            </div>
           </div>
-          </div>
-          {console.log(serviceData)}
           <button
             className={styles.button}
             onClick={() => {
               if (NoOfServices > 0) navigate(`/salon/${id}/artists`, { state: serviceData });
             }}
-
           >
             Continue
           </button>
+        </div>
+      )}
+      {showCancelModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <div style={{width:"100%",paddingLeft:"10px"}}>
+
+            <h3>Set Gender</h3>
+            <div style={{display:"flex",flexDirection:"column"}}>
+
+            <label htmlFor="male">
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="Male"
+                onChange={(e) => setGender(e.target.value)}
+                />
+              Male
+            </label>
+            <label htmlFor="female">
+              <input
+                type="radio"
+                id="female"
+                name="gender"
+                value="Female"
+                onChange={(e) => setGender(e.target.value)}
+                />
+              Female
+            </label>
+            <label htmlFor="both">
+              <input
+                type="radio"
+                id="both"
+                name="gender"
+                value=""
+                onChange={(e) => setGender(e.target.value)}
+                />
+              Both
+            </label>
+                </div>
+            <button onClick={() => setShowCancelModal(false)} className={styles.setgender}>
+              Set Gender
+            </button>
+            </div>
+            <button
+              onClick={() => setShowCancelModal(false)}
+              className={styles.closeButton}
+            >
+              +
+            </button>
+          </div>
         </div>
       )}
     </div>

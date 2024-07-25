@@ -17,6 +17,9 @@
 .service h4{
     font-size: 1rem;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .service p{
@@ -38,4 +41,29 @@
 .selected{
     background-color: black !important;
     color: white !important;
+}
+
+
+.service span{
+   font-size: 10px;
+   border-radius: 10px;
+}
+
+.Male{
+    color: #06047a;
+    background-color: #06047a44;
+    padding: 0.5rem 0.75rem;
+}
+
+.Female{
+    color: #e000f9;
+    background-color: #e000f917;
+    padding: 0.5rem 0.75rem;
+}
+
+.Unisex{
+    color: #047A04;
+    background-color: #21ca5144;
+    padding: 0.5rem 0.75rem;
+
 }

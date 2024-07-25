@@ -29,10 +29,12 @@ const ServiceCard = ({ service }) => {
         }
     };
 
+    const gender = service?.ServiceGender === "Both" ? "Unisex" : service?.ServiceGender;
+
     return (
         <div className={styles.service}>
             <div>
-                <h4>{service?.ServiceName}</h4>
+                <h4>{service?.ServiceName} <span className={styles[gender]} >{gender}</span></h4>
                 <p>{convertTime(service?.ServiceTime)}</p>
                 <p style={{color:"black",marginTop:"10px"}}>₹{service?.ServiceCost}</p>
             </div>

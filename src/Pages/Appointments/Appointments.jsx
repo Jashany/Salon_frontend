@@ -136,11 +136,11 @@ const Appointment = () => {
       <div className={styles.dateTime}>
         <h3>
           <img src={calendar} alt="calendar icon" />
-          {date.getDate()} {moment(date).format("MMMM")} {dayOfWeek}
+          {date.getDate()} {moment(date).format("MMMM")},{dayOfWeek}
         </h3>
         <h3>
           <img src={clock} alt="clock icon" />
-          {ConvertTime(startTime)} TO {ConvertTime(endTime)}
+          {ConvertTime(startTime)} - {ConvertTime(endTime)}
         </h3>
       </div>
       <div className={styles.services}>

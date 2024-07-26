@@ -13,8 +13,8 @@
 }
 
 .insta{
-  height: 25px !important;
-  width: 25px !important;
+  height: 32.5px !important;
+  width: 32.5px !important;
 }
 
 .empty{
@@ -49,12 +49,13 @@
   background-color: white;
   padding: 0px 7px;
   color: black;
-  border-radius: 10px;
+  border-radius: 30px;
     display: flex;
     align-items: center;
     flex-direction: row;
     font-size: 0.75rem !important;
     gap: 4px;
+    box-shadow: 1px 4px 8px 0px #00000026;
 }
   
 

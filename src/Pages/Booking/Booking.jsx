@@ -128,6 +128,7 @@ const Booking = () => {
           toast.success(data?.message);
           setDiscount(data?.data);
           setOfferId(data?.offerId);
+          console.log(data?.offerId)
           setCoupon("");
         } else {
           toast.error(data?.message);
@@ -265,11 +266,11 @@ const Booking = () => {
         <div className={styles.dateTime}>
           <h3>
             <img src={calendar} />
-            {date.getDate()} {moment(date).format("MMMM")} {dayOfWeek}
+            {date.getDate()} {moment(date).format("MMMM")},{dayOfWeek}
           </h3>
           <h3>
             <img src={clock} />
-            {ConvertTime(appointment.appointmentStartTime)} TO {ConvertTime(`${hours}:${minutes}`)}
+            {ConvertTime(appointment.appointmentStartTime)} - {ConvertTime(`${hours}:${minutes}`)}
           </h3>
           <h3>
             <BiUser />

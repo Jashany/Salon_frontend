@@ -178,7 +178,7 @@ const SalonPage = () => {
             <div className={styles.rating}>
               <p>{rating}</p>
               <img src={stargold} alt="rating" />
-              <p style={{marginLeft:"3px"}}>({salon?.Reviews?.length})</p>
+              <p style={{marginLeft:"3px",color:"gray"}}>({salon?.Reviews?.length})</p>
             </div>
           )}
         </div>
@@ -340,6 +340,7 @@ const SalonPage = () => {
                 marginTop: "5px",
                 display: "flex",
                 gap: "5px",
+                color: "#676767",
               }}
             >
               <p>

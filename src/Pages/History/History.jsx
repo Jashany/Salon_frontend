@@ -120,7 +120,7 @@ const CurrentBooking = ({ currentBooking }) => {
   const date = new Date(currentBooking?.appointmentDate)
     .toDateString()
     .split(" ");
-  const formattedDate = `${date[2]} ${date[1]} ${date[3]}`;
+  const formattedDate = `${date[2]} ${date[1]} `;
 
   return (
     <div

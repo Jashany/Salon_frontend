@@ -62,7 +62,7 @@
   border: 1px solid #4a4a4a;
   background-color: #ffffff;
   color: #4a4a4a;
-  font-size: 0.75rem;
+  font-size: 1.2rem;
   font-weight: 500;
 }
 
@@ -78,7 +78,8 @@
 .services h3{
   font-size: 1.25rem;
   font-weight: bold;
-  margin-top: 1rem;
+  margin-top: 0.4rem;
+  margin-bottom: 1rem;
 }
 
 .servicelist {
@@ -209,7 +210,7 @@
 
 .reviews {
   padding-inline: 1rem;
-  margin-block: 1.5rem 2.5rem;
+  margin-block: 1.5rem 4rem;
 }
 
 .reviews h3 {
@@ -262,6 +263,11 @@
   border-radius: 10px;
 }
 
+.logoIcon div:nth-child(2){
+  border: none !important;
+  box-shadow: 0px 0px 5px 0px #5c555571;
+}
+
 
 .phone{
   height: 25px;
@@ -280,6 +286,6 @@
 }
 
 .insta{
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
 }

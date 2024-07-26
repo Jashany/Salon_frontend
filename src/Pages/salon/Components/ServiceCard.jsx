@@ -34,8 +34,10 @@ const ServiceCard = ({ service }) => {
     return (
         <div className={styles.service}>
             <div>
-                <h4>{service?.ServiceName} <span className={styles[gender]} >{gender}</span></h4>
-                <p>{convertTime(service?.ServiceTime)}</p>
+                <h4>{service?.ServiceName} 
+                    
+                </h4>
+                <p>{convertTime(service?.ServiceTime)} ·  {gender}</p>
                 <p style={{color:"black",marginTop:"10px"}}>₹{service?.ServiceCost}</p>
             </div>
             <div>

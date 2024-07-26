@@ -50,7 +50,7 @@ const Booking = () => {
     setOffer("");
     setDiscount(0);
     setAppliedCoupon("");
-    
+
     if (!user) {
       window.location.href = "/";
     }
@@ -221,6 +221,7 @@ const Booking = () => {
             <div className={styles.salonDetails}>
               <h1>{data?.salon?.SalonName}</h1>
               <div>
+              <p>{ratings}</p>
                 <img
                   src={stargold}
                   alt="star"
@@ -228,7 +229,7 @@ const Booking = () => {
                     marginRight: "3px",
                   }}
                 />
-                <p>{ratings}</p>
+               
               </div>
               <h2>{data?.salon?.address?.City}</h2>
             </div>
@@ -359,7 +360,7 @@ const Booking = () => {
           disabled={isButtonDisabled}
           onClick={submitBooking}
         >
-          Confirm
+          Book Now
         </button>
       </div>
     </div>

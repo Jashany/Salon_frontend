@@ -160,9 +160,9 @@ const CurrentBooking = ({ currentBooking }) => {
                 <p>{ratings}</p>
                 <img style={{
                   height:"12.5px",
-                  marginLeft:"5px",
+                  marginLeft:"3px",
                   width:"12.5px",
-                  marginTop:"4px"
+                  marginTop:"3.5px"
                 }} src={stargold} alt="" />
                 </div>
 

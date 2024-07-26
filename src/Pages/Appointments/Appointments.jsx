@@ -124,8 +124,11 @@ const Appointment = () => {
             <h2>{appointment?.salon?.SalonName}</h2>
             {appointment?.salon?.Reviews.length > 0 && 
             <div>
-              <img src={star} alt="" />
-              <p>{ratingAverage}</p>
+              <p>{ratingAverage.toFixed(1)}</p>
+              <img style={{
+                width: "15px",
+                height: "15px",
+              }} src={star} alt="" />
             </div>
             }
             <p>{appointment?.salon?.address?.City}</p>

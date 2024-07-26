@@ -24,10 +24,12 @@ const ArtistCard = ({artist,state}) => {
                 backgroundImage: `url(${artist.ArtistPhoto})`,
                 position: 'relative'
             }}>
+                {averageRating > 0 && (
                 <div className={styles.artistRating}>
-                    <img src={stargold} alt="rating" />
                     <p>{averageRating}</p>
+                    <img src={stargold} alt="rating" />
                 </div>
+                )}
             </div>
             ) : (
             <div className={styles.image} style={{
@@ -40,7 +42,7 @@ const ArtistCard = ({artist,state}) => {
                 alignItems: 'center',
                 position: 'relative'
             }}>
-                <p style={{ color: 'black', fontSize: '20px' }}>{artist.ArtistName[0]}</p>
+                <p style={{ color: 'black', fontSize: '30px' }}>{artist.ArtistName[0]}</p>
                 {averageRating > 0 && (
                 <div className={styles.artistRating}>
                     <p>{averageRating}</p>

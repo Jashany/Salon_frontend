@@ -21,6 +21,7 @@ import Ticket from "../../Components/ticket/Ticket";
 const couponAtom = atom(false);
 const code = atom("");
 const discountAmount = atom(0);
+const offerrId = atom("");
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Booking = () => {
 
   const [coupon, setCoupon] = useState("");
   const [offer, setOffer] = useState("");
-  const [offerId, setOfferId] = useState("");
+  const [offerId, setOfferId] = useState(offerrId);
   const [showCoupon, setShowCoupon] = useState(false);
   const [data, setData] = useState({});
   const [discount, setDiscount] = useAtom(discountAmount);
@@ -347,6 +348,7 @@ const Booking = () => {
 
 const OfferPage = ({salonId,day,date}) =>{
   const [offer, setOffer] = useAtom(code)
+  const [offerId, setOfferId] = useAtom(offerrId)
   const [showoffer, setShowOffer] = useAtom(couponAtom)
   console.log(salonId,day)
   const [offers,setOffers] = useState([])
@@ -376,6 +378,7 @@ const OfferPage = ({salonId,day,date}) =>{
         if (data.success == true) {
           setDiscount(data?.data);
           setShowOffer(false);
+          setOfferId(data?.offerId);
           toast.success(data?.message);
           setOffer(offer);
           setCoupon("");

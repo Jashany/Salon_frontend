@@ -19,6 +19,7 @@ const SalonCard = ({salon}) => {
 
     const rating = averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1)
 
+    const gender = salon?.Gender === "Unisex" ? "Unisex" : `${salon?.Gender} only`
 
     return ( 
    
@@ -40,7 +41,7 @@ const SalonCard = ({salon}) => {
             <div className={styles.lowerContent}>
                 <div>   
                     <h2>{salon?.SalonName}</h2>
-                    <h6 style={{justifySelf:"flex-end"}}>{salon?.Gender}</h6>
+                    <h6 style={{justifySelf:"flex-end",fontWeight:"500"}}>{gender}</h6>
                     <p><FaLocationDot />{salon?.address?.City} <p>
                         {salon.distance && 
                         <p>

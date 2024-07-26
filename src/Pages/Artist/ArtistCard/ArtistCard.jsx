@@ -40,7 +40,7 @@ const ArtistCard = ({artist,state}) => {
                 alignItems: 'center',
                 position: 'relative'
             }}>
-                <p style={{ color: '#047a04', fontSize: '20px' }}>{artist.ArtistName[0]}</p>
+                <p style={{ color: 'black', fontSize: '20px' }}>{artist.ArtistName[0]}</p>
                 {averageRating > 0 && (
                 <div className={styles.artistRating}>
                     <p>{averageRating}</p>

@@ -33,24 +33,9 @@ const ServicePage = () => {
 
   const filteredServices = filterServicesByGender(services, gender);
 
-  // Count the number of services in each category
-  const serviceCounts = filteredServices.reduce((acc, service) => {
-    acc[service.ServiceType] = (acc[service.ServiceType] || 0) + 1;
-    return acc;
-  }, {});
+  const serviceCategories = [...new Set(filteredServices.map(service => service.ServiceType))];
 
-  // Sort services by category and number of services in each category
-  const sortedCategories = Object.keys(serviceCounts).sort(
-    (a, b) => serviceCounts[b] - serviceCounts[a]
-  );
-
-  const sortedServices = [...filteredServices].sort((a, b) => {
-    if (serviceCounts[a.ServiceType] > serviceCounts[b.ServiceType]) return -1;
-    if (serviceCounts[a.ServiceType] < serviceCounts[b.ServiceType]) return 1;
-    return 0;
-  });
-
-  const [serviceType, setServiceType] = useState(sortedCategories[0] || "");
+  const [serviceType, setServiceType] = useState(serviceCategories[0] || "");
   const [NoOfServices, setNoOfServices] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalDuration, setTotalDuration] = useState(0);
@@ -82,10 +67,10 @@ const ServicePage = () => {
   }, [service]);
 
   useEffect(() => {
-    sortedCategories.forEach((category) => {
+    serviceCategories.forEach((category) => {
       ScrollTrigger.create({
         trigger: `.${styles.servicelist} > div[data-type='${category}']`,
-        start: "-80px top",
+        start: "-130px top",
         end: "bottom top",
         onEnter: () => setServiceType(category),
         onEnterBack: () => setServiceType(category),
@@ -96,15 +81,15 @@ const ServicePage = () => {
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, [sortedServices, sortedCategories]);
+  }, [filteredServices, serviceCategories]);
 
   useEffect(() => {
-    const index = sortedCategories.indexOf(serviceType);
+    const index = serviceCategories.indexOf(serviceType);
     const button = buttonRefs.current[index];
     if (button) {
       button.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     }
-  }, [serviceType, sortedCategories]);
+  }, [serviceType, serviceCategories]);
 
   const scrollToCategory = (type) => {
     const categoryElement = document.querySelector(
@@ -137,7 +122,7 @@ const ServicePage = () => {
           >
             <VscSettings />
           </button>
-          {sortedCategories.map((service, index) => (
+          {serviceCategories.map((service, index) => (
             <button
               key={index}
               ref={(el) => (buttonRefs.current[index] = el)}
@@ -153,10 +138,10 @@ const ServicePage = () => {
           <div className={styles.indicator}></div>
         </div>
         <div className={styles.servicelist} ref={servicelistRef}>
-          {sortedCategories.map((category) => (
+          {serviceCategories.map((category) => (
             <div key={category} data-type={category}>
               <h2 className={styles.categoryHeader}>{category}</h2>
-              {sortedServices
+              {filteredServices
                 .filter((service) => service.ServiceType === category)
                 .map((service, index) => (
                   <ServiceCard key={index} service={service} />
@@ -199,44 +184,42 @@ const ServicePage = () => {
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <div style={{width:"100%",paddingLeft:"10px"}}>
-
-            <h3>Set Gender</h3>
-            <div style={{display:"flex",flexDirection:"column"}}>
-
-            <label htmlFor="male">
-              <input
-                type="radio"
-                id="male"
-                name="gender"
-                value="Male"
-                onChange={(e) => setGender(e.target.value)}
-                />
-              Male
-            </label>
-            <label htmlFor="female">
-              <input
-                type="radio"
-                id="female"
-                name="gender"
-                value="Female"
-                onChange={(e) => setGender(e.target.value)}
-                />
-              Female
-            </label>
-            <label htmlFor="both">
-              <input
-                type="radio"
-                id="both"
-                name="gender"
-                value=""
-                onChange={(e) => setGender(e.target.value)}
-                />
-              Both
-            </label>
-                </div>
-            <button onClick={() => setShowCancelModal(false)} className={styles.setgender}>
-              Set Gender
-            </button>
+              <h3>Set Gender</h3>
+              <div style={{display:"flex",flexDirection:"column"}}>
+                <label htmlFor="male">
+                  <input
+                    type="radio"
+                    id="male"
+                    name="gender"
+                    value="Male"
+                    onChange={(e) => setGender(e.target.value)}
+                  />
+                  Male
+                </label>
+                <label htmlFor="female">
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="Female"
+                    onChange={(e) => setGender(e.target.value)}
+                  />
+                  Female
+                </label>
+                <label htmlFor="both">
+                  <input
+                    type="radio"
+                    id="both"
+                    name="gender"
+                    value=""
+                    onChange={(e) => setGender(e.target.value)}
+                  />
+                  Both
+                </label>
+              </div>
+              <button onClick={() => setShowCancelModal(false)} className={styles.setgender}>
+                Set Gender
+              </button>
             </div>
             <button
               onClick={() => setShowCancelModal(false)}

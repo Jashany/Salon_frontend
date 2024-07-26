@@ -252,7 +252,8 @@ const SalonPage = () => {
                 {imageExist ? (
                   <div
                     style={{
-                      background: "#b6ffef",
+                      // green
+                      background: "radial-gradient(circle, #e0ebdf, #d0e8be)",
                       borderRadius: "50%",
                       width: "90px",
                       height: "90px",
@@ -262,7 +263,7 @@ const SalonPage = () => {
                       position: "relative",
                     }}
                   >
-                    <p style={{ color: "#047a04", fontSize: "30px" }}>
+                    <p style={{ color: "black", fontSize: "30px" }}>
                       {artist.ArtistName[0]}
                     </p>
                     {averageRating > 0 && (

@@ -45,6 +45,12 @@ const Booking = () => {
   const [appliedCoupon, setAppliedCoupon] = useAtom(code);
 
   useEffect(() => {
+
+    setOfferId("");
+    setOffer("");
+    setDiscount(0);
+    setAppliedCoupon("");
+    
     if (!user) {
       window.location.href = "/";
     }
@@ -292,6 +298,7 @@ const Booking = () => {
                   setDiscount(0);
                   setCoupon("");
                   setOffer("");
+                  setOfferId("");
                   setAppliedCoupon("");
                 }}
               >{`x`}</button>

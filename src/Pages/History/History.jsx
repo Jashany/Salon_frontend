@@ -1,11 +1,12 @@
 import styles from "./History.module.css";
 import BackArrow from "../../assets/backArrow@.png";
 import { useEffect, useState } from "react";
-import star from "../../assets/star.svg";
 import stargold from "../../assets/stargold.svg";
 import { useNavigate, useLocation } from "react-router-dom";
 import Loader from "../../Components/Loader/Loader";
 import noAppointments from "../../assets/new.png";
+import { ConvertTime, MinuteToHours } from "../../Functions/ConvertTime";
+import star from "../../assets/star.png";
 const History = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -121,7 +122,17 @@ const CurrentBooking = ({ currentBooking }) => {
     .toDateString()
     .split(" ");
   const formattedDate = `${date[2]} ${date[1]} `;
+  //time in 24 hour hh mm
+  const hours = currentBooking?.appointmentStartTime.split("T")[1].split(":")[0];
+  const minutes = currentBooking?.appointmentStartTime.split("T")[1].split(":")[1];
+  const time = `${hours}:${minutes}`;
+  console.log(time);
+  const averageRating = currentBooking?.salon?.Reviews.reduce(
+    (total, review) => total + review.Rating,
+    0
+  ) / currentBooking?.salon?.Reviews.length || 0;
 
+  const ratings = averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1);
   return (
     <div
       className={styles.currentcard}
@@ -135,20 +146,33 @@ const CurrentBooking = ({ currentBooking }) => {
             backgroundImage: `url(${currentBooking?.salon?.CoverImage})`,
             height: "60px",
             width: "60px",
-            backgroundSize: "cover",
+            backgroundSize: "contain",
             backgroundPosition: "center",
             borderRadius: "50%",
+            backgroundRepeat: "no-repeat",
           }}
         ></div>
         <div style={{display:"flex",justifyContent:"space-between",flex:1}} >
           <div>
               <h4>{currentBooking?.salon?.SalonName}</h4>
-              <p>4.3</p>
+              {ratings > 0 && (
+                <div style={{display:"flex",alignItems:"center"}}>
+                <p>{ratings}</p>
+                <img style={{
+                  height:"12.5px",
+                  marginLeft:"5px",
+                  width:"12.5px",
+                  marginTop:"4px"
+                }} src={stargold} alt="" />
+                </div>
+
+              )}
             <p>{currentBooking?.salon?.address?.City}</p>
           </div>
           <div>
             <div className={styles.status}>{currentBooking?.Status}</div>
-            <p>{formattedDate}</p>
+            <p style={{textAlign:"right"}}>{formattedDate}</p>
+            <p style={{textAlign:"right"}}>{ConvertTime(time)}</p>
           </div>
         </div>
       </div>

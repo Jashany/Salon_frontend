@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import Header from "../../Components/Header/Header";
 import { useParams, useNavigate } from "react-router-dom";
 import SendArrow from "../../assets/SendArrow.png";
-import Directions from "../../assets/Frame2.svg";
+import Directions from "../../assets/Frame1.svg";
 import backArrow from "../../assets/backArrow@.png";
-import phone from "../../assets/call-calling.png";
+import phone from "../../assets/phone.svg";
 import calendar from "../../assets/calendar.png";
 import stargold from "../../assets/stargold.svg";
 import clock from "../../assets/clock.png";
@@ -155,6 +155,10 @@ const Booking = () => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success === true) {
+          setDiscount(0);
+          setCoupon("");
+          setOffer("");
+
           navigate(
             `/success/${data?.data}?redirect=/appointment/${data?.data}`,
             {

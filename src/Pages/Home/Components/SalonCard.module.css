@@ -90,19 +90,23 @@
 }
 
 .open {
-  color: white;
-  background-color: #047a04;
-  font-size: 0.5rem;
+  color: #1d7702;
+  background-color: #d8f6d0;
+  font-size: 0.6rem;
   padding: 0.5rem;
   border-radius: 10px;
+  font-weight: 700 !important;
+
 }
 
+
 .closed {
-  color: white;
-  background-color: #ff0000;
+  color: #F44336;
+  background-color: #FFCDD2;
   font-size: 0.65rem;
   padding: 0.5rem;
   border-radius: 10px;
+  font-weight: 700 !important;
 }
 
 .offer {

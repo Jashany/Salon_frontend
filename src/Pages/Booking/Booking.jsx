@@ -5,6 +5,7 @@ import Header from "../../Components/Header/Header";
 import { useParams, useNavigate } from "react-router-dom";
 import SendArrow from "../../assets/SendArrow.png";
 import Directions from "../../assets/Frame2.svg";
+import backArrow from "../../assets/backArrow@.png";
 import phone from "../../assets/call-calling.png";
 import calendar from "../../assets/calendar.png";
 import stargold from "../../assets/stargold.svg";
@@ -14,6 +15,12 @@ import Loader from "../../Components/Loader/Loader";
 import moment from "moment";
 import { ConvertTime } from "../../Functions/ConvertTime";
 import { BiUser } from "react-icons/bi";
+import { atom, useAtom } from "jotai";
+import Ticket from "../../Components/ticket/Ticket";
+
+const couponAtom = atom(false);
+const code = atom("");
+const discountAmount = atom(0);
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -25,14 +32,17 @@ const Booking = () => {
   const [coupon, setCoupon] = useState("");
   const [offer, setOffer] = useState("");
   const [offerId, setOfferId] = useState("");
+  const [showCoupon, setShowCoupon] = useState(false);
   const [data, setData] = useState({});
-  const [discount, setDiscount] = useState(0);
+  const [discount, setDiscount] = useAtom(discountAmount);
   const { salonid } = useParams();
   const service = useSelector((state) => state.services.Services);
   const artist = useSelector((state) => state.artist.artist);
   const services = service?.map((service) => service.id);
   const appointment = useSelector((state) => state.appointment.appointment);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [showoffer, setShowOffer] = useAtom(couponAtom)
+  const [appliedCoupon, setAppliedCoupon] = useAtom(code);
 
   useEffect(() => {
     if (!user) {
@@ -77,6 +87,7 @@ const Booking = () => {
     );
   }
 
+ 
   const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${data?.salon?.location?.coordinates[0]},${data?.salon?.location?.coordinates[1]}`;
 
   //2024-06-17 get day of week
@@ -104,40 +115,15 @@ const Booking = () => {
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
+  
+  if(showoffer){
+    return(
+      <OfferPage salonId={salonid} day={dayOfWeek} date={appointment.appointmentDate} />
+    )
+  }
 
-  const SubmitCoupon = () => {
-    if (!coupon) {
-      toast.error("Please enter a coupon code");
-      return;
-    }
-    fetch("https://api.salondekho.in/api/offer/validate-offer", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        offerName: coupon,
-        salonId: salonid,
-        TodayDate: appointment.appointmentDate
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.success == true) {
-          toast.success(data?.message);
-          setDiscount(data?.data);
-          setOfferId(data?.offerId);
-          console.log(data?.offerId)
-          setCoupon("");
-        } else {
-          toast.error(data?.message);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
+
+ 
 
   const appointmentStart = `${appointment.appointmentDate}T${appointment.appointmentStartTime}:00.000`;
 
@@ -200,7 +186,7 @@ const Booking = () => {
 
   return (
     <div className={styles.main}>
-      <div>
+      <div style={{marginBottom:"3.5rem"}}>
         <Header text={"Review and Confirm"} redirect={`/salon/${salonid}/${appointment.artistId}`} />
 
         <div className={styles.salon}>
@@ -282,15 +268,23 @@ const Booking = () => {
           <div>
             <input
               type="text"
-              placeholder="Enter Coupon Code"
+              placeholder="View all coupons"
               name="coupon"
-              value={coupon}
-              onChange={(e) => {
-                setCoupon(e.target.value);
-                setOffer(e.target.value);
-              }}
+              value={appliedCoupon}
+              disabled
             />
-            <button onClick={SubmitCoupon}>Apply</button>
+            {appliedCoupon ? (
+            <button onClick={()=>{
+              setDiscount(0)
+              setCoupon("")
+              setOffer("")
+              setAppliedCoupon("")
+            }}>{`x`}</button>
+          ):(
+            <button onClick={()=>{
+              setShowOffer(true)
+            }}>{`>`}</button>
+          )}
           </div>
         </div>
         <div className={styles.services}>
@@ -349,5 +343,104 @@ const Booking = () => {
     </div>
   );
 };
+
+
+const OfferPage = ({salonId,day,date}) =>{
+  const [offer, setOffer] = useAtom(code)
+  const [showoffer, setShowOffer] = useAtom(couponAtom)
+  console.log(salonId,day)
+  const [offers,setOffers] = useState([])
+  const [discount, setDiscount] = useAtom(discountAmount);
+
+
+  const SubmitCoupon = (offer) => {
+    console.log(offer)
+    if (!offer) {
+      toast.error("Please enter a coupon code");
+      return;
+    }
+    fetch("https://api.salondekho.in/api/offer/validate-offer", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        offerName: offer,
+        salonId: salonId,
+        TodayDate: date,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success == true) {
+          setDiscount(data?.data);
+          setShowOffer(false);
+          toast.success(data?.message);
+          setOffer(offer);
+          setCoupon("");
+        } else {
+          toast.error(data?.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+
+  useEffect(()=>{
+    fetch("https://api.salondekho.in/api/offer/get-offers-of-that-day",{
+      method:"POST",
+      credentials:"include",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        salonId,
+        day
+      })
+    }).then(response=>response.json())
+    .then(data=>{
+      console.log(data)
+      setOffers(data?.data)
+    })
+    .catch(error=>{
+      console.log(error)
+    })
+  },[])
+  return(
+    <div className={styles.offers}>
+      <div className={styles.header}>
+        <img src={backArrow} alt="" onClick={()=>{
+          console.log("clicked")
+          setShowOffer(false)
+        }} />
+        <h3 style={{marginRight:"20px"}}>OFFERS</h3>
+        <p></p>
+      </div>
+      <div className={styles.offerss}>
+        {offers.map(offer=>(
+          <div className={styles.offer}>
+            <div>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+            <h4>Flat {offer.OfferDiscountinPercentage}% off</h4>
+            <Ticket text={offer?.OfferName} />
+            </div>
+            <p>{offer.OfferDescription}</p>
+            </div>
+            <div className={styles.apply} onClick={()=>{
+              SubmitCoupon(offer.OfferName)
+            }}>
+              <h6>
+                TAP TO APPLY
+              </h6>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default Booking;

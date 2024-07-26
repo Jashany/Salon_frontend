@@ -75,7 +75,7 @@ const ServicePage = () => {
     setTotalPrice(totalCost);
     setTotalDuration(totalDuration);
     setServiceData({
-      NoOfServices,
+      NoOfServices: service.length,
       totalCost,
       totalDuration
     });

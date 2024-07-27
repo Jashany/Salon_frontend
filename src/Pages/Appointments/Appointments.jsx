@@ -9,7 +9,7 @@ import clock from "../../assets/clock.png";
 import moment from "moment";
 import Loader from "../../Components/Loader/Loader";
 import { ConvertTime } from "../../Functions/ConvertTime";
-
+import { BiUser } from "react-icons/bi";
 const Appointment = () => {
   const { appointmentId } = useParams();
   const query = new URLSearchParams(useLocation().search);
@@ -156,6 +156,10 @@ const Appointment = () => {
         <h3>
           <img src={clock} alt="clock icon" />
           {ConvertTime(startTime)} - {ConvertTime(endTime)}
+        </h3>
+        <h3>
+          <BiUser />
+          {appointment?.artist?.ArtistName}
         </h3>
       </div>
       <div className={styles.services}>

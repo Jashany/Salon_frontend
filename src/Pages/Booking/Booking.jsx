@@ -198,9 +198,6 @@ const Booking = () => {
     data?.salon?.Reviews.reduce((total, review) => total + review.Rating, 0) /
       data?.salon?.Reviews.length || 0;
 
-  const ratings =
-    averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1);
-
   return (
     <div className={styles.main}>
       <div style={{ marginBottom: "3.5rem" }}>
@@ -223,7 +220,7 @@ const Booking = () => {
             <div className={styles.salonDetails}>
               <h1>{data?.salon?.SalonName}</h1>
               <div>
-              <p>{ratings}</p>
+              <p>{averageRating.toFixed(1)}</p>
                 <img
                   src={stargold}
                   alt="star"

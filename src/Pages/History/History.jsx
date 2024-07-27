@@ -132,7 +132,6 @@ const CurrentBooking = ({ currentBooking }) => {
     0
   ) / currentBooking?.salon?.Reviews.length || 0;
 
-  const ratings = averageRating % 1 === 0 ? averageRating : averageRating.toFixed(1);
   return (
     <div
       className={styles.currentcard}
@@ -155,9 +154,9 @@ const CurrentBooking = ({ currentBooking }) => {
         <div style={{display:"flex",justifyContent:"space-between",flex:1}} >
           <div>
               <h4>{currentBooking?.salon?.SalonName}</h4>
-              {ratings > 0 && (
+              {averageRating > 0 && (
                 <div style={{display:"flex",alignItems:"center"}}>
-                <p>{ratings}</p>
+                <p>{averageRating.toFixed(1)}</p>
                 <img style={{
                   height:"12.5px",
                   marginLeft:"3px",

@@ -10,6 +10,7 @@ import { ConvertTime } from "../../Functions/ConvertTime";
 import { MinuteToHours } from "../../Functions/ConvertTime";
 
 
+
 const Timeslot = () => {
   const Artist = sessionStorage.getItem("artist");
   const jsonArtist = JSON.parse(Artist);
@@ -83,6 +84,7 @@ const Timeslot = () => {
       </>
     );
   }
+
 
   const getDay = (date) => moment(date).format("dddd");
   const getMonthYear = (date) => moment(date).format("MMMM YYYY");

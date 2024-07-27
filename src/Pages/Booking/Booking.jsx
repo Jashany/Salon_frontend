@@ -17,6 +17,8 @@ import { ConvertTime } from "../../Functions/ConvertTime";
 import { BiUser } from "react-icons/bi";
 import { atom, useAtom } from "jotai";
 import Ticket from "../../Components/ticket/Ticket";
+import greater from "../../assets/greater-than.png";
+import close from "../../assets/close.png";
 
 const couponAtom = atom(false);
 const code = atom("");
@@ -284,7 +286,6 @@ const Booking = () => {
           </h3>
         </div>
         <div className={styles.coupon}>
-          <h2>Apply Coupons</h2>
           <div>
             <input
               type="text"
@@ -302,13 +303,16 @@ const Booking = () => {
                   setOfferId("");
                   setAppliedCoupon("");
                 }}
-              >{`x`}</button>
+              ><img style={{
+                height:"12.5px",
+                width:"12.5px"
+              }} src={close} alt="" /></button>
             ) : (
               <button
                 onClick={() => {
                   setShowOffer(true);
                 }}
-              >{`>`}</button>
+              ><img src={greater} alt="" /></button>
             )}
           </div>
         </div>

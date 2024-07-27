@@ -84,6 +84,8 @@ const Appointment = () => {
       0
     ) / appointment?.salon?.Reviews.length;
 
+
+
   const handleCancel = () => {
     fetch(
       `https://api.salondekho.in/api/appointment/cancelAppointment/${appointmentId}`,
@@ -102,6 +104,16 @@ const Appointment = () => {
       })
       .catch((err) => console.log(err));
   };
+
+  const totalServiceCost = appointment?.services?.reduce(
+    (acc, service) => acc + service.ServiceCost,
+    0
+  );
+  console.log(totalServiceCost);
+
+  const ifDiscount =  totalServiceCost - appointment?.appointmentCost;
+  const discount = ifDiscount > 0 ? ifDiscount : null;
+
 
   return (
     <div className={styles.main}>
@@ -159,6 +171,18 @@ const Appointment = () => {
           </div>
         ))}
       </div>
+      <div className={styles.total}>
+        {discount && (
+          <div>
+            <h3>Discount</h3>
+            <h3>-₹{discount}</h3>
+          </div>
+        )}
+        <div style={{color:'green'}}>
+        <h3>Total Cost</h3>
+        <h3>₹{appointment?.appointmentCost}</h3>
+        </div>
+        </div>
       <div className={styles.buttons}>
         <div
           onClick={() =>

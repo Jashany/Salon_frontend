@@ -10,6 +10,8 @@ import { clearArtist } from "../../Slices/artistSlice";
 import { clearServices } from "../../Slices/servicesSlice";
 import Loader from "../../Components/Loader/Loader";
 
+const Default_Location = { latitude: 29.1672, longitude: 75.6439 };
+
 const SearchPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -43,6 +45,8 @@ const SearchPage = () => {
     if (lat && long) {
       const location = { latitude: lat1, longitude: long1 };
       requestdata.location = location;
+    }else{
+      requestdata.location = Default_Location;
     }
 
     fetch("https://api.salondekho.in/api/salon/searchSalons", {

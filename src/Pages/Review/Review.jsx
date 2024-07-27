@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 import { useEffect, useState } from "react";
 import Loader from "../../Components/Loader/Loader";
+import { useSelector } from "react-redux";
 
 const Review = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,8 @@ const Review = () => {
   const [review, setReview] = useState("");
   const navigate = useNavigate();
   const { state } = useLocation();
+  const user = useSelector((state) => state.auth.auth);
+  console.log(state.salon.name);
 
   const date = new Date(state?.salon?.appointmentDate).toDateString();
 
@@ -29,6 +32,9 @@ const Review = () => {
     return <Loader />;
   }
 
+  const  todaysDate = new Date().toLocaleDateString()
+  console.log(todaysDate)
+
   const submitReview = () => {
     fetch("https://api.salondekho.in/api/review/createReview", {
       method: "POST",
@@ -37,9 +43,11 @@ const Review = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name : state.salon.name,
         rating: rating,
         review: review,
         appointmentId: state.salon._id,
+        date : todaysDate,
       }),
     })
       .then((res) => res.json())

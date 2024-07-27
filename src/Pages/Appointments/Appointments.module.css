@@ -87,7 +87,7 @@
 
 .serviceClass h3{
     font-size: 1.00rem;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom:3px;
 
 }
@@ -98,6 +98,25 @@
     margin-bottom:3px;
 
 }
+
+.total{
+    display: flex;
+    padding-inline: 1.25rem;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.total div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.total h3{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
 
 
 .dateTime{

@@ -73,10 +73,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
   animation: modal 0.5s forwards ease-in-out;
-
+  max-height: 400px;
+  overflow-y: auto;
+  scrollbar-width: none;  
 }
 
 .modalContent h3{

@@ -315,10 +315,13 @@ const SalonPage = () => {
               }
               return (
                 <div key={index} className={styles.review}>
-                  <div>
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                     <h4 style={{ fontSize: "1rem" }}>
-                      {review?.customerId?.name}
+                      {(review?.name || review?.customerId?.name)}
                     </h4>
+                    <p>
+                      {review?.date}
+                    </p>
                   </div>
                   <div>{ratingStars}</div>
                   {review?.Review && (

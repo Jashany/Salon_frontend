@@ -143,6 +143,8 @@
 
 .pastMain>div:nth-child(2) {
   width: fit-content;
+  gap: 1rem;
+  text-align: right;
 }
 
 .pastMain h3 {

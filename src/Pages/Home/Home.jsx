@@ -13,7 +13,7 @@ import GooglePlacesAutocomplete, {
 import PastSalonCard from "../../Components/PastCards/PastSalonCard";
 
 const API_KEY = "AIzaSyAdINc7vU6-hFW61ZsERj0tSQIcqGYPb4Y";
-const DEFAULT_LOCATION = { latitude: 30.2129, longitude: 74.9331 };
+const DEFAULT_LOCATION = { latitude: 29.1672, longitude: 75.6439 };
 
 console.warn = () => {};
 const Home = () => {

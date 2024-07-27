@@ -181,6 +181,11 @@ const CurrentBooking = ({ currentBooking }) => {
 };
 
 const PastBooking = ({ pastBooking }) => {
+
+  const date = new Date(pastBooking?.appointmentDate)
+  .toDateString()
+  .split(" ");
+  const formattedDate = `${date[2]} ${date[1]} `;
   const navigate = useNavigate();
 
   if (pastBooking?.Review) {
@@ -201,7 +206,12 @@ const PastBooking = ({ pastBooking }) => {
           <p>{pastBooking?.salon?.address?.City}</p>
           <div>{ratingStars}</div>
         </div>
+        <div>
         <div className={styles.status2}>{pastBooking?.Status}</div>
+        <p>
+          {formattedDate}
+        </p>
+        </div>
       </div>
     );
   } else {

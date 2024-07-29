@@ -187,16 +187,17 @@ const ServicePage = () => {
               <h3>Set Gender</h3>
               <div style={{display:"flex",flexDirection:"column"}}>
                 <label htmlFor="male">
+                  Male
                   <input
                     type="radio"
                     id="male"
                     name="gender"
                     value="Male"
                     onChange={(e) => setGender(e.target.value)}
-                  />
-                  Male
-                </label>
+                    />
+                    </label>
                 <label htmlFor="female">
+                  Female
                   <input
                     type="radio"
                     id="female"
@@ -204,9 +205,9 @@ const ServicePage = () => {
                     value="Female"
                     onChange={(e) => setGender(e.target.value)}
                   />
-                  Female
                 </label>
                 <label htmlFor="both">
+                  Both
                   <input
                     type="radio"
                     id="both"
@@ -214,7 +215,6 @@ const ServicePage = () => {
                     value=""
                     onChange={(e) => setGender(e.target.value)}
                   />
-                  Both
                 </label>
               </div>
               <button onClick={() => setShowCancelModal(false)} className={styles.setgender}>

@@ -5,6 +5,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { user as setUser } from "../../Slices/authSlice";
 import backArrow from "../../assets/backArrow@.png";
 
+
 import OtpInput from "react-otp-input";
 const VerifyOtp = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ const VerifyOtp = () => {
       .then((data) => {
         if(data.success == true){
           dispatch(setUser(data.user));
-          if(!data.user.name || !data.user.gender){
+          if(!data?.user?.name || !data?.user?.gender){
             if(redirect){
             navigate(`/details?redirect=${redirect}`, { state: { phoneNumber: phoneNumber } });
             }else{

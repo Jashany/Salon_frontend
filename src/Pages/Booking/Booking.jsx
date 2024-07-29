@@ -17,7 +17,7 @@ import { ConvertTime } from "../../Functions/ConvertTime";
 import { BiUser } from "react-icons/bi";
 import { atom, useAtom } from "jotai";
 import Ticket from "../../Components/ticket/Ticket";
-import greater from "../../assets/greater-than.png";
+import greater from "../../assets/greater-than.svg";
 import close from "../../assets/close.png";
 
 const couponAtom = atom(false);

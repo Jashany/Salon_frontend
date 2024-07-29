@@ -141,8 +141,8 @@ const SalonPage = () => {
             <img src={SendArrow} alt="sendarrow" onClick={shareUrl} />
           </div>
         </div>
-        
-        <ImageCarosel images={allPhotos} />
+
+        <ImageCarosel images={allPhotos} name={salon?.SalonName} />
       </div>
       <div className={styles.upperPart}>
         <div className={styles.details}>

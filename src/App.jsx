@@ -22,6 +22,7 @@ import Success from "./Components/SuccessPage/Success"
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute"
 import AccountDelete from "./Pages/AccountDelete/AccountDelete"
 import Details from "./Pages/VerifyOtp/Details"
+import LoginPopup from "./Components/LoginPopup/LoginPopup"
 
 function App() {
 
@@ -34,7 +35,6 @@ function App() {
         <Route path="/login-otp" element={<Login />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/login" element={<OTP />} />
         <Route path="/salon/:id" element={<SalonPage />} />
         <Route path="/salon/:id/services" element={<ServicePage />} />
         <Route path="/salon/:salonid/artists" element={<ArtistPage />} />
@@ -49,8 +49,8 @@ function App() {
         <Route path="/reschedule/:appointmentId" element={<Reschedule />} />
         <Route path="/success/:appointmentId" element={<Success />} />
         <Route path="/details" element={<Details />} />
-        
         </Route>
+        <Route path="/login" element={<LoginPopup />} />
       </Routes>
       </Provider>
     </>

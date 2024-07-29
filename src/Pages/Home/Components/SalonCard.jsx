@@ -27,6 +27,8 @@ const SalonCard = ({salon}) => {
             navigate(`/salon/${salon?._id}`, {state: {distance : distance} })
         }
         }>  
+        {salon?.CoverImage ? (
+
             <div style={{
                 width: '100%',
                 height:'200px',
@@ -38,6 +40,28 @@ const SalonCard = ({salon}) => {
             <img src={salon?.CoverImage} alt={salon?.SalonName} />
             {MaxOffer > 0 && <p className={styles.offer} style={{whiteSpace:"nowrap"}}>{MaxOffer}% OFF</p>}
             </div>
+        ) : (
+            <div style={{
+                width: '100%',
+                height:'200px',
+                overflow: 'hidden',
+                borderRadius: '10px',
+                position: 'relative',
+                backgroundColor: 'black',
+                color:"white",
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center",
+              
+            }}>
+            <h4 style={{
+                fontWeight:"500",
+                fontSize:"1.5rem",
+                  fontFamily:"Bodoni"
+            }}>{salon?.SalonName}</h4>
+            {MaxOffer > 0 && <p className={styles.offer} style={{whiteSpace:"nowrap"}}>{MaxOffer}% OFF</p>}
+            </div>
+        )}
             <div className={styles.lowerContent}>
                 <div>   
                     <h2>{salon?.SalonName}</h2>

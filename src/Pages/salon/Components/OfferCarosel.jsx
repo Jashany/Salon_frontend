@@ -53,7 +53,7 @@ const OffersCarousel = ({ salon }) => {
           <img style={{
             height: '15px',
             width: '12px', 
-            marginBottom: '1px' 
+            marginTop:'1px'
           }} src={greater} alt="" />
           </div>
         </div>

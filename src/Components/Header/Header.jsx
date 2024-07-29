@@ -5,7 +5,7 @@ import { useNavigate,useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { clearUser } from "../../Slices/authSlice";
-import cart from "../../assets/shopping-cart.png";
+import cart from "../../assets/deadline.svg";
 const Header = ({ text,redirect }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();

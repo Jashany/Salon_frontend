@@ -100,11 +100,13 @@ const Timeslot = () => {
       })
     );
 
+    
+
     if (!user) {
-      Navigate(`/login-otp?redirect=/bookAppointment/${salonid}`);
+      Navigate(`/login?redirect=/bookAppointment/${salonid}`,{replace:true});
     } else {
       if (!user.name || !user.gender) {
-        Navigate(`/details?redirect=/bookAppointment/${salonid}`);
+        Navigate(`/login?redirect=/bookAppointment/${salonid}`,{replace:true});
       }
       Navigate(`/bookAppointment/${salonid}`);
     }

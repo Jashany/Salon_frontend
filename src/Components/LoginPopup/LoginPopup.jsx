@@ -1,67 +1,139 @@
 import styles from "./LoginPopup.module.css";
 import { atom, useAtom } from "jotai";
-import { useState } from "react"; // Import useState
+import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import backArrow from '../../assets/backArrow@.png';
+import OtpInput from "react-otp-input";
+import { useSelector, useDispatch } from "react-redux";
+import { user as setUser } from "../../Slices/authSlice";
 
 const loginState = atom(1);
 const PhoneNumber = atom("");
 
 const LoginPopup = ({ click }) => {
+  const navigate = useNavigate()
   const [login, setLogin] = useAtom(loginState);
-
+  const query = new URLSearchParams(useLocation().search)
+  const redirect = query.get("redirect")
+  const user = useSelector((state) => state.auth.auth);
+  if(user && (!user.name ||!user.gender)){
+    setLogin(3)
+  }else if(user){
+    navigate(-1)
+  }
   return (
     <div className={styles.loginPopup}>
-      <button className={styles.closeButton} onClick={click}>
-        X
-      </button>
       {login === 1 ? <SendOtp /> : login === 2 ? <VerifyOtp /> : <Details />}
     </div>
   );
 };
 
 const SendOtp = () => {
+  const navigate = useNavigate();
   const [login, setLogin] = useAtom(loginState);
   const [phoneNumber, setPhoneNumber] = useAtom(PhoneNumber);
 
   const sendOTP = () => {
-    setLogin(2);
+      fetch("https://api.salondekho.in/api/auth/send-otp", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phoneNumber,
+          role: "Customer",
+        })
+      }).then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.success) {
+            setLogin(2);
+          }
+        })
+        .catch((err) => console.log(err));
   };
 
   return (
-    <div>
+    <div className={styles.main}>
+      <div className={styles.back} onClick={() => navigate(-1)}>
+        <img src={backArrow} alt="back" />
+      </div>
       <div>
-        <h2>Enter your mobile number</h2>
-        <input
-          type="text"
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          placeholder="Mobile Number"
-        />
-        <button onClick={sendOTP}>Send OTP</button>
+        <h1>Log-in/Sign-up</h1>
+        <label>
+          Enter Phone Number
+          <input
+            type="number"
+            placeholder="6280036528"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            maxLength="10"
+          />
+        </label>
+        <button onClick={sendOTP}>Get OTP</button>
       </div>
     </div>
   );
 };
 
 const VerifyOtp = () => {
+  const dispatch = useDispatch()
   const [login, setLogin] = useAtom(loginState);
   const [enteredOTP, setEnteredOTP] = useState("");
   const [phoneNumber, setPhoneNumber] = useAtom(PhoneNumber);
+  const navigate = useNavigate();
+  const query = new URLSearchParams(useLocation().search);
+  const redirect = query.get("redirect");
 
   const verifyOTP = () => {
-    setLogin(3);
+    fetch("https://api.salondekho.in/api/auth/verify-otp", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phoneNumber:  phoneNumber,
+        enteredOTP: enteredOTP,
+        role: "Customer",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if(data.success == true){
+          dispatch(setUser(data.user));
+          if(!data.user.name || !data.user.gender){
+              setLogin(3)
+          }else{
+            navigate(redirect);
+          }
+        }
+      });
   };
 
   return (
-    <div>
+    <div className={styles.main2}>
+      <div className={styles.back2} onClick={() => setLogin(1)}>
+        <img src={backArrow} alt="back" />
+      </div>
       <div>
-        <h2>Enter OTP</h2>
-        <input
-          type="text"
-          value={enteredOTP}
-          onChange={(e) => setEnteredOTP(e.target.value)}
-          placeholder="OTP"
-        />
-        <button onClick={verifyOTP}>Verify</button>
+        <h1>Verify OTP</h1>
+        <label>
+          <OtpInput
+            value={enteredOTP}
+            containerStyle={styles.otpContainer}
+            onChange={setEnteredOTP}
+            inputType="number"
+            numInputs={4}
+            isInputNum={true}
+            renderInput={(props) => <input {...props} />}
+          />
+        </label>
+        <button onClick={verifyOTP}>Verify OTP</button>
+        <p>
+          Didn't receive the OTP? <span>Resend OTP</span>
+        </p>
       </div>
     </div>
   );
@@ -70,30 +142,95 @@ const VerifyOtp = () => {
 const Details = () => {
   const [login, setLogin] = useAtom(loginState);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.auth);
+  const query = new URLSearchParams(useLocation().search)
+  const redirect = query.get("redirect");
+
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setGender(user.gender);
+    }
+  }, [user]);
 
   const submitDetails = () => {
-    // Handle the submission logic here
-    alert("Details submitted successfully");
+    fetch("https://api.salondekho.in/api/auth/updateUser", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        gender,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(setUser(data.data));
+          if(redirect){
+            navigate(redirect,{replace:true})
+          }
+        } else {
+          console.error("Error updating user details:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating user details:", error);
+      });
   };
 
   return (
-    <div>
-      <div>
-        <h2>Enter your details</h2>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-        />
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
-        <button onClick={submitDetails}>Submit</button>
+    <div
+      style={{
+        width: "100vw",
+        position: "absolute",
+        top: "0",
+        zIndex: "1000",
+        height: "100dvh",
+      }}
+    >
+      <div className={styles.profile}>
+        <h1>Enter Your Details</h1>
+        <div className={styles.profilepage}>
+          <label>
+            Name
+            <input
+              type="text"
+              placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </label>
+          <h4>Gender</h4>
+          <label htmlFor="male">
+            <input
+              type="radio"
+              id="male"
+              name="gender"
+              value="Male"
+              onChange={(e) => setGender(e.target.value)}
+            />
+            Male
+          </label>
+          <label htmlFor="female">
+            <input
+              type="radio"
+              id="female"
+              name="gender"
+              value="Female"
+              onChange={(e) => setGender(e.target.value)}
+            />
+            Female
+          </label>
+          <button onClick={submitDetails}>
+            Submit
+          </button>
+        </div>
       </div>
     </div>
   );

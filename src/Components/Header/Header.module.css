@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Bodoni";
+    src: url('../../assets/BodoniModaSC.ttf');
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -33,12 +38,13 @@
 
 
 
+
 .header h2{
     font-size: 1.25rem !important;
     font-weight: bold !important;
     padding: 0 !important;
     margin: 0 !important;
- 
+    font-family: "Bodoni" !important;
 }
 
 /* SlidingMenu.module.css */

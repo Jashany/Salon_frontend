@@ -130,7 +130,29 @@ const Appointment = () => {
         />
       </div>
       <div className={styles.salon}>
-        <img src={appointment?.salon?.CoverImage} alt="" />
+        {appointment?.salon?.CoverImage ? (
+          <img src={appointment?.salon?.CoverImage} alt="" />
+        ) : (
+          <div style={{
+            width: '100%',
+            height:'200px',
+            overflow: 'hidden',
+            borderRadius: '10px',
+            position: 'relative',
+            backgroundColor: 'black',
+            color:"white",
+            display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+          
+        }}>
+        <h4 style={{
+            fontWeight:"500",
+            fontSize:"1.5rem",
+              fontFamily:"Bodoni"
+        }}>{appointment?.salon?.SalonName}</h4>
+        </div>
+        )}
         <div>
           <div>
             <h2>{appointment?.salon?.SalonName}</h2>

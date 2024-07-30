@@ -140,7 +140,8 @@ const CurrentBooking = ({ currentBooking }) => {
       }}
     >
       <div>
-        <div
+        {currentBooking?.salon?.CoverImage ? (
+          <div
           style={{
             backgroundImage: `url(${currentBooking?.salon?.CoverImage})`,
             height: "60px",
@@ -150,8 +151,29 @@ const CurrentBooking = ({ currentBooking }) => {
             borderRadius: "50%",
             backgroundRepeat: "no-repeat",
           }}
-        ></div>
-        <div style={{display:"flex",justifyContent:"space-between",flex:1}} >
+          ></div>
+        ) : (
+          <div style={{
+            height: "60px",
+            width: "60px",
+            overflow: 'hidden',
+            borderRadius: '50%',
+            position: 'relative',
+            backgroundColor: 'black',
+            color:"white",
+            display:"flex",
+            justifyContent:"center",
+            alignItems:"center",
+          
+        }}>
+        <h4 style={{
+            fontWeight:"500",
+            fontSize:"0.5rem",
+              fontFamily:"Bodoni"
+        }}>{currentBooking?.salon?.SalonName}</h4>
+        </div>
+          )}
+          <div style={{display:"flex",justifyContent:"space-between",flex:1}} >
           <div>
               <h4>{currentBooking?.salon?.SalonName}</h4>
               {averageRating > 0 && (

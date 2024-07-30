@@ -268,8 +268,8 @@ const SalonPage = () => {
                     </p>
                     {averageRating > 0 && (
                       <div className={styles.artistRating}>
-                        <img src={stargold} alt="rating" />
                         <p>{averageRating}</p>
+                        <img src={stargold} alt="rating" />
                       </div>
                     )}
                   </div>

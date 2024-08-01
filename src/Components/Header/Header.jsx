@@ -18,13 +18,16 @@ const Header = ({ text,redirect }) => {
     if(location.pathname === "/"){
       return(
         <div className={styles.header2}>
-          <h2 style={{fontFamily:"Bodoni",marginTop:"2px"}}>SALON DEKHO</h2>
+          <h2 style={{fontFamily:"Bodoni",marginTop:"5px",fontSize:"1.25rem"}}>SALON DEKHO</h2>
           <div style={{display:"flex",alignItems:"center",gap:"15px"}}>
             <img className={styles.cart} style={{
               height:"19px",
               width:"19px"
             }} src={cart} alt="" onClick={()=>{navigate("/history")}} />
-           <img src={menu} alt="" onClick={toggleMenu}  />
+           <img src={menu} style={{
+            width:"30px",
+            height:"40px"
+           }} alt="" onClick={toggleMenu}  />
           </div>
            <SlidingWindow isOpen={isMenuOpen} onClose={toggleMenu} />
         </div>

@@ -47,7 +47,6 @@ const Booking = () => {
   const [appliedCoupon, setAppliedCoupon] = useAtom(code);
 
   useEffect(() => {
-
     setOfferId("");
     setOffer("");
     setDiscount(0);
@@ -134,6 +133,13 @@ const Booking = () => {
   }
 
   const appointmentStart = `${appointment.appointmentDate}T${appointment.appointmentStartTime}:00.000`;
+  let costWithGst = 0;
+
+  if (!data?.salon?.Gst) {
+    costWithGst = (data?.cost - (discount / 100) * data?.cost) * 1.18;
+  } else {
+    costWithGst = data?.cost - (discount / 100) * data?.cost;
+  }
 
   const submitBooking = () => {
     // Disable the button for 3 seconds after the first click
@@ -156,7 +162,7 @@ const Booking = () => {
         appointmentDate: appointment.appointmentDate,
         appointmentStartTime: appointmentStart,
         duration: appointment.duration,
-        cost: (data?.cost - (discount / 100) * data?.cost).toFixed(2),
+        cost: costWithGst.toFixed(2),
         offerId: offerId,
       }),
     })
@@ -208,7 +214,8 @@ const Booking = () => {
 
         <div className={styles.salon}>
           <div>
-            <div
+            {data?.salon?.CoverImage ? (
+              <div
               style={{
                 backgroundImage: `url(${data?.salon?.CoverImage})`,
                 height: "70px",
@@ -216,11 +223,34 @@ const Booking = () => {
                 backgroundSize: "cover",
                 borderRadius: "50%",
               }}
-            ></div>
+              ></div>
+            ) : (
+              <div style={{
+                height: "60px",
+                width: "60px",
+                overflow: 'hidden',
+                borderRadius: '50%',
+                position: 'relative',
+                backgroundColor: 'black',
+                color:"white",
+                display:"flex",
+                justifyContent:"center",
+                alignItems:"center",
+              
+            }}>
+            <h4 style={{
+                fontWeight:"500",
+                fontSize:"0.5rem",
+                  fontFamily:"Bodoni"
+            }}>{data?.salon?.SalonName}</h4>
+            </div>
+              )}
             <div className={styles.salonDetails}>
               <h1>{data?.salon?.SalonName}</h1>
+                {averageRating > 0 && (
               <div>
-              <p>{averageRating.toFixed(1)}</p>
+                  <p>{averageRating.toFixed(1)}</p>
+               
                 <img
                   src={stargold}
                   alt="star"
@@ -228,8 +258,8 @@ const Booking = () => {
                     marginRight: "3px",
                   }}
                 />
-               
               </div>
+            )}
               <h2>{data?.salon?.address?.City}</h2>
             </div>
           </div>
@@ -300,16 +330,24 @@ const Booking = () => {
                   setOfferId("");
                   setAppliedCoupon("");
                 }}
-              ><img style={{
-                height:"12.5px",
-                width:"12.5px"
-              }} src={close} alt="" /></button>
+              >
+                <img
+                  style={{
+                    height: "12.5px",
+                    width: "12.5px",
+                  }}
+                  src={close}
+                  alt=""
+                />
+              </button>
             ) : (
               <button
                 onClick={() => {
                   setShowOffer(true);
                 }}
-              ><img src={greater} alt="" /></button>
+              >
+                <img src={greater} alt="" />
+              </button>
             )}
           </div>
         </div>
@@ -339,13 +377,28 @@ const Booking = () => {
               <h4>₹{((discount / 100) * data?.cost).toFixed(2)}</h4>
             </div>
           )}
+          {!data?.salon?.Gst ? (
+            <div>
+              <h4>GST (18%)</h4>
+              <h4>
+                ₹{0.18 * (data?.cost - (discount / 100) * data?.cost).toFixed(2)}
+              </h4>
+            </div>
+          ) : (
+            <div>
+              <h4>GST (Inclusive)</h4>
+              <h4>₹ 
+                 {0.18 * (data?.cost - (discount / 100) * data?.cost).toFixed(2)}
+              </h4>
+            </div>
+          )}
           <div
             style={{
               color: "green",
             }}
           >
             <h4>Total</h4>
-            <h4>₹{(data?.cost - (discount / 100) * data?.cost).toFixed(2)} </h4>
+            <h4>₹{costWithGst}</h4>
           </div>
         </div>
         <div className={styles.paymentMethod}>

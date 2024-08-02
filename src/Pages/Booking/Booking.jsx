@@ -496,7 +496,14 @@ const OfferPage = ({ salonId, day, date }) => {
         <h3 style={{ marginRight: "20px" }}>OFFERS</h3>
         <p></p>
       </div>
-      <div className={styles.offerss}>
+      {offers.length === 0 ? (
+        <h3 style={{
+          textAlign:"center",
+          marginTop:"2rem"
+          
+        }}>No offers available</h3>
+      ) : (
+        <div className={styles.offerss}>
         {offers.map((offer) => (
           <div className={styles.offer}>
             <div>
@@ -523,6 +530,8 @@ const OfferPage = ({ salonId, day, date }) => {
           </div>
         ))}
       </div>
+      ) }
+      
     </div>
   );
 };

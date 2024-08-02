@@ -63,6 +63,27 @@ const Login = () => {
             maxLength="10"
           />
         </label>
+        <p style={{
+          fontSize: "0.8rem",
+          textAlign: "center",
+          marginTop: "10px",
+          color: "#777",
+        }}>
+          By continuing, you agree to our {''}
+          <a href="https://terms.salondekho.in/" target="_blank" style={{
+            color: "#000",
+            textDecoration: "underline",
+          }}>
+           Terms of Service 
+          </a>
+          {' '}and {''}
+          <a href="https://privacy-policy.salondekho.in" target="_blank" style={{
+            color: "#000",
+            textDecoration: "underline",
+          }}>
+          Privacy Policy
+          </a>
+        </p>
         <button onClick={handlesubmit}>Get OTP</button>
       </div>
     </div>

@@ -114,6 +114,8 @@ const Appointment = () => {
   const ifDiscount =  totalServiceCost - appointment?.appointmentCost;
   const discount = ifDiscount > 0 ? ifDiscount : null;
 
+  
+
 
   return (
     <div className={styles.main}>
@@ -204,6 +206,16 @@ const Appointment = () => {
             <h3>-₹{discount}</h3>
           </div>
         )}
+        {console.log(appointment)}
+        {!appointment?.salon?.Gst && (
+          <div style={{
+            marginBottom: "15px"
+          }}>
+            <h3>GST</h3>
+            <h3>₹{appointment.appointmentCost - totalServiceCost}</h3>
+          </div>
+        )}
+
         <div style={{color:'green'}}>
         <h3>Total Cost</h3>
         <h3>₹{appointment?.appointmentCost}</h3>

@@ -108,11 +108,13 @@
   border: 1px solid #e1e1e1;
   padding: 0.5rem;
   border-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.158);
 }
 
 .coupon input {
-  padding: 0.5rem;
+  background-color: white;
   border: none;
+  margin-left: 10px;
   width: 70%;
 }
 
@@ -307,3 +309,4 @@
   background-color: #cecece52;
   cursor: pointer;
 }
+

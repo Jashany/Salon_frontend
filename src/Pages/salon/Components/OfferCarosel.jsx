@@ -65,7 +65,7 @@ const OffersCarousel = ({ salon }) => {
             <div>
               <Ticket text={offer.OfferName} />
             </div>
-            <h3> Get {offer.OfferDiscountinPercentage}% off via SalonDekho </h3>
+            <h3> Get {offer.OfferDiscountinPercentage}% off </h3>
             <p>
               {offer.OfferDescription}
             </p>

@@ -1,7 +1,7 @@
 import SalonCard from "./Components/SalonCard";
 import Styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect,useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearArtist } from "../../Slices/artistSlice";
 import { clearServices } from "../../Slices/servicesSlice";
@@ -20,10 +20,14 @@ const Home = () => {
   const [salons, setSalons] = useState([]);
   const [location, setLocation] = useState({ latitude: 0, longitude: 0 });
   const [salon, setSalon] = useState("");
+  const [value, setValue] = useState("");
+
   const [pastSalon, setPastSalon] = useState([]);
   const [address, setAddress] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchResults, setSearchResults] = useState([]);
+
 
   const user = useSelector((state) => state.auth.auth);
 
@@ -96,6 +100,60 @@ const Home = () => {
     console.log(lat, lng);
   };
 
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  };
+
+  const debounceSearch = useCallback(
+    debounce((query) => {
+      if (query.trim() === "") {
+        setSearchResults([]);
+        return;
+      }
+      fetch("https://api.salondekho.in/api/salon/searchSalons", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          salonName :query }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === true) {
+            setSearchResults(data.data);
+          } else {
+            setSearchResults([]);
+          }
+        })
+        .catch((error) => console.log(error));
+    }, 1000),
+    []);
+
+    const handleSearchChange = (e) => {
+      const value = e.target.value;
+  
+      if(value.length <= 1){
+        setSearchResults([]);
+      }
+  
+      setValue(value);
+      if (value.trim()) {
+        debounceSearch(value);
+      } else {
+        setSearchResults([]);
+      }
+      console.log(searchResults)
+    };
+  
+  
+
   const SearchFunction = () => {
     const params = new URLSearchParams();
     if (salon) {
@@ -118,21 +176,36 @@ const Home = () => {
     }
   };
 
-  console.log(salons)
-
   return (
     <div className={Styles.main}>
       <Header text="Home" />
       <h1>Book appointments online</h1>
       <div className={Styles.search}>
-        <label>
+        <label style={
+          {
+            position: "relative",
+          }
+        }>
           Search Your Salon
           <input
             type="text"
             placeholder="Enter Salon Name"
             name="Salon"
-            onChange={(e) => setSalon(e.target.value)}
+            onChange={handleSearchChange}
           />
+          <div className={Styles.searchresultdiv}>
+          {(value.length == 0 || searchResults.length === 0) ? null : (
+            <div className={Styles.searchResults}>
+              {searchResults.map((result, index) => (
+                <h4 onClick={()=>{
+                  navigate(`/salon/${result._id}`)
+                }}>
+                  {result.SalonName}
+                </h4>
+              ))}
+            </div>
+          )}
+        </div>
         </label>
         <label
           style={{

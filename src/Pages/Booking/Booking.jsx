@@ -17,7 +17,7 @@ import { ConvertTime } from "../../Functions/ConvertTime";
 import { BiUser } from "react-icons/bi";
 import { atom, useAtom } from "jotai";
 import Ticket from "../../Components/ticket/Ticket";
-import greater from "../../assets/greater-than.svg";
+import greater from "../../assets/greater-than.png";
 import close from "../../assets/close.png";
 
 const couponAtom = atom(false);
@@ -346,7 +346,10 @@ const Booking = () => {
                   setShowOffer(true);
                 }}
               >
-                <img src={greater} alt="" />
+                <img style={{
+                  height: "14.5px",
+                  width: "12.5px",
+                }} src={greater} alt="" />
               </button>
             )}
           </div>
@@ -377,18 +380,11 @@ const Booking = () => {
               <h4>₹{((discount / 100) * data?.cost).toFixed(2)}</h4>
             </div>
           )}
-          {!data?.salon?.Gst ? (
+          {!data?.salon?.Gst && (
             <div>
               <h4>GST (18%)</h4>
               <h4>
                 ₹{0.18 * (data?.cost - (discount / 100) * data?.cost).toFixed(2)}
-              </h4>
-            </div>
-          ) : (
-            <div>
-              <h4>GST (Inclusive)</h4>
-              <h4>₹ 
-                 {0.18 * (data?.cost - (discount / 100) * data?.cost).toFixed(2)}
               </h4>
             </div>
           )}
@@ -398,7 +394,7 @@ const Booking = () => {
             }}
           >
             <h4>Total</h4>
-            <h4>₹{costWithGst}</h4>
+            <h4>₹{costWithGst.toFixed(2)}</h4>
           </div>
         </div>
         <div className={styles.paymentMethod}>

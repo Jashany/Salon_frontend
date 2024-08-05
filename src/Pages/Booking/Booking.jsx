@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Booking.module.css";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import Header from "../../Components/Header/Header";
 import { useParams, useNavigate } from "react-router-dom";
 import SendArrow from "../../assets/SendArrow.png";
@@ -19,6 +19,7 @@ import { atom, useAtom } from "jotai";
 import Ticket from "../../Components/ticket/Ticket";
 import greater from "../../assets/greater-than.png";
 import close from "../../assets/close.png";
+import { clearUser } from "../../Slices/authSlice";
 
 const couponAtom = atom(false);
 const code = atom("");
@@ -28,7 +29,7 @@ const offerrId = atom("");
 const Booking = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.auth);
-
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
 
   const [coupon, setCoupon] = useState("");
@@ -182,6 +183,11 @@ const Booking = () => {
             }
           );
         } else {
+          if(data.logout === true){
+            dispatch(clearUser());
+            navigate("/");
+            toast.error("Please login again");
+          }
           toast.error(data?.message);
         }
       })

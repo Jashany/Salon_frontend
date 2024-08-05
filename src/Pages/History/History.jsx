@@ -7,8 +7,12 @@ import Loader from "../../Components/Loader/Loader";
 import noAppointments from "../../assets/new.png";
 import { ConvertTime, MinuteToHours } from "../../Functions/ConvertTime";
 import star from "../../assets/star.png";
+import { useDispatch } from "react-redux";
+import { clearUser } from "../../Slices/authSlice";
+import { toast } from "react-toastify";
 const History = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const redirected = query.get("redirected");
@@ -25,6 +29,11 @@ const History = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if(data.logout){
+          dispatch(clearUser());
+          navigate("/");
+          toast.error("Session expired. Please login again");
+        }
         setAppointments(data?.data);
         console.log(data)
         setTimeout(() => {

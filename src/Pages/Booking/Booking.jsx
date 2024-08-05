@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Booking.module.css";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "../../Components/Header/Header";
 import { useParams, useNavigate } from "react-router-dom";
 import SendArrow from "../../assets/SendArrow.png";
@@ -73,6 +73,12 @@ const Booking = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        if (data.logout === true) {
+          dispatch(clearUser());
+          navigate("/");
+          toast.error("Please login again");
+        }
+
         setData(data?.data);
         setTimeout(() => {
           setLoading(false);
@@ -183,7 +189,7 @@ const Booking = () => {
             }
           );
         } else {
-          if(data.logout === true){
+          if (data.logout === true) {
             dispatch(clearUser());
             navigate("/");
             toast.error("Please login again");
@@ -222,50 +228,55 @@ const Booking = () => {
           <div>
             {data?.salon?.CoverImage ? (
               <div
-              style={{
-                backgroundImage: `url(${data?.salon?.CoverImage})`,
-                height: "70px",
-                width: "70px",
-                backgroundSize: "cover",
-                borderRadius: "50%",
-              }}
+                style={{
+                  backgroundImage: `url(${data?.salon?.CoverImage})`,
+                  height: "70px",
+                  width: "70px",
+                  backgroundSize: "cover",
+                  borderRadius: "50%",
+                }}
               ></div>
             ) : (
-              <div style={{
-                height: "60px",
-                width: "60px",
-                overflow: 'hidden',
-                borderRadius: '50%',
-                position: 'relative',
-                backgroundColor: 'black',
-                color:"white",
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center",
-              
-            }}>
-            <h4 style={{
-                fontWeight:"500",
-                fontSize:"0.5rem",
-                  fontFamily:"Bodoni"
-            }}>{data?.salon?.SalonName}</h4>
-            </div>
-              )}
-            <div className={styles.salonDetails}>
-              <h1>{data?.salon?.SalonName}</h1>
-                {averageRating > 0 && (
-              <div>
-                  <p>{averageRating.toFixed(1)}</p>
-               
-                <img
-                  src={stargold}
-                  alt="star"
+              <div
+                style={{
+                  height: "60px",
+                  width: "60px",
+                  overflow: "hidden",
+                  borderRadius: "50%",
+                  position: "relative",
+                  backgroundColor: "black",
+                  color: "white",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <h4
                   style={{
-                    marginRight: "3px",
+                    fontWeight: "500",
+                    fontSize: "0.5rem",
+                    fontFamily: "Bodoni",
                   }}
-                />
+                >
+                  {data?.salon?.SalonName}
+                </h4>
               </div>
             )}
+            <div className={styles.salonDetails}>
+              <h1>{data?.salon?.SalonName}</h1>
+              {averageRating > 0 && (
+                <div>
+                  <p>{averageRating.toFixed(1)}</p>
+
+                  <img
+                    src={stargold}
+                    alt="star"
+                    style={{
+                      marginRight: "3px",
+                    }}
+                  />
+                </div>
+              )}
               <h2>{data?.salon?.address?.City}</h2>
             </div>
           </div>
@@ -352,10 +363,14 @@ const Booking = () => {
                   setShowOffer(true);
                 }}
               >
-                <img style={{
-                  height: "14.5px",
-                  width: "12.5px",
-                }} src={greater} alt="" />
+                <img
+                  style={{
+                    height: "14.5px",
+                    width: "12.5px",
+                  }}
+                  src={greater}
+                  alt=""
+                />
               </button>
             )}
           </div>
@@ -390,7 +405,8 @@ const Booking = () => {
             <div>
               <h4>GST (18%)</h4>
               <h4>
-                ₹{0.18 * (data?.cost - (discount / 100) * data?.cost).toFixed(2)}
+                ₹
+                {0.18 * (data?.cost - (discount / 100) * data?.cost).toFixed(2)}
               </h4>
             </div>
           )}
@@ -503,41 +519,43 @@ const OfferPage = ({ salonId, day, date }) => {
         <p></p>
       </div>
       {offers.length === 0 ? (
-        <h3 style={{
-          textAlign:"center",
-          marginTop:"2rem"
-          
-        }}>No offers available</h3>
+        <h3
+          style={{
+            textAlign: "center",
+            marginTop: "2rem",
+          }}
+        >
+          No offers available
+        </h3>
       ) : (
         <div className={styles.offerss}>
-        {offers.map((offer) => (
-          <div className={styles.offer}>
-            <div>
+          {offers.map((offer) => (
+            <div className={styles.offer}>
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <h4>Flat {offer.OfferDiscountinPercentage}% off</h4>
+                  <Ticket text={offer?.OfferName} />
+                </div>
+                <p>{offer.OfferDescription}</p>
+              </div>
               <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
+                className={styles.apply}
+                onClick={() => {
+                  SubmitCoupon(offer.OfferName);
                 }}
               >
-                <h4>Flat {offer.OfferDiscountinPercentage}% off</h4>
-                <Ticket text={offer?.OfferName} />
+                <h6>TAP TO APPLY</h6>
               </div>
-              <p>{offer.OfferDescription}</p>
             </div>
-            <div
-              className={styles.apply}
-              onClick={() => {
-                SubmitCoupon(offer.OfferName);
-              }}
-            >
-              <h6>TAP TO APPLY</h6>
-            </div>
-          </div>
-        ))}
-      </div>
-      ) }
-      
+          ))}
+        </div>
+      )}
     </div>
   );
 };

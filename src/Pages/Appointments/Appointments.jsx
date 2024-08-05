@@ -84,8 +84,6 @@ const Appointment = () => {
       0
     ) / appointment?.salon?.Reviews.length;
 
-
-
   const handleCancel = () => {
     fetch(
       `https://api.salondekho.in/api/appointment/cancelAppointment/${appointmentId}`,
@@ -111,11 +109,8 @@ const Appointment = () => {
   );
   console.log(totalServiceCost);
 
-  const ifDiscount =  totalServiceCost - appointment?.appointmentCost;
+  const ifDiscount = totalServiceCost - appointment?.appointmentCost;
   const discount = ifDiscount > 0 ? ifDiscount : null;
-
-  
-
 
   return (
     <div className={styles.main}>
@@ -124,7 +119,7 @@ const Appointment = () => {
           src={close}
           alt=""
           onClick={() => {
-            if(redirect) navigate("/");
+            if (redirect) navigate("/");
             else {
               navigate("/history", { replace: true });
             }
@@ -135,38 +130,47 @@ const Appointment = () => {
         {appointment?.salon?.CoverImage ? (
           <img src={appointment?.salon?.CoverImage} alt="" />
         ) : (
-          <div style={{
-            width: '100%',
-            height:'200px',
-            overflow: 'hidden',
-            borderRadius: '10px',
-            position: 'relative',
-            backgroundColor: 'black',
-            color:"white",
-            display:"flex",
-            justifyContent:"center",
-            alignItems:"center",
-          
-        }}>
-        <h4 style={{
-            fontWeight:"500",
-            fontSize:"1.5rem",
-              fontFamily:"Bodoni"
-        }}>{appointment?.salon?.SalonName}</h4>
-        </div>
+          <div
+            style={{
+              width: "100%",
+              height: "200px",
+              overflow: "hidden",
+              borderRadius: "10px",
+              position: "relative",
+              backgroundColor: "black",
+              color: "white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <h4
+              style={{
+                fontWeight: "500",
+                fontSize: "1.5rem",
+                fontFamily: "Bodoni",
+              }}
+            >
+              {appointment?.salon?.SalonName}
+            </h4>
+          </div>
         )}
         <div>
           <div>
             <h2>{appointment?.salon?.SalonName}</h2>
-            {appointment?.salon?.Reviews.length > 0 && 
-            <div>
-              <p>{ratingAverage.toFixed(1)}</p>
-              <img style={{
-                width: "15px",
-                height: "15px",
-              }} src={star} alt="" />
-            </div>
-            }
+            {appointment?.salon?.Reviews.length > 0 && (
+              <div>
+                <p>{ratingAverage.toFixed(1)}</p>
+                <img
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                  }}
+                  src={star}
+                  alt=""
+                />
+              </div>
+            )}
             <p>{appointment?.salon?.address?.City}</p>
           </div>
           <div className={styles.status}>{appointment?.Status}</div>
@@ -208,19 +212,23 @@ const Appointment = () => {
         )}
         {console.log(appointment)}
         {!appointment?.salon?.Gst && (
-          <div style={{
-            marginBottom: "15px"
-          }}>
+          <div
+            style={{
+              marginBottom: "15px",
+            }}
+          >
             <h3>GST</h3>
-            <h3>₹{appointment.appointmentCost - totalServiceCost}</h3>
+            <h3>
+              ₹{(appointment.appointmentCost - totalServiceCost).toFixed(1)}
+            </h3>
           </div>
         )}
 
-        <div style={{color:'green'}}>
-        <h3>Total Cost</h3>
-        <h3>₹{appointment?.appointmentCost}</h3>
+        <div style={{ color: "green" }}>
+          <h3>Total Cost</h3>
+          <h3>₹{appointment?.appointmentCost}</h3>
         </div>
-        </div>
+      </div>
       <div className={styles.buttons}>
         <div
           onClick={() =>

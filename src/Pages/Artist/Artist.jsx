@@ -66,14 +66,24 @@ console.log(state.state)
     );
   }
 
+  
+
   return (
     <div className={styles.main}>
       <Header text={"Artists"} redirect={`/salon/${salonid}`}/>
-      <div className={styles.artistsList}>
+      {artists.length == 0 ? (
+          <>
+          <h5>
+            No Artist is available , Please remove services
+          </h5>
+          </>
+      ):(
+        <div className={styles.artistsList}>
         {artists.map((artist) => (
           <ArtistCard key={artist._id} artist={artist} state={servicedata} />
         ))}
       </div>
+      )}
     </div>
   );
 };

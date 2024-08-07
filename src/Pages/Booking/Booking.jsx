@@ -179,15 +179,13 @@ const Booking = () => {
           setDiscount(0);
           setCoupon("");
           setOffer("");
-
           navigate(
             `/success/${data?.data}?redirect=/appointment/${data?.data}`,
             {
               state: {
                 text: "Booking Confirmed",
               },
-            }
-          );
+            });
         } else {
           if (data.logout === true) {
             dispatch(clearUser());

@@ -2,7 +2,7 @@ import styles from "./LoginPopup.module.css";
 import { atom, useAtom } from "jotai";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import backArrow from '../../assets/backArrow@.png';
+import backArrow from "../../assets/backArrow@.png";
 import OtpInput from "react-otp-input";
 import { useSelector, useDispatch } from "react-redux";
 import { user as setUser } from "../../Slices/authSlice";
@@ -11,15 +11,15 @@ const loginState = atom(1);
 const PhoneNumber = atom("");
 
 const LoginPopup = ({ click }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [login, setLogin] = useAtom(loginState);
-  const query = new URLSearchParams(useLocation().search)
-  const redirect = query.get("redirect")
+  const query = new URLSearchParams(useLocation().search);
+  const redirect = query.get("redirect");
   const user = useSelector((state) => state.auth.auth);
-  if(user && (!user.name ||!user.gender)){
-    setLogin(3)
-  }else if(user){
-    navigate(-1)
+  if (user && (!user.name || !user.gender)) {
+    setLogin(3);
+  } else if (user) {
+    navigate(-1);
   }
   return (
     <div className={styles.loginPopup}>
@@ -34,24 +34,25 @@ const SendOtp = () => {
   const [phoneNumber, setPhoneNumber] = useAtom(PhoneNumber);
 
   const sendOTP = () => {
-      fetch("https://api.salondekho.in/api/auth/send-otp", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phoneNumber,
-          role: "Customer",
-        })
-      }).then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.success) {
-            setLogin(2);
-          }
-        })
-        .catch((err) => console.log(err));
+    fetch("https://api.salondekho.in/api/auth/send-otp", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phoneNumber,
+        role: "Customer",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          setLogin(2);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -71,6 +72,37 @@ const SendOtp = () => {
             maxLength="10"
           />
         </label>
+        <p
+          style={{
+            fontSize: "0.8rem",
+            textAlign: "center",
+            marginTop: "10px",
+            color: "#777",
+          }}
+        >
+          By continuing, you agree to our {""}
+          <a
+            href="https://terms.salondekho.in/"
+            target="_blank"
+            style={{
+              color: "#000",
+              textDecoration: "underline",
+            }}
+          >
+            Terms of Service
+          </a>{" "}
+          and {""}
+          <a
+            href="https://privacy-policy.salondekho.in"
+            target="_blank"
+            style={{
+              color: "#000",
+              textDecoration: "underline",
+            }}
+          >
+            Privacy Policy
+          </a>
+        </p>
         <button onClick={sendOTP}>Get OTP</button>
       </div>
     </div>
@@ -78,7 +110,7 @@ const SendOtp = () => {
 };
 
 const VerifyOtp = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [login, setLogin] = useAtom(loginState);
   const [enteredOTP, setEnteredOTP] = useState("");
   const [phoneNumber, setPhoneNumber] = useAtom(PhoneNumber);
@@ -94,18 +126,18 @@ const VerifyOtp = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        phoneNumber:  phoneNumber,
+        phoneNumber: phoneNumber,
         enteredOTP: enteredOTP,
         role: "Customer",
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        if(data.success == true){
+        if (data.success == true) {
           dispatch(setUser(data.user));
-          if(!data.user.name || !data.user.gender){
-              setLogin(3)
-          }else{
+          if (!data.user.name || !data.user.gender) {
+            setLogin(3);
+          } else {
             navigate(redirect);
           }
         }
@@ -146,7 +178,7 @@ const Details = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.auth);
-  const query = new URLSearchParams(useLocation().search)
+  const query = new URLSearchParams(useLocation().search);
   const redirect = query.get("redirect");
 
   useEffect(() => {
@@ -172,8 +204,8 @@ const Details = () => {
       .then((data) => {
         if (data.success) {
           dispatch(setUser(data.data));
-          if(redirect){
-            navigate(redirect,{replace:true})
+          if (redirect) {
+            navigate(redirect, { replace: true });
           }
         } else {
           console.error("Error updating user details:", data.message);
@@ -227,9 +259,7 @@ const Details = () => {
             />
             Female
           </label>
-          <button onClick={submitDetails}>
-            Submit
-          </button>
+          <button onClick={submitDetails}>Submit</button>
         </div>
       </div>
     </div>

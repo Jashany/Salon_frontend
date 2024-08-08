@@ -3,7 +3,7 @@ import styles from "./Offer.module.css"; // Adjust the import according to your 
 import Ticket from "../../../Components/ticket/Ticket";
 import greater from "../../../assets/greater-than.png";
 const OffersCarousel = ({ salon }) => {
-  console.log(salon)
+  console.log(salon);
   const [currentOfferIndex, setCurrentOfferIndex] = useState(0);
   const [showCancelModal, setShowCancelModal] = useState(false);
   console.log(salon.offers);
@@ -93,18 +93,43 @@ const OffersCarousel = ({ salon }) => {
                       return "th";
                   }
                 };
-                return `${day}${daySuffix(day)} ${month} ${year}`;
+                return `${day}${daySuffix(day)} ${month}`;
               };
 
               //array of days to a string of days
 
+              // const days = (daysArray) => {
+              //   let days = "";
+              //   daysArray.map((day, index) => {
+              //     days += day + ", ";
+              //   });
+              //   return days.slice(0, -2);
+              // }
+
+              //array of days to a string of days first 3 letters and sort them in normal order not
               const days = (daysArray) => {
-                let days = "";
-                daysArray.map((day, index) => {
-                  days += day + ", ";
+                const dayOrder = [
+                  "Sunday",
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday",
+                  "Saturday",
+                ];
+
+                // Sort the daysArray based on the custom order
+                const daysArraySorted = daysArray.sort((a, b) => {
+                  return dayOrder.indexOf(a) - dayOrder.indexOf(b);
                 });
-                return days.slice(0, -2);
-              }
+
+                let days = "";
+                daysArraySorted.forEach((day) => {
+                  days += day.slice(0, 3) + ", ";
+                });
+
+                return days.slice(0, -2); // Remove the trailing comma and space
+              };
 
               return (
                 <>
@@ -112,14 +137,26 @@ const OffersCarousel = ({ salon }) => {
                     <Ticket text={offer.OfferName} />
                   </div>
                   <h3> Get {offer.OfferDiscountinPercentage}% off </h3>
-                  <p>{offer.OfferDescription}<br/>
-                  Valid from {formatDate(offer?.OfferStartDate)} to{" "}
-                    {formatDate(offer.OfferEndDate)}<br/>
-                  Offer Valid on {days(offer.OfferDays)}<br/>
-                    </p>
                   <p>
-                    
+                    {offer.OfferDescription}
+                    <br />
+                    <span  style={{
+                      color: "#777",
+                      fontSize: "0.8rem",
+                    }}>
+                    Valid from {formatDate(offer?.OfferStartDate)} to{" "}
+                    {formatDate(offer.OfferEndDate)}
+                    </span>
+                    <br />
+                    <span style={{
+                      color: "#777",
+                      fontSize: "0.8rem",
+                    }}>
+                    Offer Valid on {days(offer.OfferDays)}
+                    </span>
+                    <br />
                   </p>
+                  <p></p>
                 </>
               );
             })}

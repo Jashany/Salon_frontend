@@ -1,11 +1,13 @@
 import styles from "./SalonCard.module.css";
 import { FaLocationDot } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,useLocation } from "react-router-dom";
 import stargold from "../../../assets/stargold.svg";
 import insta from "../../../assets/insta.webp";
 
 const SalonCard = ({ salon }) => {
   const navigate = useNavigate();
+  const query = new URLSearchParams(useLocation().search);
+  const address = query.get("address");
   const currentTime = new Date().getHours();
   const startTime = salon?.startTime.split(":").map(Number)[0];
   const endTime = salon?.endTime.split(":").map(Number)[0];
@@ -99,7 +101,7 @@ const SalonCard = ({ salon }) => {
             <FaLocationDot />
             {salon?.address?.City}{" "}
             <p>
-              {isLocation && salon.distance && <p>{Math.ceil(distance)} kms</p>}
+              {address && isLocation && salon.distance && <p>{Math.ceil(distance)} kms</p>}
             </p>{" "}
           </p>
         </div>

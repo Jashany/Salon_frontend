@@ -73,8 +73,11 @@ console.log(state.state)
       <Header text={"Artists"} redirect={`/salon/${salonid}`}/>
       {artists.length == 0 ? (
           <>
-          <h5>
-            No Artist is available , Please remove services
+          <h5 style={{
+            textAlign: "center",
+            marginTop: "1rem",
+          }}>
+          Try to book seperately each service OR reduce some services
           </h5>
           </>
       ):(

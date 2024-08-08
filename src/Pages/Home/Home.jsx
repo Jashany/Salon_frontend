@@ -133,7 +133,7 @@ const Home = () => {
           }
         })
         .catch((error) => console.log(error));
-    }, 1000),
+    }, 300),
     []);
 
     const handleSearchChange = (e) => {

@@ -14,6 +14,8 @@ const VerifyOtp = () => {
   const redirect = query.get("redirect");
   const navigate = useNavigate();
   const [enteredOTP, setOtp] = useState("");
+  const [timeRemaining, setTimeRemaining] = useState(30);
+  const [canResend, setCanResend] = useState(false);
   const user = useSelector((state) => state.auth.auth);
 
   useEffect(() => {
@@ -25,6 +27,39 @@ const VerifyOtp = () => {
     }
   }
   , []);
+
+  useEffect(() => {
+    if (timeRemaining > 0) {
+      const timerId = setInterval(() => {
+        setTimeRemaining(timeRemaining - 1);
+      }, 1000);
+      return () => clearInterval(timerId);
+    } else {
+      setCanResend(true);
+    }
+  }, [timeRemaining]);
+
+  const handleResendOtp = () => {
+    fetch("https://api.salondekho.in/api/auth/send-otp", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phoneNumber,
+        role: "Customer",
+      }),
+    }).then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          setCanResend(false);
+          setTimeRemaining(60);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
 
   const handleSubmit = () => {
     fetch("https://api.salondekho.in/api/auth/verify-otp", {
@@ -74,9 +109,16 @@ const VerifyOtp = () => {
           />
         </label>
         <button onClick={handleSubmit}>Verify OTP</button>
-        <p>
-          Didn't receive the OTP? <span>Resend OTP</span>
-        </p>
+       
+        {canResend ? (
+          <p style={{
+            cursor: "pointer",
+            color: "#000",
+            textDecoration: "underline",
+          }} onClick={handleResendOtp}>Resend OTP?</p>
+        ) : (
+          <p>Time remaining: {timeRemaining} seconds</p>
+        )}
       </div>
     </div>
   );

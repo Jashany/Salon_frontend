@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import styles from "./Login.module.css";
 import { useState } from "react";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import backArrow from "../../assets/backArrow@.png";
 import { useSelector } from "react-redux";
-const Login = () => {
+import ReCAPTCHA from "react-google-recaptcha";
 
+const SITE_KEY = "6LcfnCIqAAAAACViA7CKW0uf6FmEi-F29NsUXNi9";
+
+const Login = () => {
   const query = new URLSearchParams(useLocation().search);
   const redirect = query.get("redirect");
   const navigate = useNavigate();
@@ -29,22 +32,23 @@ const Login = () => {
       body: JSON.stringify({
         phoneNumber,
         role: "Customer",
-      })
-    }).then((res) => res.json())
+      }),
+    })
+      .then((res) => res.json())
       .then((data) => {
         console.log(data);
         if (data.success) {
-          if(redirect){
-            navigate(`/verify-otp?phoneNumber=${phoneNumber}&redirect=${redirect}`);
-          }else{
+          if (redirect) {
+            navigate(
+              `/verify-otp?phoneNumber=${phoneNumber}&redirect=${redirect}`
+            );
+          } else {
             navigate(`/verify-otp?phoneNumber=${phoneNumber}`);
           }
         }
       })
       .catch((err) => console.log(err));
   };
-
-
 
   return (
     <div className={styles.main}>
@@ -63,25 +67,39 @@ const Login = () => {
             maxLength="10"
           />
         </label>
-        <p style={{
-          fontSize: "0.8rem",
-          textAlign: "center",
-          marginTop: "10px",
-          color: "#777",
-        }}>
-          By continuing, you agree to our {''}
-          <a href="https://terms.salondekho.in/" target="_blank" style={{
-            color: "#000",
-            textDecoration: "underline",
-          }}>
-           Terms of Service 
-          </a>
-          {' '}and {''}
-          <a href="https://privacy-policy.salondekho.in" target="_blank" style={{
-            color: "#000",
-            textDecoration: "underline",
-          }}>
-          Privacy Policy
+        <ReCAPTCHA
+          sitekey="6LcfnCIqAAAAACViA7CKW0uf6FmEi-F29NsUXNi9"
+          onChange={(value) => console.log(value)}
+        />
+        <p
+          style={{
+            fontSize: "0.8rem",
+            textAlign: "center",
+            marginTop: "10px",
+            color: "#777",
+          }}
+        >
+          By continuing, you agree to our {""}
+          <a
+            href="https://terms.salondekho.in/"
+            target="_blank"
+            style={{
+              color: "#000",
+              textDecoration: "underline",
+            }}
+          >
+            Terms of Service
+          </a>{" "}
+          and {""}
+          <a
+            href="https://privacy-policy.salondekho.in"
+            target="_blank"
+            style={{
+              color: "#000",
+              textDecoration: "underline",
+            }}
+          >
+            Privacy Policy
           </a>
         </p>
         <button onClick={handlesubmit}>Get OTP</button>
